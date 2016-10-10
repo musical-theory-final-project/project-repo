@@ -1,0 +1,8 @@
+# IntelliJ
+.DS_Store
+.idea
+*.iml
+out
+lib
+.mvn
+target
