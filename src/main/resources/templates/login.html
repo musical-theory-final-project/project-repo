@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MusicTheoryAppLogin</title>
+</head>
+<body>
+<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
+Music Theory Trainer
+<br><br><br>
+Existing Player?
+<form action="/login" method="post">
+    <input type="text" placeholder="Email" name="loginEmail" required/>
+    <input type="password" placeholder="Password" name="password" required/>
+    <button type="submit">Login</button>
+</form>
+<br><br><br><br>
+New Player?
+<form action="/newuser" method="post">
+    <input type="text" placeholder="Email" name="registerEmail" required/>
+    <input type="password" placeholder="Password" name="password" required/>
+    <br><br>
+    <input type="text" placeholder="First Name" name="firstName" required/>
+    <input type="text" placeholder="Last Name" name="lastName" required/>
+    <button type="submit">Create Player</button>
+</form>
+</body>
+</html>
