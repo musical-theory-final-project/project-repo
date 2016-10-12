@@ -118,7 +118,9 @@ angular.module('MidiApp', [])
 
         $scope.stuff = function(tonalContainer) {
 
+            console.log(tonalContainer);
+            $scope.tonalOutput = tonal.transpose(tonalContainer.note, tonalContainer.);
 
-        }
+        };
 
    });
