@@ -6,27 +6,27 @@ package com.tiy.MusicTheoryTrainer;
 public class Pitch {
 
     enum Note {
-        C (),
-        C_SHARP (),
-        D_FLAT (),
-        D (),
-        D_SHARP (),
-        E_FLAT (),
-        E (),
-        F (),
-        F_SHARP (),
-        G_FLAT (),
-        G (),
-        G_SHARP (),
-        A_FLAT (),
-        A (),
-        A_SHARP (),
-        B_FLAT (),
-        B ()
+        C ("C"),
+        C_SHARP ("C#"),
+        D_FLAT ("Db"),
+        D ("D"),
+        D_SHARP ("D#"),
+        E_FLAT ("Eb"),
+        E ("E"),
+        F ("F"),
+        F_SHARP ("F#"),
+        G_FLAT ("Gb"),
+        G ("G"),
+        G_SHARP ("G#"),
+        A_FLAT ("Ab"),
+        A ("A"),
+        A_SHARP ("A#"),
+        B_FLAT ("Bb"),
+        B ("B");
 
-        private final int noteValue;
+        private final String noteValue;
 
-        Note(int noteValue) {
+        Note(String noteValue) {
             this.noteValue = noteValue;
         }
 
@@ -41,7 +41,7 @@ public class Pitch {
     }
 
     enum Octave {
-        FOUR,
+        FOUR (),
         FIVE
     };
 
