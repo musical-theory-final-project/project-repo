@@ -5,8 +5,11 @@
     <title>Title</title>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/Audiolet.js"></script>
+    <script src="../static/js/Audiolet.js"></script>
     <script src="js/midi-controller.js"></script>
     <script src="../static/js/midi-controller.js"></script>
+    <script src="js/Tonal.min.js"></script>
+
 </head>
 <body ng-controller="midi-controller">
 
@@ -20,6 +23,16 @@
 <input type="text" place="Pitch" ng-bind="noteContainer"/>
 <!--<input type="button" ng-click="score()" value="Show score"/>-->
 <input type="button" ng-click="userInput()" value="Show score"/>
+
+<input type="button" ng-click="chords()" value="Play me some chords!"/>
+
+    <div>
+        <p>Give me a note, and an interval!</p>
+        <input type="text" ng-model="tonalContainer.note" value="Note"/>
+        <input type="text" ng-model="tonalContainer.interval" value="Interval"/>
+        <input type="button" ng-click="" value="Do the thing!"/>
+    </div>
+
 
 </body>
 
