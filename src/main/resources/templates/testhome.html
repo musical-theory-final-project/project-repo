@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MidiApp">
+<!--
+{{! changing the mustache delimiter so it doesn't conflict with  }}
+{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+{{=<% %>=}}
+--->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Musictheorytrianer</title>
+        <title>Musictheorytrainer</title>
+        <!--Music Theory Trainer-->
+    <script src="js/midi-controller.js"></script>
+    <script src="../static/js/midi-controller.js"></script>
+
+</head>
+<body ng-controller="midi-controller">
+<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
+Music Theory Trainer
+
+<div id="boo"></div>
+
+<div id="boo2"></div>
+<input type="text" placeholder="Pitch" ng-bind="noteContainer">  <!--need to declare a var to store the note--->
+<input type="button" value="Play Interval" ng-click="">
+<input type="button" ng-click="score()" value="Show score"/>
+
+</body>
+
+</html>
+
+<script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+<!--<script src="js/score.js"></script>-->
+<script src="../static/js/score.js"></script>
+<!--<script src="js/utheory-debug.js"></script>-->
+
+<!--need to bind a text field in our html to the variable in javascript--->
