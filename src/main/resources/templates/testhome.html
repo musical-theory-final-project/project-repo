@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="MidiApp">
+
+
+<head>
 <!--
 {{! changing the mustache delimiter so it doesn't conflict with  }}
 {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
 {{=<% %>=}}
 --->
 
-<head>
     <meta charset="UTF-8">
     <title>Musictheorytrianer</title>
         <title>Musictheorytrainer</title>
-        <!--Music Theory Trainer-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/Audiolet.js"></script>
+    <script src="../static/js/Audiolet.js"></script>
     <script src="js/midi-controller.js"></script>
     <script src="../static/js/midi-controller.js"></script>
+    <script src="js/teoria.js"></script>
+    <script src="../static/js/teoria.js"></script>
 
 </head>
 <body ng-controller="midi-controller">
@@ -31,9 +37,6 @@ Music Theory Trainer
 </html>
 
 <script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
-<!--<script src="js/score.js"></script>-->
+<script src="js/score.js"></script>
 <script src="../static/js/score.js"></script>
-<!--<script src="js/utheory-debug.js"></script>-->
 
-<!--need to bind a text field in our html to the variable in javascript--->

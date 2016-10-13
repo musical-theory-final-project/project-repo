@@ -13,27 +13,27 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class MusicTheoryTrainerController {
-@Autowired
-UserRepository users;
 
 	@RequestMapping(path = "/midi", method = RequestMethod.GET)
 	public String midiPage(Model model, HttpSession session) {
 		return "midi";
 	}
 
+
+
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
 		return "home";
 	}
 
-	@RequestMapping(path = "/register", method = RequestMethod.GET)
-	public String newPlayer(HttpSession session, String firstName, String lastName, String email, String password){
-		User user = users.findByEmail(email);
-		if(user == null){
-			user = new User(firstName,lastName,email,password);
-			users.save(user);
-		}
-		session.setAttribute("user",user);
-		return "redirect:/gamemenu";
-	}
+//	@RequestMapping(path = "/register", method = RequestMethod.GET)
+//	public String newPlayer(HttpSession session, String firstName, String lastName, String email, String password){
+//		User user = users.findByEmail(email);
+//		if(user == null){
+//			user = new User(firstName,lastName,email,password);
+//			users.save(user);
+//		}
+//		session.setAttribute("user",user);
+//		return "redirect:/gamemenu";
+//	}
 }
