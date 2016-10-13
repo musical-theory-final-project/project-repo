@@ -51,14 +51,17 @@
     </div>
 <span>
     <p>Please choose an interval: P1, m2, M2, m3, M3</p>
-    <input type="text" ng-model="noteInterval" placeholder="Feed me some letters!"/>
+    <input type="radio" value="P1" ng-model="answer"/>P1
+    <input type="radio" value="m2" ng-model="answer"/>m2
+    <input type="radio" value="M2" ng-model="answer"/>M2
+    <input type="radio" value="m3" ng-model="answer"/>m3
+    <input type="radio" value="M3" ng-model="answer"/>M3
 </span>
 <span>
     <div>
-        <input type="button" value="Check interval" ng-click="checkAnswer(noteInterval)"/>
+        <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
     </div>
 </span>
-
 
 </body>
 

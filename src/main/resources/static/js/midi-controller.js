@@ -1,17 +1,12 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
-    const P1 = "P1";
-    const m2 = "m2";
-    const M2 = "M2";
-    const m3 = "m3";
-    const M3 = "M3";
 //        var noteContainer;
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
     $scope.staff;
     $scope.note;
-
+    $scope.nextNote;
 
     var teoriaContainer;
     $scope.teoriaOutput;
@@ -84,7 +79,7 @@ angular.module('MidiApp', [])
 
 
         $scope.userInput = function(noteContainer) {
-//            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
 
@@ -151,6 +146,7 @@ angular.module('MidiApp', [])
             $scope.note = note;
             var noteOut = teoria.note(note.name + note.octave);
             var nextNote = noteOut.interval(note.interval);
+            $scope.nextNote = nextNote.toString();
             console.log(noteOut);
             console.log(nextNote.toString());
             var freq1 = noteOut.fq();
@@ -233,6 +229,16 @@ angular.module('MidiApp', [])
                 console.log("You are the greetest!");
             } else {
                 console.log("Blargh");
+            }
+        }
+
+        $scope.checkNoteName = function(noteNotation) {
+            console.log(noteNotation);
+            console.log($scope.nextNote);
+            if ($scope.nextNote === noteNotation) {
+                console.log("A winrar is you!");
+            } else {
+                console.log("I'm sorry, but you're wrong.");
             }
         }
 
