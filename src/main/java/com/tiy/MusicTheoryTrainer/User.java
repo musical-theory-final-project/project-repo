@@ -14,7 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    int Id;
+    int id;
 
     @Column
     String firstName;
@@ -39,12 +39,12 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
-        return Id;
+    public int getid() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setid(int id) {
+        id = id;
     }
 
     public String getFirstName() {
