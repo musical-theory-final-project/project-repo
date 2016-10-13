@@ -1,9 +1,16 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
+    const P1 = "P1";
+    const m2 = "m2";
+    const M2 = "M2";
+    const m3 = "m3";
+    const M3 = "M3";
 //        var noteContainer;
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
+    $scope.staff;
+    $scope.note;
 
 
     var teoriaContainer;
@@ -75,37 +82,9 @@ angular.module('MidiApp', [])
             this.audioletApp = new AudioletApp();
         };
 
-//        $scope.score = function() {
-
-        // Create an SVG renderer and attach it to the DIV element named "boo".
-//        var vf = new VF.Factory({renderer: {selector: 'boo'}});
-//        var vf2 = new VF.Factory({renderer: {selector: 'boo2'}});
-//        var score = vf.EasyScore();
-//        var score2 = vf2.EasyScore();
-//        var system = vf.System();
-//        var system2 = vf2.System();
-
-
-//        system.addStave({
-//          voices: [score.voice(score.notes('C#5/q, B4, A4, G#4'))]
-//        }).addClef('treble').addTimeSignature('4/4');
-//
-//        vf.draw();
-
-
-//
-//        system2.addStave({
-//          voices: [score2.voice(score2.notes('A4/w'))]
-//        }).addClef('treble');
-//
-//        vf2.draw();
-
-
-
-//        }
 
         $scope.userInput = function(noteContainer) {
-            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+//            var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
 
@@ -113,6 +92,7 @@ angular.module('MidiApp', [])
             system.addStave({
                 voices:[score.voice(score.notes(noteContainer.note + noteContainer.octave + '/w'))]
             }).addClef('treble').addTimeSignature('4/4');
+
             vf.draw();
 
 
@@ -168,6 +148,7 @@ angular.module('MidiApp', [])
 
         $scope.stuff = function(note) {
             console.log(note);
+            $scope.note = note;
             var noteOut = teoria.note(note.name + note.octave);
             var nextNote = noteOut.interval(note.interval);
             console.log(noteOut);
@@ -244,5 +225,15 @@ angular.module('MidiApp', [])
 
 
         };
+
+        $scope.checkAnswer = function(noteInterval) {
+        console.log(noteInterval);
+        console.log($scope.note.interval);
+            if ($scope.note.interval === noteInterval) {
+                console.log("You are the greetest!");
+            } else {
+                console.log("Blargh");
+            }
+        }
 
    });

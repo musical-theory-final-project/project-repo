@@ -25,11 +25,13 @@
 <div>
 
 </div>
+<input type="text" placeholder="Note" ng-model="noteContainer.note" placeholder="value">
+<input type="text" placeholder="Octave" ng-model="noteContainer.octave" placeholder="octave">
+<input type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
+
 <div id="boo">Hi i'm div</div>
-<div id="boo2">Hi i'm div2</div>
 <input type="button" ng-click="playExample()" value="Pull the lever!"/>
-<input type="text" placeholder="Pitch" ng-bind="noteContainer"/>
-<input type="button" ng-click="score()" value="Show score"/>
+
 <!--<input type="button" ng-click="userInput()" value="Show score"/>-->
 
 <input type="button" ng-click="chords()" value="Play me some chords!"/>
@@ -47,6 +49,15 @@
         <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
         <input type="button" ng-click="playFreq()" value="Get pitch-slapped!"/>
     </div>
+<span>
+    <p>Please choose an interval: P1, m2, M2, m3, M3</p>
+    <input type="text" ng-model="noteInterval" placeholder="Feed me some letters!"/>
+</span>
+<span>
+    <div>
+        <input type="button" value="Check interval" ng-click="checkAnswer(noteInterval)"/>
+    </div>
+</span>
 
 
 </body>
