@@ -7,11 +7,12 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "interval")
 public class Interval {
 
     @Id
     @GeneratedValue
-    int id;
+    int intervalId;
 
     @Column
     String interval;
@@ -22,16 +23,17 @@ public class Interval {
     public Interval() {
     }
 
-    public Interval(String interval) {
+    public Interval(String interval, IntervalLevel intervalLevel) {
         this.interval = interval;
+        this.intervalLevel = intervalLevel;
     }
 
-    public int getId() {
-        return id;
+    public int getIntervalId() {
+        return intervalId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIntervalId(int intervalId) {
+        this.intervalId = intervalId;
     }
 
     public String getInterval() {

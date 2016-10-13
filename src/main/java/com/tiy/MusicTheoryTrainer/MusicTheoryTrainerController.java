@@ -27,8 +27,20 @@ public class MusicTheoryTrainerController {
 	@Autowired
 	IntervalRepository intervals;
 
+	@Autowired
+	IntervalLevelRepository intervalLevels;
+
 	@PostConstruct
 	public void init() {
+		IntervalLevel level1 = new IntervalLevel(1);
+		intervalLevels.save(level1);
+		IntervalLevel level2 = new IntervalLevel(2);
+		intervalLevels.save(level2);
+		IntervalLevel level3 = new IntervalLevel(3);
+		intervalLevels.save(level3);
+		IntervalLevel level4 = new IntervalLevel(4);
+		intervalLevels.save(level4);
+
 		if (notes.count() == 0) {
 			Note noteA = new Note("A");
 			notes.save(noteA);
@@ -53,11 +65,11 @@ public class MusicTheoryTrainerController {
 			octaves.save(octave1);
 			Octave octave2 = new Octave("2");
 			octaves.save(octave2);
-			Octave octave3 = new Octave("3");
+			Octave octave3 = new Octave("3", level3);
 			octaves.save(octave3);
-			Octave octave4 = new Octave("4");
+			Octave octave4 = new Octave("4", level1);
 			octaves.save(octave4);
-			Octave octave5 = new Octave("5");
+			Octave octave5 = new Octave("5", level1);
 			octaves.save(octave5);
 			Octave octave6 = new Octave("6");
 			octaves.save(octave6);
@@ -66,33 +78,33 @@ public class MusicTheoryTrainerController {
 		}
 
 		if (intervals.count() == 0) {
-			Interval intervalPerfectUnison = new Interval ("P1");
+			Interval intervalPerfectUnison = new Interval ("P1", level1);
 			intervals.save(intervalPerfectUnison);
-			Interval intervalMinorSecond = new Interval ("m2");
+			Interval intervalMinorSecond = new Interval ("m2", level1);
 			intervals.save(intervalMinorSecond);
-			Interval intervalMajorSecond = new Interval ("M2");
+			Interval intervalMajorSecond = new Interval ("M2", level1);
 			intervals.save(intervalMajorSecond);
-			Interval intervalMinorThird = new Interval ("m3");
+			Interval intervalMinorThird = new Interval ("m3", level1);
 			intervals.save(intervalMinorThird);
-			Interval intervalMajorThird = new Interval ("M3");
+			Interval intervalMajorThird = new Interval ("M3", level1);
 			intervals.save(intervalMajorThird);
-			Interval intervalPerfectFourth = new Interval ("P4");
+			Interval intervalPerfectFourth = new Interval ("P4", level2);
 			intervals.save(intervalPerfectFourth);
-			Interval intervalAugmentedFourth = new Interval ("TT");
+			Interval intervalAugmentedFourth = new Interval ("TT", level2);
 			intervals.save(intervalAugmentedFourth);
-			Interval intervalDiminishedFifth = new Interval ("TT");
+			Interval intervalDiminishedFifth = new Interval ("TT", level2);
 			intervals.save(intervalDiminishedFifth);
-			Interval intervalPerfectFifth= new Interval ("P5");
+			Interval intervalPerfectFifth= new Interval ("P5", level2);
 			intervals.save(intervalPerfectFifth);
-			Interval intervalMinorSixth = new Interval ("m6");
+			Interval intervalMinorSixth = new Interval ("m6", level4);
 			intervals.save(intervalMinorSixth);
-			Interval intervalMajorSixth= new Interval ("M6");
+			Interval intervalMajorSixth= new Interval ("M6", level4);
 			intervals.save(intervalMajorSixth);
-			Interval intervalMinorSeventh= new Interval ("m7");
+			Interval intervalMinorSeventh= new Interval ("m7", level4);
 			intervals.save(intervalMinorSeventh);
-			Interval intervalMajorSeventh= new Interval ("M7");
+			Interval intervalMajorSeventh= new Interval ("M7", level4);
 			intervals.save(intervalMajorSeventh);
-			Interval intervalPerfectEighth= new Interval ("P8");
+			Interval intervalPerfectEighth= new Interval ("P8", level4);
 			intervals.save(intervalPerfectEighth);
 		}
 	}

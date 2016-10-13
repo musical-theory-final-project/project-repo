@@ -7,17 +7,23 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "octaves")
 public class Octave {
 
     @Id
     @GeneratedValue
-    int id;
+    int octaveId;
 
     @Column
     String octave;
 
     @ManyToOne
     IntervalLevel intervalLevel;
+
+    public Octave(String octave, IntervalLevel intervalLevel) {
+        this.octave = octave;
+        this.intervalLevel = intervalLevel;
+    }
 
     public Octave(String octave) {
         this.octave = octave;
@@ -26,12 +32,20 @@ public class Octave {
     public Octave() {
     }
 
-    public int getId() {
-        return id;
+    public int getOctaveId() {
+        return octaveId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOctaveId(int octaveId) {
+        this.octaveId = octaveId;
+    }
+
+    public IntervalLevel getIntervalLevel() {
+        return intervalLevel;
+    }
+
+    public void setIntervalLevel(IntervalLevel intervalLevel) {
+        this.intervalLevel = intervalLevel;
     }
 
     public String getOctave() {

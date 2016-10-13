@@ -14,11 +14,11 @@ public class UserStatus {
 
     @Id
     @GeneratedValue
-    int id;
+    int userStatusId;
 
     @ManyToOne
     User user;
 
     @ManyToOne
-    Level level;
+    IntervalLevel intervalLevel;
 }

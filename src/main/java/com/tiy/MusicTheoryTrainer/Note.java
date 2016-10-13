@@ -7,11 +7,12 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "notes")
 public class Note {
 
     @Id
     @GeneratedValue
-    int id;
+    int noteId;
 
     @Column
     String note;
@@ -23,12 +24,12 @@ public class Note {
         this.note = note;
     }
 
-    public int getId() {
-        return id;
+    public int getNoteId() {
+        return noteId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
     }
 
     public String getNote() {
@@ -38,4 +39,6 @@ public class Note {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }

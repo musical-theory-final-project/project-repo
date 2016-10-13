@@ -7,35 +7,43 @@ import javax.persistence.*;
  */
 
 @Entity
-public class IntervalLevel implements Level {
+public class IntervalLevel {
 
     @Id
     @GeneratedValue
-    int id;
+    int intervalLevelId;
 
     @Column
-    String levelNumber;
+    int levelNumber;
 
     public IntervalLevel() {
     }
 
-    public IntervalLevel(String levelNumber) {
+    public IntervalLevel(int levelNumber) {
         this.levelNumber = levelNumber;
     }
 
     public int getId() {
-        return id;
+        return intervalLevelId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.intervalLevelId = id;
     }
 
-    public String getLevelNumber() {
+    public int getLevelNumber() {
         return levelNumber;
     }
 
-    public void setLevelNumber(String levelNumber) {
+    public void setLevelNumber(int levelNumber) {
         this.levelNumber = levelNumber;
+    }
+
+    public int getIntervalLevelId() {
+        return intervalLevelId;
+    }
+
+    public void setIntervalLevelId(int intervalLevelId) {
+        this.intervalLevelId = intervalLevelId;
     }
 }
