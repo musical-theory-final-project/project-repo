@@ -1,20 +1,19 @@
 package com.tiy.MusicTheoryTrainer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 /**
  * Created by Brice on 10/11/16.
  */
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue
-    int Id;
+    int userId;
 
     @Column
     String firstName;
@@ -39,12 +38,12 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
-        return Id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
