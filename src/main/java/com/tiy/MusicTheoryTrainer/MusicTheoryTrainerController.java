@@ -19,6 +19,8 @@ public class MusicTheoryTrainerController {
 		return "midi";
 	}
 
+
+
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
 		return "home";
