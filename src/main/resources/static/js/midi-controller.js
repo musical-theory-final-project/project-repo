@@ -2,6 +2,7 @@ angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
         var noteContainer;
         const VF = Vex.Flow;
+//        $scope.noteContainer;
 
     $scope.tonalContainer = {};
     $scope.tonalOutput;
