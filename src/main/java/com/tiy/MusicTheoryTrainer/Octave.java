@@ -14,7 +14,7 @@ public class Octave {
     @GeneratedValue
     int octaveId;
 
-    @Column
+    @Column(nullable = false)
     String octave;
 
     @ManyToOne

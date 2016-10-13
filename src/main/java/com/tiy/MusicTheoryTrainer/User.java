@@ -15,16 +15,16 @@ public class User {
     @GeneratedValue
     int userId;
 
-    @Column
+    @Column(nullable = false)
     String firstName;
 
-    @Column
+    @Column(nullable = false)
     String lastName;
 
-    @Column
+    @Column(nullable = false)
     String email;
 
-    @Column
+    @Column(nullable = false)
     String password;
 
     public User() {

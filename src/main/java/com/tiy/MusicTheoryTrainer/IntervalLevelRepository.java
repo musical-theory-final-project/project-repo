@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 public interface IntervalLevelRepository extends CrudRepository<IntervalLevel, Integer>{
+    IntervalLevel findByLevelNumber(Integer levelNumber);
 }
