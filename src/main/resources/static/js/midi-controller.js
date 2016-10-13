@@ -162,14 +162,75 @@ angular.module('MidiApp', [])
         };
 
         $scope.stuff = function(note) {
-            console.log(a4);
-            var noteOut = teoria.note(note);
+            console.log(note);
+            var noteOut = teoria.note(note.name + note.octave);
+            var nextNote = noteOut.interval(note.interval);
             console.log(noteOut);
-            $scope.a4 = noteOut;
-            console.log($scope.a4.interval('M3').toString());
+            console.log(nextNote.toString());
             var freq = noteOut.fq();
-            console.log($scope.a4.interval('m3').scale('majorpentatonic'));
-            $scope.a4 = noteOut.interval('m7').toString();
+            var freq2 = nextNote.fq();
+            console.log("Note 1 freq=" + freq + "; Note 2 freq=" + freq2);
+            $scope.a4 = noteOut.fq();
+
+            var Synth = function(audiolet, frequency) {
+                AudioletGroup.apply(this, [audiolet, 0, 1]);
+
+                this.audiolet = new Audiolet();
+                this.sine = new Sine(this.audiolet, frequency);
+                this.modulator = new Saw(this.audiolet, 2 * frequency);
+                this.modulatorMulAdd = new MulAdd(this.audiolet, frequency/2, frequency);
+
+                this.gain = new Gain(this.audiolet);
+                this.envelope = new PercussiveEnvelope(this.audiolet, 1, 0.2, 0.5,
+                    function() {
+                        this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
+                    }.bind(this)
+                    );
+
+                this.modulator.connect(this.modulatorMulAdd);
+                this.modulatorMulAdd.connect(this.sine);
+                this.envelope.connect(this.gain, 0, 1);
+                this.sine.connect(this.gain);
+                this.gain.connect(this.outputs[0]);
+
+            };
+
+            var AudioletApp = function() {
+                this.audiolet = new Audiolet();
+                //trying scales
+                var scale = new MajorScale();
+                var baseFrequency = 261.63;
+                var octave = 0;
+//                var freq1 = scale.getFrequency(0, baseFrequency, octave);
+//                var freq2 = scale.getFrequency(1, baseFrequency, octave);
+//                var freq3 = scale.getFrequency(2, baseFrequency, octave);
+//                var freq4 = scale.getFrequency(3, baseFrequency, octave);
+//                var freq5 = scale.getFrequency(4, baseFrequency, octave);
+
+                var interval = new PSequence([freq1, freq2]);
+
+//                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5], 1);
+                var durationPattern = new PChoose([new PSequence([2])], Infinity);
+                var frequencyPatter = new PSequence([interval], 2);
+//        	    var frequencyPattern = new PSequence([melodyA, melodyB, melodyC], 2);
+//        	    var durationPattern = new PChoose([new PSequence([3, 1, 2, 2]),
+//        	    								  new PSequence([2, 2, 1, 3]),
+//        	    								  new PSequence([1, 2, 1, 2])],
+//        	    								  Infinity);
+
+                this.audiolet.scheduler.play([frequencyPattern], durationPattern,
+                    function(frequency) {
+                        var synth = new Synth(this.audiolet, frequency);
+                        synth.connect(this.audiolet.output);
+                    }.bind(this)
+                    );
+            };
+
+            extend (Synth, AudioletGroup);
+
+
+            this.audioletApp = new AudioletApp();
+
 
         };
 

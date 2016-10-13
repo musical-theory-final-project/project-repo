@@ -36,10 +36,16 @@
 
     <div>
         <p>Give me a note, and an interval!</p>
-        <input type="text" ng-model="note" value="Note"/>
-        <input type="text" ng-model="interval" value = "Interval"/>
+        <input type="text" ng-model="note.name" placeholder="Note"/>
+        <input type="text" ng-model="note.octave" placeholder="Octave"/>
+        <input type="text" ng-model="note.interval" placeholder="Interval"/>
         <input type="button" ng-click="stuff(note)" value="Do the thing!"/>
         {{a4}}
+    </div>
+
+    <div>
+        <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
+
     </div>
 
 
