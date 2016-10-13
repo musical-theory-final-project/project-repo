@@ -22,16 +22,23 @@
 
 </head>
 <body ng-controller="midi-controller">
+
 <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
 Music Theory Trainer
 
 <div id="boo"></div>
 
-<div id="boo2"></div>
-<input type="text" placeholder="Pitch" ng-bind="noteContainer">  <!--need to declare a var to store the note--->
-<input type="button" value="Play Interval" ng-click="">
-<input type="button" ng-click="score()" value="Show score"/>
+<!--<div id="boo2">I'm Div2</div>-->
+<!--<div id="input">I'm the input div</div>-->
+<!--<input type="text" placeholder="Note to Present onto the stave" ng-model="noteContainer" ng-bind="noteContainer"> -->
+<input type="text" placeholder="Note" ng-model="noteContainer.note" ng-bind="noteContainer.note">
+<input type="text" placeholder="Octave" ng-model="noteContainer.octave" ng-bind="noteContainer.octave">
 
+
+
+<!--<input type="button" value="Play Interval" ng-click="">-->
+<!--<input type="button" ng-click="score()" value="Show score"/>-->
+<input type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
 </body>
 
 </html>

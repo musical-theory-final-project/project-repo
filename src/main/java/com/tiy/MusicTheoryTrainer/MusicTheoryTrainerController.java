@@ -114,6 +114,11 @@ public class MusicTheoryTrainerController {
 		return "midi";
 	}
 
+	@RequestMapping(path = "/testhome", method = RequestMethod.GET)   //Created so clay can test variable assignment in angular
+	public String testHomePage(Model model, HttpSession session){
+		return "testhome";
+	}
+
 
 
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
