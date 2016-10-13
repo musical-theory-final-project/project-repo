@@ -84,7 +84,7 @@ angular.module('MidiApp', [])
 
 
         $scope.userInput = function(noteContainer) {
-//            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
 
