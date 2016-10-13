@@ -3,6 +3,7 @@ angular.module('MidiApp', [])
         var noteContainer;
         const VF = Vex.Flow;
 //        $scope.noteContainer;
+    $scope.frequencies = {};
 
 
     var teoriaContainer;
@@ -167,10 +168,16 @@ angular.module('MidiApp', [])
             var nextNote = noteOut.interval(note.interval);
             console.log(noteOut);
             console.log(nextNote.toString());
-            var freq = noteOut.fq();
+            var freq1 = noteOut.fq();
             var freq2 = nextNote.fq();
-            console.log("Note 1 freq=" + freq + "; Note 2 freq=" + freq2);
+            console.log("Note 1 freq=" + freq1 + "; Note 2 freq=" + freq2);
             $scope.a4 = noteOut.fq();
+            $scope.frequencies = {
+                freq1: freq1,
+                freq2: freq2
+             };
+             console.log($scope.frequencies);
+
 
             var Synth = function(audiolet, frequency) {
                 AudioletGroup.apply(this, [audiolet, 0, 1]);
@@ -207,11 +214,11 @@ angular.module('MidiApp', [])
 //                var freq4 = scale.getFrequency(3, baseFrequency, octave);
 //                var freq5 = scale.getFrequency(4, baseFrequency, octave);
 
-                var interval = new PSequence([freq1, freq2]);
+                var interval = new PSequence([$scope.frequencies.freq1, $scope.frequencies.freq2]);
 
 //                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5], 1);
                 var durationPattern = new PChoose([new PSequence([2])], Infinity);
-                var frequencyPatter = new PSequence([interval], 2);
+                var frequencyPattern = new PSequence([interval], 2);
 //        	    var frequencyPattern = new PSequence([melodyA, melodyB, melodyC], 2);
 //        	    var durationPattern = new PChoose([new PSequence([3, 1, 2, 2]),
 //        	    								  new PSequence([2, 2, 1, 3]),
