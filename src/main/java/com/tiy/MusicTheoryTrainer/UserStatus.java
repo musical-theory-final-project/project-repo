@@ -21,4 +21,28 @@ public class UserStatus {
 
     @ManyToOne
     IntervalLevel intervalLevel;
+
+    public UserStatus() {
+    }
+
+    public UserStatus(User user, IntervalLevel intervalLevel) {
+        this.user = user;
+        this.intervalLevel = intervalLevel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public IntervalLevel getIntervalLevel() {
+        return intervalLevel;
+    }
+
+    public void setIntervalLevel(IntervalLevel intervalLevel) {
+        this.intervalLevel = intervalLevel;
+    }
 }
