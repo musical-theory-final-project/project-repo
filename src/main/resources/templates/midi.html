@@ -8,8 +8,8 @@
     <script src="../static/js/Audiolet.js"></script>
     <script src="js/midi-controller.js"></script>
     <script src="../static/js/midi-controller.js"></script>
-    <!--<script src="js/Tonal.min.js"></script>-->
-    <!--<script src="../static/js/Tonal.min.js"></script>-->
+    <script src="js/teoria.js"></script>
+    <script src="../static/js/teoria.js"></script>
 
 
     <!--
@@ -37,10 +37,9 @@
 
     <div>
         <p>Give me a note, and an interval!</p>
-        <input type="text" ng-model="tonalContainer.note" value="Note"/>
-        <input type="text" ng-model="tonalContainer.interval" value="Interval"/>
-        <input type="button" ng-click="stuff(tonalContainer)" value="Do the thing!"/>
-        {{tonalOutput}}
+        <input type="text" ng-model="note" value="Note"/>
+        <input type="button" ng-click="stuff(note)" value="Do the thing!"/>
+        {{a4}}
     </div>
 
 

@@ -3,8 +3,10 @@ angular.module('MidiApp', [])
         var noteContainer;
         const VF = Vex.Flow;
 
-    $scope.tonalContainer = {};
-    $scope.tonalOutput;
+
+    var teoriaContainer;
+    $scope.teoriaOutput;
+    var a4;
 
         $scope.playExample = function() {
             var Synth = function(audiolet, frequency) {
@@ -158,11 +160,14 @@ angular.module('MidiApp', [])
             var app = new SchedulerApp();
         };
 
-        $scope.stuff = function(tonalContainer) {
-
-            console.log(tonalContainer);
-            $scope.tonalOutput = tonal.transpose(tonalContainer.note, tonalContainer.);
-
+        $scope.stuff = function(note) {
+            console.log(a4);
+            var a4 = teoria.note(note);
+            console.log(a4);
+            $scope.a4 = a4;
+            console.log($scope.a4.interval('min3').toString());
+            var freq = a4.fq();
+            console.log($scope.a4.interval('m3').scale('minor'));
         };
 
    });
