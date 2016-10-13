@@ -108,11 +108,14 @@ angular.module('MidiApp', [])
             var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
+
             console.log(noteContainer);
             system.addStave({
                 voices:[score.voice(score.notes(noteContainer.note + noteContainer.octave + '/w'))]
             }).addClef('treble').addTimeSignature('4/4');
             vf.draw();
+
+
         }
 
 
