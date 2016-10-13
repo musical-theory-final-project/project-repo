@@ -1,12 +1,16 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
+    const P1 = "P1";
+    const m2 = "m2";
+    const M2 = "M2";
+    const m3 = "m3";
+    const M3 = "M3";
 //        var noteContainer;
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
     $scope.staff;
-                var vf = new VF.Factory({renderer: {selector: 'boo'}});
-
+    $scope.note;
 
 
     var teoriaContainer;
@@ -144,6 +148,7 @@ angular.module('MidiApp', [])
 
         $scope.stuff = function(note) {
             console.log(note);
+            $scope.note = note;
             var noteOut = teoria.note(note.name + note.octave);
             var nextNote = noteOut.interval(note.interval);
             console.log(noteOut);
@@ -221,8 +226,14 @@ angular.module('MidiApp', [])
 
         };
 
-        $scope.checkAnswer = function() {
-            
+        $scope.checkAnswer = function(noteInterval) {
+        console.log(noteInterval);
+        console.log($scope.note.interval);
+            if ($scope.note.interval === noteInterval) {
+                console.log("You are the greetest!");
+            } else {
+                console.log("Blargh");
+            }
         }
 
    });

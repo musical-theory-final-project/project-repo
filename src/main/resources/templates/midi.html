@@ -50,12 +50,12 @@
         <input type="button" ng-click="playFreq()" value="Get pitch-slapped!"/>
     </div>
 <span>
+    <p>Please choose an interval: P1, m2, M2, m3, M3</p>
+    <input type="text" ng-model="noteInterval" placeholder="Feed me some letters!"/>
+</span>
+<span>
     <div>
-        <input type="button" value="P1" ng-click=""/>
-        <input type="button" value="m2" ng-click=""/>
-        <input type="button" value="M2" ng-click=""/>
-        <input type="button" value="m3" ng-click=""/>
-        <input type="button" value="M3" ng-click=""/>
+        <input type="button" value="Check interval" ng-click="checkAnswer(noteInterval)"/>
     </div>
 </span>
 
