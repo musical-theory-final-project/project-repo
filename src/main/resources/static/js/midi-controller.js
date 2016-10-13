@@ -162,12 +162,14 @@ angular.module('MidiApp', [])
 
         $scope.stuff = function(note) {
             console.log(a4);
-            var a4 = teoria.note(note);
-            console.log(a4);
-            $scope.a4 = a4;
-            console.log($scope.a4.interval('min3').toString());
-            var freq = a4.fq();
-            console.log($scope.a4.interval('m3').scale('minor'));
+            var noteOut = teoria.note(note);
+            console.log(noteOut);
+            $scope.a4 = noteOut;
+            console.log($scope.a4.interval('M3').toString());
+            var freq = noteOut.fq();
+            console.log($scope.a4.interval('m3').scale('majorpentatonic'));
+            $scope.a4 = noteOut.interval('m7').toString();
+
         };
 
    });
