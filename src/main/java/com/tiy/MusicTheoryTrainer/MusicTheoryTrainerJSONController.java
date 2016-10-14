@@ -66,6 +66,7 @@ public class MusicTheoryTrainerJSONController {
     // POST endpoint for app usage
     @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
     public ReturnIntervalContainer interval(@RequestBody IntervalLevel intLevel) {
+        System.out.println("pinged");
         int levelNumber = intLevel.getLevelNumber();
         ArrayList<Interval> intervalList = new ArrayList<>();
         ArrayList<Octave> octaveList = new ArrayList<>();
