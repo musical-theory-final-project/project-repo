@@ -1,6 +1,6 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
-//        var noteContainer;
+    $scope.user;
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
@@ -11,6 +11,36 @@ angular.module('MidiApp', [])
     var teoriaContainer;
     $scope.teoriaOutput;
     var a4;
+
+        $scope.login = function(loginContainer) {
+            console.log(loginContainer);
+            $http.post("/login.json", loginContainer)
+            .then (
+                function successCallBack(response) {
+                    console.log(response.data);
+                    console.log("logging in...");
+                    $scope.user = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to log in");
+                });
+             console.log("done with callback");
+        };
+
+        $scope.register = function(registerContainer) {
+            console.log(registerContainer);
+            $http.post("/register.json", registerContainer)
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    console.log("Registering...");
+                    $scope.user = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to register");
+                });
+             console.log("done with callback");
+        };
 
         $scope.playExample = function() {
             var Synth = function(audiolet, frequency) {
