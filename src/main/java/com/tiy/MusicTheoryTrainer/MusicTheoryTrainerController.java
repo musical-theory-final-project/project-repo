@@ -45,20 +45,40 @@ public class MusicTheoryTrainerController {
 		}
 
 		if (notes.count() == 0) {
+			Note noteAb = new Note("Ab");
+			notes.save(noteAb);
 			Note noteA = new Note("A");
 			notes.save(noteA);
+			Note noteAsharp = new Note("A#");
+			notes.save(noteAsharp);
+			Note noteBb = new Note("Bb");
+			notes.save(noteBb);
 			Note noteB = new Note("B");
 			notes.save(noteB);
+			Note noteCSharp = new Note("C#");
+			notes.save(noteCSharp);
 			Note noteC = new Note("C");
 			notes.save(noteC);
+			Note noteDb = new Note("Db");
+			notes.save(noteDb);
 			Note noteD = new Note("D");
 			notes.save(noteD);
+			Note noteDSharp = new Note("D#");
+			notes.save(noteDSharp);
+			Note noteEb = new Note("Eb");
+			notes.save(noteEb);
 			Note noteE = new Note("E");
 			notes.save(noteE);
 			Note noteF = new Note("F");
 			notes.save(noteF);
+			Note noteFSharp = new Note("F#");
+			notes.save(noteFSharp);
+			Note noteGb = new Note("Gb");
+			notes.save(noteGb);
 			Note noteG = new Note("G");
 			notes.save(noteG);
+			Note noteGSharp = new Note("G#");
+			notes.save(noteGSharp);
 		}
 
 		if (octaves.count() == 0) {
