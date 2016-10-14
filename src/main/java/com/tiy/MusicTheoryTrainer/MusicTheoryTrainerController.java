@@ -30,9 +30,6 @@ public class MusicTheoryTrainerController {
 	@Autowired
 	IntervalLevelRepository intervalLevels;
 
-	@Autowired
-	UserStatusRepository userStatuses;
-
 	@PostConstruct
 	public void init() {
 		IntervalLevel level1 = new IntervalLevel(1);
@@ -40,7 +37,7 @@ public class MusicTheoryTrainerController {
 		IntervalLevel level3 = new IntervalLevel(3);
 		IntervalLevel level4 = new IntervalLevel(4);
 
-		if (intervalLevels.count() == 0) {
+		if (intervals.count() == 0) {
 			intervalLevels.save(level1);
 			intervalLevels.save(level2);
 			intervalLevels.save(level3);

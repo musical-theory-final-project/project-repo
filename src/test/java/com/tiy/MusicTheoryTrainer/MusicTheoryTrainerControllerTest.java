@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -146,5 +147,29 @@ public class MusicTheoryTrainerControllerTest {
             users.delete(myUser.getUserId());
         }
     }
+
+    @Test
+    public void interval() {
+//        int levelNumber = intLevel.getLevelNumber();
+
+        IntervalLevel intervalLevel = intervalLevels.findByLevelNumber(2);
+        int levelNumber = intervalLevel.getLevelNumber();
+
+
+        ArrayList<Interval> intervalList = new ArrayList<>();
+
+        while(levelNumber != 0) {
+//            List<Interval> interval = intervals.findByIntervalLevel(intLevel);
+            List<Interval> interval = intervals.findByIntervalLevel(intervalLevel);
+            for (Interval currentInterval : interval) {
+                intervalList.add(currentInterval);
+            }
+            levelNumber--;
+        }
+        int intervalRNG = (int)((Math.random() * intervalList.size()));
+        System.out.println(intervalList.get(intervalRNG).getInterval());
+//        return intervalList.get(intervalRNG);
+    }
+
 
 }

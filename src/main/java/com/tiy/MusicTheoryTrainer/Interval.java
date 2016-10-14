@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "interval")
+@Table(name = "intervals")
 public class Interval {
 
     @Id
