@@ -41,13 +41,12 @@
         <input type="text" ng-model="note.name" placeholder="Note"/>
         <input type="text" ng-model="note.octave" placeholder="Octave"/>
         <input type="text" ng-model="note.interval" placeholder="Interval"/>
-        <input type="button" ng-click="stuff(note)" value="Do the thing!"/>
+        <input type="button" ng-click="stuff(playInterval)" value="Do the thing!"/>
         {{a4}}
     </div>
 
     <div>
         <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
-        <input type="button" ng-click="playFreq()" value="Get pitch-slapped!"/>
     </div>
 <span>
     <p>Please choose an interval: P1, m2, M2, m3, M3</p>
@@ -62,6 +61,15 @@
         <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
     </div>
 </span>
+<br/><br/><br/><br/><br/><br/>
+<div>
+    <p>Please give me a starting note, and a scale name</p>
+    <input type="text" ng-model="scale.startNote" placeholder="Note Name"/>
+    <input type="text" ng-model="scale.octave" placeholder="Note Octave"/>
+    <input type="text" ng-model="scale.name" placeholder="Scale Name"/>
+    <input type="button" ng-click="playScale(scale)" value="Get pitch slapped!"/>
+</div>
+
 
 </body>
 
