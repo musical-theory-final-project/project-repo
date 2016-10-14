@@ -14,7 +14,7 @@ public class Note {
     @GeneratedValue
     int noteId;
 
-    @Column
+    @Column(nullable = false)
     String note;
 
     public Note() {
