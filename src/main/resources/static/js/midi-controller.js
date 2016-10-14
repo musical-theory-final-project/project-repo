@@ -141,7 +141,7 @@ angular.module('MidiApp', [])
             var app = new SchedulerApp();
         };
 
-        $scope.stuff = function(note) {
+        $scope.playInterval = function(note) {
             console.log(note);
             $scope.note = note;
             var noteOut = teoria.note(note.name + note.octave);
@@ -186,25 +186,10 @@ angular.module('MidiApp', [])
             var AudioletApp = function() {
                 this.audiolet = new Audiolet();
                 //trying scales
-                var scale = new MajorScale();
-                var baseFrequency = 261.63;
-                var octave = 0;
-//                var freq1 = scale.getFrequency(0, baseFrequency, octave);
-//                var freq2 = scale.getFrequency(1, baseFrequency, octave);
-//                var freq3 = scale.getFrequency(2, baseFrequency, octave);
-//                var freq4 = scale.getFrequency(3, baseFrequency, octave);
-//                var freq5 = scale.getFrequency(4, baseFrequency, octave);
-
                 var interval = new PSequence([$scope.frequencies.freq1, $scope.frequencies.freq2]);
 
-//                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5], 1);
                 var durationPattern = new PChoose([new PSequence([2])], Infinity);
                 var frequencyPattern = new PSequence([interval], 2);
-//        	    var frequencyPattern = new PSequence([melodyA, melodyB, melodyC], 2);
-//        	    var durationPattern = new PChoose([new PSequence([3, 1, 2, 2]),
-//        	    								  new PSequence([2, 2, 1, 3]),
-//        	    								  new PSequence([1, 2, 1, 2])],
-//        	    								  Infinity);
 
                 this.audiolet.scheduler.play([frequencyPattern], durationPattern,
                     function(frequency) {
@@ -215,12 +200,12 @@ angular.module('MidiApp', [])
             };
 
             extend (Synth, AudioletGroup);
-
-
             this.audioletApp = new AudioletApp();
-
-
         };
+
+        $scope.playScale = function(scale) {
+            var initialNote = teoria.note(scale.startNote + scale.octave);
+        }
 
         $scope.checkAnswer = function(noteInterval) {
         console.log(noteInterval);
