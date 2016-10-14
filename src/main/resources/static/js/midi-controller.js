@@ -1,6 +1,9 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
     $scope.user;
+    $scope.intervalLevel;
+    $scope.initialInterval;
+    
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
@@ -40,6 +43,32 @@ angular.module('MidiApp', [])
                     console.log("Unable to register");
                 });
              console.log("done with callback");
+        };
+
+        $scope.getIntervalLevel = function() {
+            console.log("getting Intervals level");
+            $http.post("/getIntervalLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    $scope.intervalLevel = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Could not return level");
+                });
+        };
+
+        $scope.getInitialInterval = function() {
+            console.log("Getting initial interval");
+            $http.post("/getInitialInterval.json", $scope.intervalLevel)
+            .then (
+                function successCallBack(response) {
+                    console.log(response.data);
+                    $scope.initialInterval = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to recieve initial interval");
+                });
         };
 
         $scope.playExample = function() {
