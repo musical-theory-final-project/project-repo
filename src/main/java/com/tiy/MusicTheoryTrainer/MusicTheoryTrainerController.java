@@ -33,13 +33,16 @@ public class MusicTheoryTrainerController {
 	@PostConstruct
 	public void init() {
 		IntervalLevel level1 = new IntervalLevel(1);
-		intervalLevels.save(level1);
 		IntervalLevel level2 = new IntervalLevel(2);
-		intervalLevels.save(level2);
 		IntervalLevel level3 = new IntervalLevel(3);
-		intervalLevels.save(level3);
 		IntervalLevel level4 = new IntervalLevel(4);
-		intervalLevels.save(level4);
+
+		if (intervals.count() == 0) {
+			intervalLevels.save(level1);
+			intervalLevels.save(level2);
+			intervalLevels.save(level3);
+			intervalLevels.save(level4);
+		}
 
 		if (notes.count() == 0) {
 			Note noteA = new Note("A");

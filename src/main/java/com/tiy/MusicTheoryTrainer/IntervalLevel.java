@@ -13,7 +13,7 @@ public class IntervalLevel {
     @GeneratedValue
     int intervalLevelId;
 
-    @Column
+    @Column(nullable = false)
     int levelNumber;
 
     public IntervalLevel() {

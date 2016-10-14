@@ -1,49 +1,29 @@
 package com.tiy.MusicTheoryTrainer;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
 
 /**
- * Created by Brice on 10/11/16.
+ * Created by Brice on 10/14/16.
  */
 
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue
-    int userId;
-
-    @Column(nullable = false)
+public class RegisterInfoPost {
     String firstName;
 
-    @Column(nullable = false)
     String lastName;
 
-    @Column(nullable = false)
     String email;
 
-    @Column(nullable = false)
     String password;
 
-    public User() {
+    public RegisterInfoPost() {
 
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public RegisterInfoPost(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getFirstName() {

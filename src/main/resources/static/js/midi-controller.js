@@ -1,6 +1,9 @@
 angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
-//        var noteContainer;
+    $scope.user;
+    $scope.intervalLevel;
+    $scope.initialInterval;
+
         const VF = Vex.Flow;
 //        $scope.noteContainer;
     $scope.frequencies = {};
@@ -11,6 +14,62 @@ angular.module('MidiApp', [])
     var teoriaContainer;
     $scope.teoriaOutput;
     var a4;
+
+        $scope.login = function(loginContainer) {
+            console.log(loginContainer);
+            $http.post("/login.json", loginContainer)
+            .then (
+                function successCallBack(response) {
+                    console.log(response.data);
+                    console.log("logging in...");
+                    $scope.user = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to log in");
+                });
+             console.log("done with callback");
+        };
+
+        $scope.register = function(registerContainer) {
+            console.log(registerContainer);
+            $http.post("/register.json", registerContainer)
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    console.log("Registering...");
+                    $scope.user = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to register");
+                });
+             console.log("done with callback");
+        };
+
+        $scope.getIntervalLevel = function() {
+            console.log("getting Intervals level");
+            $http.post("/getIntervalLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    $scope.intervalLevel = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Could not return level");
+                });
+        };
+
+        $scope.getInitialInterval = function() {
+            console.log("Getting initial interval");
+            $http.post("/getInitialInterval.json", $scope.intervalLevel)
+            .then (
+                function successCallBack(response) {
+                    console.log(response.data);
+                    $scope.initialInterval = response.data;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to recieve initial interval");
+                });
+        };
 
         $scope.playExample = function() {
             var Synth = function(audiolet, frequency) {
@@ -204,8 +263,77 @@ angular.module('MidiApp', [])
         };
 
         $scope.playScale = function(scale) {
+            var scale = scale;
             var initialNote = teoria.note(scale.startNote + scale.octave);
-        }
+            console.log(initialNote.toString());
+            var myScale = initialNote.scale(scale.name);
+            console.log(myScale);
+            var scaleFreq = [];
+
+            for (var count = 0; count < myScale.scale.length; count++) {
+                var newNote = teoria.interval(initialNote, myScale.scale[count]);
+                newNote = newNote.fq();
+                console.log(newNote);
+                scaleFreq.push(newNote);
+            };
+            console.log(scaleFreq);
+
+            var Synth = function(audiolet, frequency) {
+                AudioletGroup.apply(this, [audiolet, 0, 1]);
+
+                this.audiolet = new Audiolet();
+                this.sine = new Sine(this.audiolet, frequency);
+                this.modulator = new Saw(this.audiolet, 2 * frequency);
+                this.modulatorMulAdd = new MulAdd(this.audiolet, frequency/2, frequency);
+
+                this.gain = new Gain(this.audiolet);
+                this.envelope = new PercussiveEnvelope(this.audiolet, 1, 0.2, 0.5,
+                    function() {
+                        this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
+                    }.bind(this)
+                    );
+
+                this.modulator.connect(this.modulatorMulAdd);
+                this.modulatorMulAdd.connect(this.sine);
+                this.envelope.connect(this.gain, 0, 1);
+                this.sine.connect(this.gain);
+                this.gain.connect(this.outputs[0]);
+
+            };
+
+            var AudioletApp = function(scale) {
+                this.audiolet = new Audiolet();
+                var audioScale;
+                if (scale.name === "major") {
+                    audioScale= new MajorScale();
+                } else if (scale.name === "minor") {
+                    audioScale = new MinorScale();
+                }
+                var baseFrequency = scaleFreq[0];
+                var octave = 0;
+                var freq1 = audioScale.getFrequency(0, baseFrequency, octave);
+                var freq2 = audioScale.getFrequency(1, baseFrequency, octave);
+                var freq3 = audioScale.getFrequency(2, baseFrequency, octave);
+                var freq4 = audioScale.getFrequency(3, baseFrequency, octave);
+                var freq5 = audioScale.getFrequency(4, baseFrequency, octave);
+                var freq6 = audioScale.getFrequency(5, baseFrequency, octave);
+                var freq7 = audioScale.getFrequency(6, baseFrequency, octave);
+
+                var note = new PSequence([440]);
+
+                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7], 1);
+                var durationPattern = new PChoose([new PSequence([1])], Infinity);
+
+                this.audiolet.scheduler.play([frequencyPattern], durationPattern,
+                    function(frequency) {
+                        var synth = new Synth(this.audiolet, frequency);
+                        synth.connect(this.audiolet.output);
+                    }.bind(this)
+                    );
+            };
+            extend (Synth, AudioletGroup);
+            this.audioletApp = new AudioletApp();
+        };
 
         $scope.checkAnswer = function(noteInterval) {
         console.log(noteInterval);
@@ -215,7 +343,7 @@ angular.module('MidiApp', [])
             } else {
                 console.log("Blargh");
             }
-        }
+        };
 
         $scope.checkNoteName = function(noteNotation) {
             console.log(noteNotation);
@@ -225,6 +353,6 @@ angular.module('MidiApp', [])
             } else {
                 console.log("I'm sorry, but you're wrong.");
             }
-        }
+        };
 
    });

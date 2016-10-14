@@ -7,14 +7,14 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "interval")
+@Table(name = "intervals")
 public class Interval {
 
     @Id
     @GeneratedValue
     int intervalId;
 
-    @Column
+    @Column(nullable = false)
     String interval;
 
     @ManyToOne
