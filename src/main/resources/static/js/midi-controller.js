@@ -47,10 +47,6 @@ angular.module('MidiApp', [])
 
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
-            var intLevel = {
-            intervalLevelId: 209,
-            levelNumber: 2
-            };
             console.log(intLevel);
             $http.post("/getIntervalLevel.json", $scope.user)
             .then(
@@ -65,7 +61,12 @@ angular.module('MidiApp', [])
 
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
-            $http.post("/getInitialInterval.json", $scope.intervalLevel)
+                        var intLevel = {
+                        intervalLevelId: 209,
+                        levelNumber: 2
+                        };
+
+            $http.post("/getInterval.json", intLevel)
             .then (
                 function successCallBack(response) {
                     console.log(response.data);
