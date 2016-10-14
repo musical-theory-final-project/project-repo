@@ -19,26 +19,31 @@
     <script src="../static/js/midi-controller.js"></script>
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" >
+
 
 </head>
+
 <body ng-controller="midi-controller">
 
-<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
-Music Theory Trainer
-
+<img class="image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
+<h1 class="header">
+    Music Theory Trainer
+</h1>
+<div class="booContainer">
 <div id="boo"></div>
-
-<!--<div id="boo2">I'm Div2</div>-->
-<!--<div id="input">I'm the input div</div>-->
-<!--<input type="text" placeholder="Note to Present onto the stave" ng-model="noteContainer" ng-bind="noteContainer"> -->
-<input type="text" placeholder="Note" ng-model="noteContainer.note" ng-bind="noteContainer.note">
-<input type="text" placeholder="Octave" ng-model="noteContainer.octave" ng-bind="noteContainer.octave">
-
+</div>
+<div class="container">
+<input class="noteInput" type="text" placeholder="Note" ng-model="noteContainer.note" ng-bind="noteContainer.note">
+<input class="octaveInput" type="text" placeholder="Octave" ng-model="noteContainer.octave" ng-bind="noteContainer.octave">
+<input class="button" type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
+</div>
 
 
 <!--<input type="button" value="Play Interval" ng-click="">-->
 <!--<input type="button" ng-click="score()" value="Show score"/>-->
-<input type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
+
 </body>
 
 </html>
