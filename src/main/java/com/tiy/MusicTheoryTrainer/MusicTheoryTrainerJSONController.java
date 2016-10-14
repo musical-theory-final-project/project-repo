@@ -61,9 +61,54 @@ public class MusicTheoryTrainerJSONController {
         return intLevel;
     }
 
-//    @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
-//    public ReturnIntervalContainer interval(@RequestBody IntervalLevel intLevel) {
-    @RequestMapping(path = "/getInterval.json", method = RequestMethod.GET)
+
+
+    // POST endpoint for app usage
+    @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
+    public ReturnIntervalContainer interval(@RequestBody IntervalLevel intLevel) {
+        int levelNumber = intLevel.getLevelNumber();
+        ArrayList<Interval> intervalList = new ArrayList<>();
+        ArrayList<Octave> octaveList = new ArrayList<>();
+        ArrayList<Note> noteList = new ArrayList<>();
+
+        ReturnIntervalContainer returnIntervalContainer = new ReturnIntervalContainer();
+
+        while (levelNumber != 0) {
+            intLevel = intervalLevels.findByLevelNumber(levelNumber);
+
+            List<Interval> interval = intervals.findByIntervalLevel(intLevel);
+            for (Interval currentInterval : interval) {
+                intervalList.add(currentInterval);
+            }
+
+            List<Octave> octave = octaves.findByIntervalLevel(intLevel);
+            for (Octave currentOctave : octave) {
+                octaveList.add(currentOctave);
+            }
+            levelNumber--;
+        }
+
+        Iterable<Note> myNotes = notes.findAll();
+
+        for (Note currentNote : myNotes) {
+            noteList.add(currentNote);
+        }
+        System.out.println(noteList.size());
+
+        int intervalRNG = (int)((Math.random() * intervalList.size()));
+        int octaveRNG = (int) (Math.random() * octaveList.size());
+        int noteRNG = (int) (Math.random() * noteList.size());
+
+
+        returnIntervalContainer.setInterval(intervalList.get(intervalRNG).getInterval());
+        returnIntervalContainer.setOctave(octaveList.get(octaveRNG).getOctave());
+        returnIntervalContainer.setNote(noteList.get(noteRNG).getNote());
+
+        return returnIntervalContainer;
+    }
+
+    // GET endpoint to test JSON container
+    @RequestMapping(path = "/getIntervalEndPoint.json", method = RequestMethod.GET)
     public ReturnIntervalContainer interval() {
 
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(2);
