@@ -201,9 +201,9 @@ public class MusicTheoryTrainerController {
 
 
 
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
-		return "home";
+		return "/home";
 	}
 
 //	@RequestMapping(path = "/register", method = RequestMethod.GET)
