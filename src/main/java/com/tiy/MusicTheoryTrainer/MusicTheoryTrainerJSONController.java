@@ -48,6 +48,7 @@ public class MusicTheoryTrainerJSONController {
         User myUser = users.findByEmail(registerInfo.getEmail());
         if (myUser == null) {
             myUser = new User(registerInfo.getFirstName(), registerInfo.getLastName(), registerInfo.getEmail(), registerInfo.getPassword());
+            users.save(myUser);
         } else {
             System.out.println("This email already exists in the database.");
         }

@@ -3,9 +3,9 @@ angular.module('MidiApp', [])
     $scope.user;
     $scope.intervalLevel;
     $scope.initialInterval;
+    $scope.isLive = false;
 
-        const VF = Vex.Flow;
-//        $scope.noteContainer;
+    const VF = Vex.Flow;
     $scope.frequencies = {};
     $scope.staff;
     $scope.note;
@@ -23,6 +23,8 @@ angular.module('MidiApp', [])
                     console.log(response.data);
                     console.log("logging in...");
                     $scope.user = response.data;
+                    console.log($scope.user);
+                    $scope.isLive = true;
                 },
                 function errorCallBack(response) {
                     console.log("Unable to log in");
@@ -38,6 +40,7 @@ angular.module('MidiApp', [])
                     console.log(response.data);
                     console.log("Registering...");
                     $scope.user = response.data;
+                    $scope.isLive = true;
                 },
                 function errorCallBack(response) {
                     console.log("Unable to register");
@@ -47,12 +50,12 @@ angular.module('MidiApp', [])
 
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
-            console.log(intLevel);
             $http.post("/getIntervalLevel.json", $scope.user)
             .then(
                 function successCallBack(response) {
                     console.log(response.data);
                     $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
                 },
                 function errorCallBack(response) {
                     console.log("Could not return level");
@@ -61,16 +64,13 @@ angular.module('MidiApp', [])
 
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
-                        var intLevel = {
-                        intervalLevelId: 209,
-                        levelNumber: 2
-                        };
 
-            $http.post("/getInterval.json", intLevel)
+            $http.post("/getInterval.json", $scope.intervalLevel)
             .then (
                 function successCallBack(response) {
                     console.log(response.data);
                     $scope.initialInterval = response.data;
+                    console.log($scope.initialInterval);
                 },
                 function errorCallBack(response) {
                     console.log("Unable to recieve initial interval");
