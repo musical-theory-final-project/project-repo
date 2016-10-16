@@ -3,9 +3,9 @@ angular.module('MidiApp', [])
     $scope.user;
     $scope.intervalLevel;
     $scope.initialInterval;
+    $scope.isLive = false;
 
-        const VF = Vex.Flow;
-//        $scope.noteContainer;
+    const VF = Vex.Flow;
     $scope.frequencies = {};
     $scope.staff;
     $scope.note;
@@ -23,6 +23,8 @@ angular.module('MidiApp', [])
                     console.log(response.data);
                     console.log("logging in...");
                     $scope.user = response.data;
+                    console.log($scope.user);
+                    $scope.isLive = true;
                 },
                 function errorCallBack(response) {
                     console.log("Unable to log in");
@@ -38,6 +40,7 @@ angular.module('MidiApp', [])
                     console.log(response.data);
                     console.log("Registering...");
                     $scope.user = response.data;
+                    $scope.isLive = true;
                 },
                 function errorCallBack(response) {
                     console.log("Unable to register");
@@ -47,12 +50,12 @@ angular.module('MidiApp', [])
 
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
-            console.log(intLevel);
             $http.post("/getIntervalLevel.json", $scope.user)
             .then(
                 function successCallBack(response) {
                     console.log(response.data);
                     $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
                 },
                 function errorCallBack(response) {
                     console.log("Could not return level");
@@ -61,16 +64,13 @@ angular.module('MidiApp', [])
 
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
-                        var intLevel = {
-                        intervalLevelId: 209,
-                        levelNumber: 2
-                        };
 
-            $http.post("/getInterval.json", intLevel)
+            $http.post("/getInterval.json", $scope.intervalLevel)
             .then (
                 function successCallBack(response) {
                     console.log(response.data);
                     $scope.initialInterval = response.data;
+                    console.log($scope.initialInterval);
                 },
                 function errorCallBack(response) {
                     console.log("Unable to recieve initial interval");
@@ -143,14 +143,14 @@ angular.module('MidiApp', [])
         };
 
 
-        $scope.userInput = function(noteContainer) {
+        $scope.userInput = function() {
             var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
 
-            console.log(noteContainer);
+            console.log($scope.initialInterval);
             system.addStave({
-                voices:[score.voice(score.notes(noteContainer.note + noteContainer.octave + '/w'))]
+                voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
             }).addClef('treble').addTimeSignature('4/4');
 
             vf.draw();
@@ -206,11 +206,10 @@ angular.module('MidiApp', [])
             var app = new SchedulerApp();
         };
 
-        $scope.playInterval = function(note) {
-            console.log(note);
-            $scope.note = note;
-            var noteOut = teoria.note(note.name + note.octave);
-            var nextNote = noteOut.interval(note.interval);
+        $scope.playInterval = function() {
+            console.log($scope.initialInterval.note + $scope.initialInterval.octave);
+            var noteOut = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
+            var nextNote = noteOut.interval($scope.initialInterval.interval);
             $scope.nextNote = nextNote.toString();
             console.log(noteOut);
             console.log(nextNote.toString());
@@ -343,8 +342,8 @@ angular.module('MidiApp', [])
 
         $scope.checkAnswer = function(noteInterval) {
         console.log(noteInterval);
-        console.log($scope.note.interval);
-            if ($scope.note.interval === noteInterval) {
+        console.log($scope.initialInterval.interval);
+            if ($scope.initialInterval.interval === noteInterval) {
                 console.log("You are the greetest!");
             } else {
                 console.log("Blargh");

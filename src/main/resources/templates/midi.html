@@ -22,55 +22,79 @@
 </head>
 <body ng-controller="midi-controller">
 
-<div>
+<div ng-if=isLive==false>
+    <input type="text" placeholder="Username" ng-model="loginContainer.email"/>
+    <input type="password" placeholder="Password" ng-model="loginContainer.password"/>
+    <input type="button" ng-click="login(loginContainer)" value="Login"/>
+    <br/>
+    <input type="text" placeholder="Username" ng-model="registerContainer.email"/>
+    <input type="text" placeholder="Password" ng-model="registerContainer.password"/>
+    <input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>
+    <input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>
+    <input type="button" ng-click="register(registerContainer)" value="Register"/>
+
 
 </div>
-<input type="text" placeholder="Note" ng-model="noteContainer.note" placeholder="value">
-<input type="text" placeholder="Octave" ng-model="noteContainer.octave" placeholder="octave">
-<input type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
 
-<div id="boo">Hi i'm div</div>
-<input type="button" ng-click="playExample()" value="Pull the lever!"/>
+<div ng-if="isLive">
 
-<!--<input type="button" ng-click="userInput()" value="Show score"/>-->
+    <input type="button" value="Print note on score" ng-click="userInput()"/>
 
-<input type="button" ng-click="chords()" value="Play me some chords!"/>
+    <div id="boo">Hi i'm div</div>
+    <input type="button" ng-click="playExample()" value="Pull the lever!"/>
+
+        <div>
+            <p>Give me a note, and an interval!</p>
+            <input type="text" ng-model="note.name" placeholder="Note"/>
+            <input type="text" ng-model="note.octave" placeholder="Octave"/>
+            <input type="text" ng-model="note.interval" placeholder="Interval"/>
+            <input type="button" ng-click="playInterval()" value="Play generated interval"/>
+            {{a4}}
+        </div>
+
+        <div>
+            <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
+        </div>
+    <span>
+        <p>Please choose an interval: P1, m2, M2, m3, M3</p>
+        <input type="radio" value="P1" ng-model="answer"/>P1
+        <input type="radio" value="m2" ng-model="answer"/>m2
+        <input type="radio" value="M2" ng-model="answer"/>M2
+        <input type="radio" value="m3" ng-model="answer"/>m3
+        <input type="radio" value="M3" ng-model="answer"/>M3
+    </span>
+    <span>
+        <div>
+            <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
+        </div>
+    </span>
+
+    <br/><br/>
 
     <div>
-        <p>Give me a note, and an interval!</p>
-        <input type="text" ng-model="note.name" placeholder="Note"/>
-        <input type="text" ng-model="note.octave" placeholder="Octave"/>
-        <input type="text" ng-model="note.interval" placeholder="Interval"/>
-        <input type="button" ng-click="stuff(playInterval)" value="Do the thing!"/>
-        {{a4}}
+        <input type="button" ng-click="getIntervalLevel()" value="Get Interval Level"/>
     </div>
 
+    <br/><br/>
+
     <div>
-        <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
+        <input type="button" ng-click="getInitialInterval()" value="Get Initial Interval"/>
     </div>
-<span>
-    <p>Please choose an interval: P1, m2, M2, m3, M3</p>
-    <input type="radio" value="P1" ng-model="answer"/>P1
-    <input type="radio" value="m2" ng-model="answer"/>m2
-    <input type="radio" value="M2" ng-model="answer"/>M2
-    <input type="radio" value="m3" ng-model="answer"/>m3
-    <input type="radio" value="M3" ng-model="answer"/>M3
-</span>
-<span>
+
+    <br/><br/>
+
+
     <div>
-        <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
+        <p>Please give me a starting note, and a scale name</p>
+        <input type="text" ng-model="scale.startNote" placeholder="Note Name"/>
+        <input type="text" ng-model="scale.octave" placeholder="Note Octave"/>
+        <input type="text" ng-model="scale.name" placeholder="Scale Name"/>
+        <input type="button" ng-click="playScale(scale)" value="Get pitch slapped!"/>
     </div>
-</span>
-<br/><br/><br/><br/><br/><br/>
-<div>
-    <p>Please give me a starting note, and a scale name</p>
-    <input type="text" ng-model="scale.startNote" placeholder="Note Name"/>
-    <input type="text" ng-model="scale.octave" placeholder="Note Octave"/>
-    <input type="text" ng-model="scale.name" placeholder="Scale Name"/>
-    <input type="button" ng-click="playScale(scale)" value="Get pitch slapped!"/>
-</div>
 
 <input type="button" ng-click="getInitialInterval()" value="Get you some!"/>
+</div>
+
 
 
 </body>

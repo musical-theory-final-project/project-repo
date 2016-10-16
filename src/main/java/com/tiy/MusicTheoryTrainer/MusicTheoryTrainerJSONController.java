@@ -48,6 +48,10 @@ public class MusicTheoryTrainerJSONController {
         User myUser = users.findByEmail(registerInfo.getEmail());
         if (myUser == null) {
             myUser = new User(registerInfo.getFirstName(), registerInfo.getLastName(), registerInfo.getEmail(), registerInfo.getPassword());
+            IntervalLevel intLevel = intervalLevels.findByLevelNumber(1);
+            UserStatus myStatus = new UserStatus(myUser, intLevel);
+            users.save(myUser);
+            userStatuses.save(myStatus);
         } else {
             System.out.println("This email already exists in the database.");
         }
@@ -58,6 +62,7 @@ public class MusicTheoryTrainerJSONController {
     public IntervalLevel intervalLevel(@RequestBody User myUser) {
         UserStatus userStatus = userStatuses.findByUser(myUser);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(userStatus.getIntervalLevel().levelNumber);
+//        intervalLevels.save(intLevel);
         return intLevel;
     }
 
