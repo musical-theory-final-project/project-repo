@@ -22,12 +22,32 @@ public class UserStatus {
     @ManyToOne
     IntervalLevel intervalLevel;
 
+    @ManyToOne
+    ScaleLevel scaleLevel;
+
     public UserStatus() {
     }
 
-    public UserStatus(User user, IntervalLevel intervalLevel) {
+    public UserStatus(User user, IntervalLevel intervalLevel, ScaleLevel scaleLevel) {
         this.user = user;
         this.intervalLevel = intervalLevel;
+        this.scaleLevel = scaleLevel;
+    }
+
+    public int getUserStatusId() {
+        return userStatusId;
+    }
+
+    public void setUserStatusId(int userStatusId) {
+        this.userStatusId = userStatusId;
+    }
+
+    public ScaleLevel getScaleLevel() {
+        return scaleLevel;
+    }
+
+    public void setScaleLevel(ScaleLevel scaleLevel) {
+        this.scaleLevel = scaleLevel;
     }
 
     public User getUser() {

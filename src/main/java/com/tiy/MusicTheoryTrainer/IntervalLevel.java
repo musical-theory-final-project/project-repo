@@ -23,12 +23,12 @@ public class IntervalLevel {
         this.levelNumber = levelNumber;
     }
 
-    public int getId() {
+    public int getIntervalLevelId() {
         return intervalLevelId;
     }
 
-    public void setId(int id) {
-        this.intervalLevelId = id;
+    public void setIntervalLevelId(int intervalLevelId) {
+        this.intervalLevelId = intervalLevelId;
     }
 
     public int getLevelNumber() {
@@ -37,13 +37,5 @@ public class IntervalLevel {
 
     public void setLevelNumber(int levelNumber) {
         this.levelNumber = levelNumber;
-    }
-
-    public int getIntervalLevelId() {
-        return intervalLevelId;
-    }
-
-    public void setIntervalLevelId(int intervalLevelId) {
-        this.intervalLevelId = intervalLevelId;
     }
 }
