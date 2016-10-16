@@ -44,7 +44,7 @@ h1 {
     position: relative;
 }
 
-.falseBox {
+.intervalScoring.false {
     background-color: red;
     float: left;
     height: 75px;
@@ -52,7 +52,7 @@ h1 {
     margin: 5px;
 }
 
-.trueBox {
+.intervalScoring.true {
     background-color: green;
     float: left;
     height: 75px;
