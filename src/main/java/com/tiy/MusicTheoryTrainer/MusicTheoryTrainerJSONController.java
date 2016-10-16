@@ -34,6 +34,12 @@ public class MusicTheoryTrainerJSONController {
     @Autowired
     UserStatusRepository userStatuses;
 
+    @Autowired
+    ScaleLevelRepository scaleLevels;
+
+    @Autowired
+    ScaleRepository scales;
+
     @RequestMapping(path = "/login.json", method = RequestMethod.POST)
     public User login(@RequestBody LoginInfoPost loginInfo) {
         User myUser = users.findByEmail(loginInfo.getEmail());
