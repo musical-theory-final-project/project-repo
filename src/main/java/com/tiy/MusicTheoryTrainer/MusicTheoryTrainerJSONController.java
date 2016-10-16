@@ -32,13 +32,21 @@ public class MusicTheoryTrainerJSONController {
     IntervalLevelRepository intervalLevels;
 
     @Autowired
-    UserStatusRepository userStatuses;
+    ScaleRepository scales;
 
     @Autowired
     ScaleLevelRepository scaleLevels;
 
     @Autowired
-    ScaleRepository scales;
+    ChordRepository chords;
+
+    @Autowired
+    ChordLevelRepository chordLevels;
+
+    @Autowired
+    UserStatusRepository userStatuses;
+
+
 
     // Login
     @RequestMapping(path = "/login.json", method = RequestMethod.POST)
@@ -75,13 +83,34 @@ public class MusicTheoryTrainerJSONController {
         return intLevel;
     }
 
+    // Retrieve ScaleLevel based on user. Allows proper display of available levels for scales.
+    @RequestMapping(path = "/getScaleLevel.json", method = RequestMethod.POST)
+    public ScaleLevel scaleLevel(@RequestBody User myUser) {
+        UserStatus userStatus = userStatuses.findByUser(myUser);
+        ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(userStatus.getScaleLevel().levelNumber);
+        return scaleLevel;
+    }
+
+    // Retrieve ChordLevel based on user. Allows proper display of available levels for chords.
+    @RequestMapping(path = "/getChordLevel.json", method = RequestMethod.POST)
+    public ChordLevel chordLevel(@RequestBody User myUser) {
+        UserStatus userStatus = userStatuses.findByUser(myUser);
+        ChordLevel chordLevel = chordLevels.findByLevelNumber(userStatus.getChordLevel().levelNumber);
+        return chordLevel;
+    }
+
+
+
     // Allow the user to reach next level in Interval training up to level4
     @RequestMapping(path = "/nextIntervalLevel.json", method = RequestMethod.POST)
     public IntervalLevel nextIntervalLevel(@RequestBody User myUser) {
+
         UserStatus currentUserStatus = userStatuses.findByUser(myUser);
         IntervalLevel currentIntervalLevel = currentUserStatus.getIntervalLevel();
+
         if (currentIntervalLevel.getLevelNumber() <= 4) {
-            currentIntervalLevel.setLevelNumber(currentIntervalLevel.getLevelNumber() + 1);
+            int newIntervalLevel = currentIntervalLevel.getLevelNumber() + 1;
+            currentIntervalLevel = intervalLevels.findByLevelNumber(newIntervalLevel);
         }
         currentUserStatus.setIntervalLevel(currentIntervalLevel);
         userStatuses.save(currentUserStatus);
@@ -89,19 +118,19 @@ public class MusicTheoryTrainerJSONController {
         return currentIntervalLevel;
     }
 
-    // Allow the user to reach next level in Scale training up to level4
-    @RequestMapping(path = "/nextScaleLevel.json", method = RequestMethod.POST)
-    public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
-        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
-        ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
-        if (currentScaleLevel.getLevelNumber() <= 4) {
-            currentScaleLevel.setLevelNumber(currentScaleLevel.getLevelNumber() + 1);
-        }
-        currentUserStatus.setScaleLevel(currentScaleLevel);
-        userStatuses.save(currentUserStatus);
-
-        return currentScaleLevel;
-    }
+//    // Allow the user to reach next level in Scale training up to level4
+//    @RequestMapping(path = "/nextScaleLevel.json", method = RequestMethod.POST)
+//    public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
+//        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
+//        ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
+//        if (currentScaleLevel.getLevelNumber() <= 4) {
+//            currentScaleLevel.setLevelNumber(currentScaleLevel.getLevelNumber() + 1);
+//        }
+//        currentUserStatus.setScaleLevel(currentScaleLevel);
+//        userStatuses.save(currentUserStatus);
+//
+//        return currentScaleLevel;
+//    }
 
     // POST interval endpoint for app usage
     @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
@@ -202,14 +231,6 @@ public class MusicTheoryTrainerJSONController {
         returnIntervalContainer.setNote(noteList.get(noteRNG).getNote());
 
         return returnIntervalContainer;
-    }
-
-    // retrieve ScaleLevel based on user.
-    @RequestMapping(path = "/getScaleLevel.json", method = RequestMethod.POST)
-    public ScaleLevel scaleLevel(@RequestBody User myUser) {
-        UserStatus userStatus = userStatuses.findByUser(myUser);
-        ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(userStatus.getScaleLevel().levelNumber);
-        return scaleLevel;
     }
 
     // POST scale endpoint for app usage
