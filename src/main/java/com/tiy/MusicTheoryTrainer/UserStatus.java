@@ -25,6 +25,9 @@ public class UserStatus {
     @ManyToOne
     ScaleLevel scaleLevel;
 
+    @ManyToOne
+    ChordLevel chordLevel;
+
     public UserStatus() {
     }
 
@@ -64,5 +67,13 @@ public class UserStatus {
 
     public void setIntervalLevel(IntervalLevel intervalLevel) {
         this.intervalLevel = intervalLevel;
+    }
+
+    public ChordLevel getChordLevel() {
+        return chordLevel;
+    }
+
+    public void setChordLevel(ChordLevel chordLevel) {
+        this.chordLevel = chordLevel;
     }
 }
