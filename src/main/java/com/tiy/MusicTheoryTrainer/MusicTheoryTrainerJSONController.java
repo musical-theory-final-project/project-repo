@@ -181,12 +181,6 @@ public class MusicTheoryTrainerJSONController {
             noteList.add(currentNote);
         }
 
-
-
-        System.out.println(noteList.size());
-
-
-
         int intervalRNG = (int)((Math.random() * intervalList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
         int noteRNG = (int) (Math.random() * noteList.size());
@@ -233,12 +227,6 @@ public class MusicTheoryTrainerJSONController {
             noteList.add(currentNote);
         }
 
-
-
-        System.out.println(noteList.size());
-
-
-
         int intervalRNG = (int)((Math.random() * intervalList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
         int noteRNG = (int) (Math.random() * noteList.size());
@@ -283,12 +271,6 @@ public class MusicTheoryTrainerJSONController {
         for (Note currentNote : myNotes) {
             noteList.add(currentNote);
         }
-
-
-
-        System.out.println(noteList.size());
-
-
 
         int scaleRNG = (int)((Math.random() * scaleList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
@@ -336,12 +318,6 @@ public class MusicTheoryTrainerJSONController {
             noteList.add(currentNote);
         }
 
-
-
-        System.out.println(noteList.size());
-
-
-
         int scaleRNG = (int)((Math.random() * scaleList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
         int noteRNG = (int) (Math.random() * noteList.size());
@@ -385,12 +361,6 @@ public class MusicTheoryTrainerJSONController {
         for (Note currentNote : myNotes) {
             noteList.add(currentNote);
         }
-
-
-
-        System.out.println(noteList.size());
-
-
 
         int chordRNG = (int)((Math.random() * chordList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
@@ -437,12 +407,6 @@ public class MusicTheoryTrainerJSONController {
         for (Note currentNote : myNotes) {
             noteList.add(currentNote);
         }
-
-
-
-        System.out.println(noteList.size());
-
-
 
         int chordRNG = (int)((Math.random() * chordList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
