@@ -353,7 +353,6 @@ angular.module('MidiApp', [])
                     $scope.intervalScoring.shift();
                     $scope.intervalScoring.push(true);
                 }
-                console.log($scope.intervalScoring);
             } else {
                 console.log("Blargh");
                 if ($scope.intervalScoring.length < 10) {
@@ -383,4 +382,18 @@ angular.module('MidiApp', [])
             }
         };
 
+        $scope.nextIntervalLevel = function() {
+            console.log("Moving to level " + ($scope.intervalLevel.levelNumber + 1) + " from " + $scope.intervalLevel);
+            $http.post("/nextIntervalLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log("We're moving on~~~");
+                    $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
+                    $scope.filter = [];
+                },
+                function errorCallBack(response) {
+                    console.log("Could not move to next level");
+                });
+        };
    });
