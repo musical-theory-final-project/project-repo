@@ -143,14 +143,14 @@ angular.module('MidiApp', [])
         };
 
 
-        $scope.userInput = function(noteContainer) {
+        $scope.userInput = function() {
             var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
 
-            console.log(noteContainer);
+            console.log($scope.initialInterval);
             system.addStave({
-                voices:[score.voice(score.notes(noteContainer.note + noteContainer.octave + '/w'))]
+                voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
             }).addClef('treble').addTimeSignature('4/4');
 
             vf.draw();
@@ -206,11 +206,10 @@ angular.module('MidiApp', [])
             var app = new SchedulerApp();
         };
 
-        $scope.playInterval = function(note) {
-            console.log(note);
-            $scope.note = note;
-            var noteOut = teoria.note(note.name + note.octave);
-            var nextNote = noteOut.interval(note.interval);
+        $scope.playInterval = function() {
+            console.log($scope.initialInterval.note + $scope.initialInterval.octave);
+            var noteOut = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
+            var nextNote = noteOut.interval($scope.initialInterval.interval);
             $scope.nextNote = nextNote.toString();
             console.log(noteOut);
             console.log(nextNote.toString());
@@ -343,8 +342,8 @@ angular.module('MidiApp', [])
 
         $scope.checkAnswer = function(noteInterval) {
         console.log(noteInterval);
-        console.log($scope.note.interval);
-            if ($scope.note.interval === noteInterval) {
+        console.log($scope.initialInterval.interval);
+            if ($scope.initialInterval.interval === noteInterval) {
                 console.log("You are the greetest!");
             } else {
                 console.log("Blargh");

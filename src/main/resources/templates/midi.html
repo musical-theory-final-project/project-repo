@@ -38,23 +38,17 @@
 
 <div ng-if="isLive">
 
-    <input type="text" placeholder="Note" ng-model="noteContainer.note" placeholder="value">
-    <input type="text" placeholder="Octave" ng-model="noteContainer.octave" placeholder="octave">
-    <input type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
+    <input type="button" value="Print note on score" ng-click="userInput()"/>
 
     <div id="boo">Hi i'm div</div>
     <input type="button" ng-click="playExample()" value="Pull the lever!"/>
-
-    <!--<input type="button" ng-click="userInput()" value="Show score"/>-->
-
-    <!--<input type="button" ng-click="chords()" value="Play me some chords!"/>-->
 
         <div>
             <p>Give me a note, and an interval!</p>
             <input type="text" ng-model="note.name" placeholder="Note"/>
             <input type="text" ng-model="note.octave" placeholder="Octave"/>
             <input type="text" ng-model="note.interval" placeholder="Interval"/>
-            <input type="button" ng-click="stuff(playInterval)" value="Do the thing!"/>
+            <input type="button" ng-click="playInterval()" value="Play generated interval"/>
             {{a4}}
         </div>
 
