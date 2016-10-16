@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MidiApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--
+{{! changing the mustache delimiter so it doesn't conflict with  }}
+{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+{{=<% %>=}}
+--->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/Audiolet.js"></script>
+    <script src="../static/js/Audiolet.js"></script>
+    <script src="js/midi-controller.js"></script>
+    <script src="../static/js/midi-controller.js"></script>
+    <script src="js/teoria.js"></script>
+    <script src="../static/js/teoria.js"></script>
+
+</head>
+<body ng-controller="midi-controller">
+<div>
+    <h3>Please choose a level</h3>
+    <input type="button" value="level 1" ng-click=""/>
+    <input type="button" value="level 2" ng-click=""/>
+    <input type="button" value="level 3" ng-click=""/>
+    <input type="button" value="level 4" ng-click=""/>
+</div>
+
+</body>
+</html>
+<script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>

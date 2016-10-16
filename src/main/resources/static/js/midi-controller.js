@@ -391,9 +391,12 @@ angular.module('MidiApp', [])
                     $scope.intervalLevel = response.data;
                     console.log($scope.intervalLevel);
                     $scope.filter = [];
+                    $scope.intervalScoring = [];
                 },
                 function errorCallBack(response) {
                     console.log("Could not move to next level");
                 });
         };
+
+
    });

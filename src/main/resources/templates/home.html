@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MusicTheoryTrainer">
+<html lang="en" ng-app="MidiApp">
 <!--
 {{! changing the mustache delimiter so it doesn't conflict with  }}
 {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
@@ -9,17 +9,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Musictheorytrainer</title>
-</head>
-<body>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/midi-controller.js"></script>
+    <script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+
+</head>
+<body ng-controller="midi-controller">
+
+<div ng-if=isLive==false>
+    <input type="text" placeholder="Username" ng-model="loginContainer.email"/>
+    <input type="password" placeholder="Password" ng-model="loginContainer.password"/>
+    <input type="button" ng-click="login(loginContainer)" value="Login"/>
+    <br/>
+    <input type="text" placeholder="Username" ng-model="registerContainer.email"/>
+    <input type="text" placeholder="Password" ng-model="registerContainer.password"/>
+    <input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>
+    <input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>
+    <input type="button" ng-click="register(registerContainer)" value="Register"/>
 </div>
-<div id="boo">Hi i'm div</div>
-<div id="boo2">Hi i'm div2</div>
+
+<div ng-if="isLive">
+    <h3>Please choose a game mode</h3>
+    <input type="button" value="Intervals" ng-click=""/>
+    <h4>More games to come at a later date</h4>
+</div>
+
 </body>
+
 </html>
 
-<script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
-<script src="js/score.js"></script>
-<script src="../static/js/score.js"></script>
-<!--<script src="js/utheory-debug.js"></script>-->
