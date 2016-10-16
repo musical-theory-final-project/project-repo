@@ -20,9 +20,21 @@ public class Octave {
     @ManyToOne
     IntervalLevel intervalLevel;
 
-    public Octave(String octave, IntervalLevel intervalLevel) {
+    @ManyToOne
+    ScaleLevel scaleLevel;
+
+    public Octave(String octave, IntervalLevel intervalLevel, ScaleLevel scaleLevel) {
         this.octave = octave;
         this.intervalLevel = intervalLevel;
+        this.scaleLevel = scaleLevel;
+    }
+
+    public ScaleLevel getScaleLevel() {
+        return scaleLevel;
+    }
+
+    public void setScaleLevel(ScaleLevel scaleLevel) {
+        this.scaleLevel = scaleLevel;
     }
 
     public Octave(String octave) {

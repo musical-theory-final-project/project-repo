@@ -107,11 +107,11 @@ public class MusicTheoryTrainerController {
 			octaves.save(octave1);
 			Octave octave2 = new Octave("2");
 			octaves.save(octave2);
-			Octave octave3 = new Octave("3", intervalLevel3);
+			Octave octave3 = new Octave("3", intervalLevel3, scaleLevel1);
 			octaves.save(octave3);
-			Octave octave4 = new Octave("4", intervalLevel1);
+			Octave octave4 = new Octave("4", intervalLevel1, scaleLevel2);
 			octaves.save(octave4);
-			Octave octave5 = new Octave("5", intervalLevel1);
+			Octave octave5 = new Octave("5", intervalLevel1, scaleLevel4);
 			octaves.save(octave5);
 			Octave octave6 = new Octave("6");
 			octaves.save(octave6);
