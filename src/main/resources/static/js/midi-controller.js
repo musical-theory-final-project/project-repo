@@ -353,7 +353,6 @@
                     $scope.intervalScoring.shift();
                     $scope.intervalScoring.push(true);
                 }
-                console.log($scope.intervalScoring);
             } else {
                 console.log("Blargh");
                 if ($scope.intervalScoring.length < 10) {
@@ -382,5 +381,22 @@
                 console.log("I'm sorry, but you're wrong.");
             }
         };
+
+        $scope.nextIntervalLevel = function() {
+            console.log("Moving to level " + ($scope.intervalLevel.levelNumber + 1) + " from " + $scope.intervalLevel);
+            $http.post("/nextIntervalLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log("We're moving on~~~");
+                    $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
+                    $scope.filter = [];
+                    $scope.intervalScoring = [];
+                },
+                function errorCallBack(response) {
+                    console.log("Could not move to next level");
+                });
+        };
+
 
    });

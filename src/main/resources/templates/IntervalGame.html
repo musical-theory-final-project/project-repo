@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MidiApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--
+    {{! changing the mustache delimiter so it doesn't conflict with  }}
+    {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+    {{=<% %>=}}
+    --->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/Audiolet.js"></script>
+    <script src="../static/js/Audiolet.js"></script>
+    <script src="js/midi-controller.js"></script>
+    <script src="../static/js/midi-controller.js"></script>
+    <script src="js/teoria.js"></script>
+    <script src="../static/js/teoria.js"></script>
+
+</head>
+<body ng-controller="midi-controller">
+
+
+
+
+
+</div>
+<p>Number of right/wrong</p>
+{{intervalScoring}}
+<div ng-if="filter.length >= 8">
+    <p>You are the bees knees!</p>
+    <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
+</div>
+
+</body>
+</html>
