@@ -54,6 +54,7 @@
 
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
+            console.log($scope.user);
             $http.post("/getIntervalLevel.json", $scope.user)
             .then(
                 function successCallBack(response) {

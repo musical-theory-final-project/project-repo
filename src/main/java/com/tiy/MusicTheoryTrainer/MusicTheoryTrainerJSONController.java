@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,18 +51,19 @@ public class MusicTheoryTrainerJSONController {
 
     // Login
     @RequestMapping(path = "/login.json", method = RequestMethod.POST)
-    public UserStatus login(@RequestBody LoginInfoPost loginInfo) {
+    public UserStatus login(@RequestBody LoginInfoPost loginInfo, HttpSession session) {
         User myUser = users.findByEmail(loginInfo.getEmail());
         if (myUser == null) {
             System.out.println("User does not exist.");
         }
         UserStatus myStatus = userStatuses.findByUser(myUser);
+        session.setAttribute("user", myUser);
         return myStatus;
     }
 
     // Creates a new user and assigns them default UserStatus (includes IntervalLevel, ScaleLevel, and eventually ChordLevel.
     @RequestMapping(path = "/register.json", method = RequestMethod.POST)
-    public UserStatus register(@RequestBody RegisterInfoPost registerInfo) {
+    public UserStatus register(@RequestBody RegisterInfoPost registerInfo, HttpSession session) {
         User myUser = users.findByEmail(registerInfo.getEmail());
         UserStatus myStatus = new UserStatus();
         if (myUser == null) {
@@ -71,6 +73,7 @@ public class MusicTheoryTrainerJSONController {
             myStatus = new UserStatus(myUser, intLevel, scaleLevel);
             users.save(myUser);
             userStatuses.save(myStatus);
+            session.setAttribute("user", myUser);
         } else {
             System.out.println("This email already exists in the database.");
         }
@@ -79,7 +82,8 @@ public class MusicTheoryTrainerJSONController {
 
     // Retrieve IntervalLevel based on user. Allows proper display of available levels for intervals.
     @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
-    public IntervalLevel intervalLevel(@RequestBody User myUser) {
+    public IntervalLevel intervalLevel(HttpSession session) {
+        User myUser = (User) session.getAttribute("user");
         UserStatus userStatus = userStatuses.findByUser(myUser);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(userStatus.getIntervalLevel().levelNumber);
         return intLevel;
