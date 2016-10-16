@@ -211,6 +211,11 @@ public class MusicTheoryTrainerController {
 		return"/intervalGameMenu";
 	}
 
+	@RequestMapping(path = "/intervalGame", method = RequestMethod.GET)
+	public String intervalGame(){
+		return"/intervalGame";
+	}
+
 //	@RequestMapping(path = "/register", method = RequestMethod.GET)
 //	public String newPlayer(HttpSession session, String firstName, String lastName, String email, String password){
 //		User user = users.findByEmail(email);
