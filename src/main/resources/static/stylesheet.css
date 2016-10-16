@@ -43,3 +43,19 @@ h1 {
     float: left;
     position: relative;
 }
+
+.falseBox {
+    background-color: red;
+    float: left;
+    height: 75px;
+    width: 75px;
+    margin: 5px;
+}
+
+.trueBox {
+    background-color: green;
+    float: left;
+    height: 75px;
+    width: 75px;
+    margin: 5px;
+}

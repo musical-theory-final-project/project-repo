@@ -1,4 +1,4 @@
-angular.module('MidiApp', [])
+    angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
     $scope.user;
     $scope.intervalLevel;
