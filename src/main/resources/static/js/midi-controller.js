@@ -24,7 +24,9 @@
                 function successCallBack(response) {
                     console.log(response.data);
                     console.log("logging in...");
-                    $scope.user = response.data;
+                    var userStatus = response.data;
+                    $scope.user = userStatus.user;
+                    $scope.intervalLevel = userStatus.intervalLevel;
                     console.log($scope.user);
                     $scope.isLive = true;
                 },
@@ -76,6 +78,18 @@
                 },
                 function errorCallBack(response) {
                     console.log("Unable to recieve initial interval");
+                });
+        };
+
+        $scope.goToIntervalGames = function() {
+            console.log("Going to the interval games menu");
+            $http.get("/intervalGameMenu")
+            .then(
+                function successCallBack(response) {
+                    console.log("Great success!");
+                },
+                function errorCallBack(response){
+                    console.log("Could not navigate to page");
                 });
         };
 
