@@ -334,7 +334,7 @@ public class MusicTheoryTrainerJSONController {
 
     // POST scale endpoint for app usage
     @RequestMapping(path = "/getChord.json", method = RequestMethod.POST)
-    public ReturnChordContainer scale(@RequestBody ChordLevel chordLevel) {
+    public ReturnChordContainer chord(@RequestBody ChordLevel chordLevel) {
         System.out.println("pinged");
         int levelNumber = chordLevel.getLevelNumber();
         ArrayList<Chord> chordList = new ArrayList<>();
