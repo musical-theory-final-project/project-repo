@@ -153,17 +153,17 @@ public class MusicTheoryTrainerController {
 			intervals.save(intervalAugmentedFourth);
 			Interval intervalDiminishedFifth = new Interval ("TT", intervalLevel2);
 			intervals.save(intervalDiminishedFifth);
-			Interval intervalPerfectFifth= new Interval ("P5", intervalLevel2);
+			Interval intervalPerfectFifth = new Interval ("P5", intervalLevel2);
 			intervals.save(intervalPerfectFifth);
 			Interval intervalMinorSixth = new Interval ("m6", intervalLevel4);
 			intervals.save(intervalMinorSixth);
-			Interval intervalMajorSixth= new Interval ("M6", intervalLevel4);
+			Interval intervalMajorSixth = new Interval ("M6", intervalLevel4);
 			intervals.save(intervalMajorSixth);
-			Interval intervalMinorSeventh= new Interval ("m7", intervalLevel4);
+			Interval intervalMinorSeventh = new Interval ("m7", intervalLevel4);
 			intervals.save(intervalMinorSeventh);
-			Interval intervalMajorSeventh= new Interval ("M7", intervalLevel4);
+			Interval intervalMajorSeventh = new Interval ("M7", intervalLevel4);
 			intervals.save(intervalMajorSeventh);
-			Interval intervalPerfectEighth= new Interval ("P8", intervalLevel4);
+			Interval intervalPerfectEighth = new Interval ("P8", intervalLevel4);
 			intervals.save(intervalPerfectEighth);
 		}
 
