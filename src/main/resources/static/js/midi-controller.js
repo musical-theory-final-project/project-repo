@@ -368,7 +368,6 @@ angular.module('MidiApp', [])
             console.log($scope.intervalScoring);
             $scope.filter = $scope.intervalScoring.filter(isTrue);
             console.log($scope.filter);
-//            console.log($scope.intervalScoring.filter(false));
 
         };
 
