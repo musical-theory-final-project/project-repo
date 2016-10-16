@@ -104,10 +104,8 @@ public class MusicTheoryTrainerJSONController {
     // Allow the user to reach next level in Interval training up to level4
     @RequestMapping(path = "/nextIntervalLevel.json", method = RequestMethod.POST)
     public IntervalLevel nextIntervalLevel(@RequestBody User myUser) {
-
         UserStatus currentUserStatus = userStatuses.findByUser(myUser);
         IntervalLevel currentIntervalLevel = currentUserStatus.getIntervalLevel();
-
         if (currentIntervalLevel.getLevelNumber() <= 4) {
             int newIntervalLevel = currentIntervalLevel.getLevelNumber() + 1;
             currentIntervalLevel = intervalLevels.findByLevelNumber(newIntervalLevel);
@@ -118,19 +116,38 @@ public class MusicTheoryTrainerJSONController {
         return currentIntervalLevel;
     }
 
-//    // Allow the user to reach next level in Scale training up to level4
-//    @RequestMapping(path = "/nextScaleLevel.json", method = RequestMethod.POST)
-//    public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
-//        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
-//        ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
-//        if (currentScaleLevel.getLevelNumber() <= 4) {
-//            currentScaleLevel.setLevelNumber(currentScaleLevel.getLevelNumber() + 1);
-//        }
-//        currentUserStatus.setScaleLevel(currentScaleLevel);
-//        userStatuses.save(currentUserStatus);
-//
-//        return currentScaleLevel;
-//    }
+    // Allow the user to reach next level in Scale training up to level4
+    @RequestMapping(path = "/nextScaleLevel.json", method = RequestMethod.POST)
+    public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
+        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
+        ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
+        if (currentScaleLevel.getLevelNumber() <= 4) {
+            int newScaleLevel = currentScaleLevel.getLevelNumber() + 1;
+            currentScaleLevel= scaleLevels.findByLevelNumber(newScaleLevel);
+        }
+        currentUserStatus.setScaleLevel(currentScaleLevel);
+        userStatuses.save(currentUserStatus);
+
+        return currentScaleLevel;
+    }
+
+    // Allow the user to reach next level in Chord training up to level4
+    @RequestMapping(path = "/nextChordLevel.json", method = RequestMethod.POST)
+    public ChordLevel nextChordLevel(@RequestBody User myUser) {
+        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
+        ChordLevel currentChordLevel = currentUserStatus.getChordLevel();
+        if (currentChordLevel.getLevelNumber() <= 4) {
+            int newChordLevel = currentChordLevel.getLevelNumber() + 1;
+            currentChordLevel= chordLevels.findByLevelNumber(newChordLevel);
+        }
+        currentUserStatus.setChordLevel(currentChordLevel);
+        userStatuses.save(currentUserStatus);
+
+        return currentChordLevel;
+    }
+
+
+
 
     // POST interval endpoint for app usage
     @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
@@ -233,6 +250,8 @@ public class MusicTheoryTrainerJSONController {
         return returnIntervalContainer;
     }
 
+
+
     // POST scale endpoint for app usage
     @RequestMapping(path = "/getScale.json", method = RequestMethod.POST)
     public ReturnScaleContainer scale(@RequestBody ScaleLevel scaleLevel) {
@@ -332,6 +351,108 @@ public class MusicTheoryTrainerJSONController {
         returnScaleContainer.setNote(noteList.get(noteRNG).getNote());
 
         return returnScaleContainer;
+    }
+
+
+    // POST scale endpoint for app usage
+    @RequestMapping(path = "/getChord.json", method = RequestMethod.POST)
+    public ReturnChordContainer scale(@RequestBody ChordLevel chordLevel) {
+        System.out.println("pinged");
+        int levelNumber = chordLevel.getLevelNumber();
+        ArrayList<Chord> chordList = new ArrayList<>();
+        ArrayList<Octave> octaveList = new ArrayList<>();
+        ArrayList<Note> noteList = new ArrayList<>();
+
+        ReturnChordContainer returnChordContainer = new ReturnChordContainer();
+
+        while (levelNumber != 0) {
+            chordLevel = chordLevels.findByLevelNumber(levelNumber);
+
+            List<Chord> chord = chords.findByChordLevel(chordLevel);
+            for (Chord currentChord : chord) {
+                chordList.add(currentChord);
+            }
+
+            List<Octave> octave = octaves.findByChordLevel(chordLevel);
+            for (Octave currentOctave : octave) {
+                octaveList.add(currentOctave);
+            }
+            levelNumber--;
+        }
+
+        Iterable<Note> myNotes = notes.findAll();
+
+        for (Note currentNote : myNotes) {
+            noteList.add(currentNote);
+        }
+
+
+
+        System.out.println(noteList.size());
+
+
+
+        int chordRNG = (int)((Math.random() * chordList.size()));
+        int octaveRNG = (int) (Math.random() * octaveList.size());
+        int noteRNG = (int) (Math.random() * noteList.size());
+
+
+        returnChordContainer.setChord(chordList.get(chordRNG).getChord());
+        returnChordContainer.setOctave(octaveList.get(octaveRNG).getOctave());
+        returnChordContainer.setNote(noteList.get(noteRNG).getNote());
+
+        return returnChordContainer;
+    }
+
+    // GET scale endpoint to test JSON container
+    @RequestMapping(path = "/getChordEndPoint.json", method = RequestMethod.GET)
+    public ReturnChordContainer chord() {
+
+        ChordLevel chordLevel = chordLevels.findByLevelNumber(2);
+
+        int levelNumber = chordLevel.getLevelNumber();
+        ArrayList<Chord> chordList = new ArrayList<>();
+        ArrayList<Octave> octaveList = new ArrayList<>();
+        ArrayList<Note> noteList = new ArrayList<>();
+
+        ReturnChordContainer returnChordContainer = new ReturnChordContainer();
+
+        while (levelNumber != 0) {
+            chordLevel = chordLevels.findByLevelNumber(levelNumber);
+
+            List<Chord> chord = chords.findByChordLevel(chordLevel);
+            for (Chord currentChord : chord) {
+                chordList.add(currentChord);
+            }
+
+            List<Octave> octave = octaves.findByChordLevel(chordLevel);
+            for (Octave currentOctave : octave) {
+                octaveList.add(currentOctave);
+            }
+            levelNumber--;
+        }
+
+        Iterable<Note> myNotes = notes.findAll();
+
+        for (Note currentNote : myNotes) {
+            noteList.add(currentNote);
+        }
+
+
+
+        System.out.println(noteList.size());
+
+
+
+        int chordRNG = (int)((Math.random() * chordList.size()));
+        int octaveRNG = (int) (Math.random() * octaveList.size());
+        int noteRNG = (int) (Math.random() * noteList.size());
+
+        returnChordContainer.setChord(chordList.get(chordRNG).getChord());
+        returnChordContainer.setOctave(octaveList.get(octaveRNG).getOctave());
+        returnChordContainer.setNote(noteList.get(noteRNG).getNote());
+
+        return returnChordContainer;
     }
 
 }
