@@ -23,11 +23,16 @@ public class Octave {
     @ManyToOne
     ScaleLevel scaleLevel;
 
+    @ManyToOne
+    ChordLevel chordLevel;
+
     public Octave(String octave, IntervalLevel intervalLevel, ScaleLevel scaleLevel) {
         this.octave = octave;
         this.intervalLevel = intervalLevel;
         this.scaleLevel = scaleLevel;
     }
+
+
 
     public ScaleLevel getScaleLevel() {
         return scaleLevel;
@@ -66,5 +71,13 @@ public class Octave {
 
     public void setOctave(String octave) {
         this.octave = octave;
+    }
+
+    public ChordLevel getChordLevel() {
+        return chordLevel;
+    }
+
+    public void setChordLevel(ChordLevel chordLevel) {
+        this.chordLevel = chordLevel;
     }
 }

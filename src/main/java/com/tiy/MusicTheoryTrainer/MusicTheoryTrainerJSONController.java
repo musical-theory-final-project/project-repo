@@ -75,7 +75,33 @@ public class MusicTheoryTrainerJSONController {
         return intLevel;
     }
 
+    // Allow the user to reach next level in Interval training up to level4
+    @RequestMapping(path = "/nextIntervalLevel.json", method = RequestMethod.POST)
+    public IntervalLevel nextIntervalLevel(@RequestBody User myUser) {
+        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
+        IntervalLevel currentIntervalLevel = currentUserStatus.getIntervalLevel();
+        if (currentIntervalLevel.getLevelNumber() <= 4) {
+            currentIntervalLevel.setLevelNumber(currentIntervalLevel.getLevelNumber() + 1);
+        }
+        currentUserStatus.setIntervalLevel(currentIntervalLevel);
+        userStatuses.save(currentUserStatus);
 
+        return currentIntervalLevel;
+    }
+
+    // Allow the user to reach next level in Scale training up to level4
+    @RequestMapping(path = "/nextScaleLevel.json", method = RequestMethod.POST)
+    public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
+        UserStatus currentUserStatus = userStatuses.findByUser(myUser);
+        ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
+        if (currentScaleLevel.getLevelNumber() <= 4) {
+            currentScaleLevel.setLevelNumber(currentScaleLevel.getLevelNumber() + 1);
+        }
+        currentUserStatus.setScaleLevel(currentScaleLevel);
+        userStatuses.save(currentUserStatus);
+
+        return currentScaleLevel;
+    }
 
     // POST interval endpoint for app usage
     @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
@@ -114,7 +140,7 @@ public class MusicTheoryTrainerJSONController {
         System.out.println(noteList.size());
 
 
-        
+
         int intervalRNG = (int)((Math.random() * intervalList.size()));
         int octaveRNG = (int) (Math.random() * octaveList.size());
         int noteRNG = (int) (Math.random() * noteList.size());

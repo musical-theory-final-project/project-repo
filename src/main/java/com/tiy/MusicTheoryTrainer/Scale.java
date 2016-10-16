@@ -7,6 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "scales")
 public class Scale {
 
     @Id
