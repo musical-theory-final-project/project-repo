@@ -38,6 +38,18 @@ public class MusicTheoryTrainerControllerTest {
     IntervalLevelRepository intervalLevels;
 
     @Autowired
+    ChordRepository chords;
+
+    @Autowired
+    ChordLevelRepository chordLevels;
+
+    @Autowired
+    ScaleRepository scales;
+
+    @Autowired
+    ScaleLevelRepository scaleLevels;
+
+    @Autowired
     UserStatusRepository userStatuses;
 
     @Before

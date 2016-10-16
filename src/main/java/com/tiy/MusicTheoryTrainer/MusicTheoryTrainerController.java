@@ -30,18 +30,54 @@ public class MusicTheoryTrainerController {
 	@Autowired
 	IntervalLevelRepository intervalLevels;
 
+	@Autowired
+	ScaleLevelRepository scaleLevels;
+
+	@Autowired
+	ScaleRepository scales;
+
+	@Autowired
+	ChordRepository chords;
+
+	@Autowired
+	ChordLevelRepository chordLevels;
+
 	@PostConstruct
 	public void init() {
-		IntervalLevel level1 = new IntervalLevel(1);
-		IntervalLevel level2 = new IntervalLevel(2);
-		IntervalLevel level3 = new IntervalLevel(3);
-		IntervalLevel level4 = new IntervalLevel(4);
+		IntervalLevel intervalLevel1 = new IntervalLevel(1);
+		IntervalLevel intervalLevel2 = new IntervalLevel(2);
+		IntervalLevel intervalLevel3 = new IntervalLevel(3);
+		IntervalLevel intervalLevel4 = new IntervalLevel(4);
 
-		if (intervals.count() == 0) {
-			intervalLevels.save(level1);
-			intervalLevels.save(level2);
-			intervalLevels.save(level3);
-			intervalLevels.save(level4);
+		ScaleLevel scaleLevel1 = new ScaleLevel(1);
+		ScaleLevel scaleLevel2 = new ScaleLevel(2);
+		ScaleLevel scaleLevel3 = new ScaleLevel(3);
+		ScaleLevel scaleLevel4 = new ScaleLevel(4);
+
+		ChordLevel chordLevel1 = new ChordLevel(1);
+		ChordLevel chordLevel2 = new ChordLevel(2);
+		ChordLevel chordLevel3 = new ChordLevel(3);
+		ChordLevel chordLevel4 = new ChordLevel(4);
+
+		if (intervalLevels.count() == 0) {
+			intervalLevels.save(intervalLevel1);
+			intervalLevels.save(intervalLevel2);
+			intervalLevels.save(intervalLevel3);
+			intervalLevels.save(intervalLevel4);
+		}
+
+		if (scaleLevels.count() == 0) {
+			scaleLevels.save(scaleLevel1);
+			scaleLevels.save(scaleLevel2);
+			scaleLevels.save(scaleLevel3);
+			scaleLevels.save(scaleLevel4);
+		}
+
+		if (chordLevels.count() == 0) {
+			chordLevels.save(chordLevel1);
+			chordLevels.save(chordLevel2);
+			chordLevels.save(chordLevel3);
+			chordLevels.save(chordLevel4);
 		}
 
 		if (notes.count() == 0) {
@@ -88,11 +124,11 @@ public class MusicTheoryTrainerController {
 			octaves.save(octave1);
 			Octave octave2 = new Octave("2");
 			octaves.save(octave2);
-			Octave octave3 = new Octave("3", level3);
+			Octave octave3 = new Octave("3", intervalLevel3, scaleLevel1);
 			octaves.save(octave3);
-			Octave octave4 = new Octave("4", level1);
+			Octave octave4 = new Octave("4", intervalLevel1, scaleLevel2);
 			octaves.save(octave4);
-			Octave octave5 = new Octave("5", level1);
+			Octave octave5 = new Octave("5", intervalLevel1, scaleLevel4);
 			octaves.save(octave5);
 			Octave octave6 = new Octave("6");
 			octaves.save(octave6);
@@ -101,34 +137,55 @@ public class MusicTheoryTrainerController {
 		}
 
 		if (intervals.count() == 0) {
-			Interval intervalPerfectUnison = new Interval ("P1", level1);
+			Interval intervalPerfectUnison = new Interval ("P1", intervalLevel1);
 			intervals.save(intervalPerfectUnison);
-			Interval intervalMinorSecond = new Interval ("m2", level1);
+			Interval intervalMinorSecond = new Interval ("m2", intervalLevel1);
 			intervals.save(intervalMinorSecond);
-			Interval intervalMajorSecond = new Interval ("M2", level1);
+			Interval intervalMajorSecond = new Interval ("M2", intervalLevel1);
 			intervals.save(intervalMajorSecond);
-			Interval intervalMinorThird = new Interval ("m3", level1);
+			Interval intervalMinorThird = new Interval ("m3", intervalLevel1);
 			intervals.save(intervalMinorThird);
-			Interval intervalMajorThird = new Interval ("M3", level1);
+			Interval intervalMajorThird = new Interval ("M3", intervalLevel1);
 			intervals.save(intervalMajorThird);
-			Interval intervalPerfectFourth = new Interval ("P4", level2);
+			Interval intervalPerfectFourth = new Interval ("P4", intervalLevel2);
 			intervals.save(intervalPerfectFourth);
-			Interval intervalAugmentedFourth = new Interval ("TT", level2);
+			Interval intervalAugmentedFourth = new Interval ("TT", intervalLevel2);
 			intervals.save(intervalAugmentedFourth);
-			Interval intervalDiminishedFifth = new Interval ("TT", level2);
+			Interval intervalDiminishedFifth = new Interval ("TT", intervalLevel2);
 			intervals.save(intervalDiminishedFifth);
-			Interval intervalPerfectFifth= new Interval ("P5", level2);
+			Interval intervalPerfectFifth= new Interval ("P5", intervalLevel2);
 			intervals.save(intervalPerfectFifth);
-			Interval intervalMinorSixth = new Interval ("m6", level4);
+			Interval intervalMinorSixth = new Interval ("m6", intervalLevel4);
 			intervals.save(intervalMinorSixth);
-			Interval intervalMajorSixth= new Interval ("M6", level4);
+			Interval intervalMajorSixth= new Interval ("M6", intervalLevel4);
 			intervals.save(intervalMajorSixth);
-			Interval intervalMinorSeventh= new Interval ("m7", level4);
+			Interval intervalMinorSeventh= new Interval ("m7", intervalLevel4);
 			intervals.save(intervalMinorSeventh);
-			Interval intervalMajorSeventh= new Interval ("M7", level4);
+			Interval intervalMajorSeventh= new Interval ("M7", intervalLevel4);
 			intervals.save(intervalMajorSeventh);
-			Interval intervalPerfectEighth= new Interval ("P8", level4);
+			Interval intervalPerfectEighth= new Interval ("P8", intervalLevel4);
 			intervals.save(intervalPerfectEighth);
+		}
+
+		if (scales.count() == 0) {
+			Scale major = new Scale("major", scaleLevel1);
+			scales.save(major);
+			Scale minor = new Scale("minor", scaleLevel1);
+			scales.save(minor);
+			Scale majorPentatonic = new Scale("majorPentatonic", scaleLevel1);
+			scales.save(majorPentatonic);
+			Scale minorPentatonic = new Scale("minorPentatonic", scaleLevel2);
+			scales.save(minorPentatonic);
+			Scale dorian = new Scale("dorian", scaleLevel3);
+			scales.save(dorian);
+			Scale phrygian = new Scale("phrygian", scaleLevel4);
+			scales.save(phrygian);
+			Scale lydian = new Scale("lydian", scaleLevel3);
+			scales.save(lydian);
+			Scale mixolydian = new Scale("mixolydian", scaleLevel2);
+			scales.save(mixolydian);
+			Scale locrian = new Scale("locrian", scaleLevel4);
+			scales.save(locrian);
 		}
 	}
 

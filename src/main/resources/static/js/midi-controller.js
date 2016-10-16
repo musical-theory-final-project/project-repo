@@ -3,7 +3,9 @@
     $scope.user;
     $scope.intervalLevel;
     $scope.initialInterval;
+    $scope.intervalScoring = [];
     $scope.isLive = false;
+    $scope.filter;
 
     const VF = Vex.Flow;
     $scope.frequencies = {};
@@ -345,9 +347,30 @@
         console.log($scope.initialInterval.interval);
             if ($scope.initialInterval.interval === noteInterval) {
                 console.log("You are the greetest!");
+                if ($scope.intervalScoring.length < 10) {
+                    $scope.intervalScoring.push(true);
+                } else {
+                    $scope.intervalScoring.shift();
+                    $scope.intervalScoring.push(true);
+                }
+                console.log($scope.intervalScoring);
             } else {
                 console.log("Blargh");
+                if ($scope.intervalScoring.length < 10) {
+                    $scope.intervalScoring.push(false);
+                } else {
+                    $scope.intervalScoring.shift();
+                    $scope.intervalScoring.push(false);
+                }
             }
+            function isTrue(value) {
+                return value === true;
+            };
+            console.log($scope.intervalScoring);
+            $scope.filter = $scope.intervalScoring.filter(isTrue);
+            console.log($scope.filter);
+//            console.log($scope.intervalScoring.filter(false));
+
         };
 
         $scope.checkNoteName = function(noteNotation) {
