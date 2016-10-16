@@ -50,29 +50,31 @@ public class MusicTheoryTrainerJSONController {
 
     // Login
     @RequestMapping(path = "/login.json", method = RequestMethod.POST)
-    public User login(@RequestBody LoginInfoPost loginInfo) {
+    public UserStatus login(@RequestBody LoginInfoPost loginInfo) {
         User myUser = users.findByEmail(loginInfo.getEmail());
         if (myUser == null) {
             System.out.println("User does not exist.");
         }
-        return myUser;
+        UserStatus myStatus = userStatuses.findByUser(myUser);
+        return myStatus;
     }
 
     // Creates a new user and assigns them default UserStatus (includes IntervalLevel, ScaleLevel, and eventually ChordLevel.
     @RequestMapping(path = "/register.json", method = RequestMethod.POST)
-    public User register(@RequestBody RegisterInfoPost registerInfo) {
+    public UserStatus register(@RequestBody RegisterInfoPost registerInfo) {
         User myUser = users.findByEmail(registerInfo.getEmail());
+        UserStatus myStatus = new UserStatus();
         if (myUser == null) {
             myUser = new User(registerInfo.getFirstName(), registerInfo.getLastName(), registerInfo.getEmail(), registerInfo.getPassword());
             IntervalLevel intLevel = intervalLevels.findByLevelNumber(1);
             ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(1);
-            UserStatus myStatus = new UserStatus(myUser, intLevel, scaleLevel);
+            myStatus = new UserStatus(myUser, intLevel, scaleLevel);
             users.save(myUser);
             userStatuses.save(myStatus);
         } else {
             System.out.println("This email already exists in the database.");
         }
-        return myUser;
+        return myStatus;
     }
 
     // Retrieve IntervalLevel based on user. Allows proper display of available levels for intervals.
