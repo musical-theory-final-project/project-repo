@@ -79,7 +79,10 @@ public class MusicTheoryTrainerControllerTest {
         for (Interval currentInterval : intervalList) {
             myIntervals.add(currentInterval);
             System.out.println(currentInterval.getInterval());
+            assertNotNull(myIntervals.equals(14));
+
         }
+
     }
 
     @Test

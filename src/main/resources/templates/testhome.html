@@ -25,6 +25,7 @@
 
 </head>
 
+<!--<body ng-controller="midi-controller">-->
 <body ng-controller="midi-controller">
 
 <img class="image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
@@ -35,15 +36,17 @@
 <div id="boo"></div>
 </div>
 <div class="container">
+
 <input class="noteInput" type="text" placeholder="Note" ng-model="noteContainer.note" ng-bind="noteContainer.note">
 <input class="octaveInput" type="text" placeholder="Octave" ng-model="noteContainer.octave" ng-bind="noteContainer.octave">
 <input class="button" type="button" value="Print note on score" ng-click="userInput(noteContainer)"/>
 </div>
-
+<br><br><br><br><br><br><br><br><br>
 
 <!--<input type="button" value="Play Interval" ng-click="">-->
 <!--<input type="button" ng-click="score()" value="Show score"/>-->
-
+<div class="trueBox"></div>
+<div class="falseBox"></div>
 </body>
 
 </html>
