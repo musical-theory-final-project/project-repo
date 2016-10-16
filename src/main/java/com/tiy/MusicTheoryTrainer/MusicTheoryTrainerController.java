@@ -36,6 +36,12 @@ public class MusicTheoryTrainerController {
 	@Autowired
 	ScaleRepository scales;
 
+	@Autowired
+	ChordRepository chords;
+
+	@Autowired
+	ChordLevelRepository chordLevels;
+
 	@PostConstruct
 	public void init() {
 		IntervalLevel intervalLevel1 = new IntervalLevel(1);
@@ -47,6 +53,11 @@ public class MusicTheoryTrainerController {
 		ScaleLevel scaleLevel2 = new ScaleLevel(2);
 		ScaleLevel scaleLevel3 = new ScaleLevel(3);
 		ScaleLevel scaleLevel4 = new ScaleLevel(4);
+
+		ChordLevel chordLevel1 = new ChordLevel(1);
+		ChordLevel chordLevel2 = new ChordLevel(2);
+		ChordLevel chordLevel3 = new ChordLevel(3);
+		ChordLevel chordLevel4 = new ChordLevel(4);
 
 		if (intervalLevels.count() == 0) {
 			intervalLevels.save(intervalLevel1);
@@ -60,7 +71,13 @@ public class MusicTheoryTrainerController {
 			scaleLevels.save(scaleLevel2);
 			scaleLevels.save(scaleLevel3);
 			scaleLevels.save(scaleLevel4);
+		}
 
+		if (chordLevels.count() == 0) {
+			chordLevels.save(chordLevel1);
+			chordLevels.save(chordLevel2);
+			chordLevels.save(chordLevel3);
+			chordLevels.save(chordLevel4);
 		}
 
 		if (notes.count() == 0) {
