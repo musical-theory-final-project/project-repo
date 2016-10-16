@@ -10,5 +10,5 @@ import java.util.List;
 public interface OctaveRepository extends CrudRepository<Octave, Integer>{
     List<Octave> findByIntervalLevel(IntervalLevel intervalLevel);
     List<Octave> findByScaleLevel(ScaleLevel scaleLevel);
-//    List<Octave> findByChordLevel(ChordLevel chordLevel);
+    List<Octave> findByChordLevel(ChordLevel chordLevel);
 }
