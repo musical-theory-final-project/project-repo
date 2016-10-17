@@ -195,7 +195,7 @@
 
 
         $scope.userInput = function() {
-            $http.post("/getIntervalLevel.json", $scope.intervalLevel)
+            $http.post("/getIntervalLevel.json", $scope.user)
             .then(function successCallBack(res){
               console.log(res);
               $scope.intervalLevel = res.data;
