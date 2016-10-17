@@ -52,6 +52,21 @@
              console.log("done with callback");
         };
 
+        $scope.getUser = function () {
+            console.log("getting user from session");
+            $http.post("/getUserFromSession.json")
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    var everything = response.data;
+                    $scope.user = everything.user;
+                    $scope.intervalLevel = everything.intervalLevel;
+                },
+                function errorCallBack(response) {
+                    console.log("unable to get user");
+                });
+        };
+
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
             console.log($scope.user);
@@ -65,12 +80,29 @@
                 function errorCallBack(response) {
                     console.log("Could not return level");
                 });
+//                $scope.getInitialInterval();
+        };
+
+        $scope.setCurrentIntervalLevel = function(intLevel) {
+            console.log("setting interval level for user");
+            $scope.user.currentIntervalLevel = intLevel;
+            console.log($scope.user);
+            $http.post("/getDesiredLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log("User updated");
+                    $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
+                },
+                function errorCallBack(response) {
+                    console.log("unable to update user");
+                });
         };
 
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
 
-            $http.post("/getInterval.json", $scope.intervalLevel)
+            $http.post("/getInterval.json", $scope.user.currentIntervalLevel)
             .then (
                 function successCallBack(response) {
                     console.log(response.data);
@@ -78,6 +110,7 @@
                     console.log($scope.initialInterval);
                 },
                 function errorCallBack(response) {
+                    console.log(response);
                     console.log("Unable to recieve initial interval");
                 });
         };
@@ -93,6 +126,7 @@
                     console.log("Could not navigate to page");
                 });
         };
+
 
         $scope.playExample = function() {
             var Synth = function(audiolet, frequency) {
@@ -161,18 +195,28 @@
 
 
         $scope.userInput = function() {
-            var vf = new VF.Factory({renderer: {selector: 'boo'}});
-            var score = vf.EasyScore();
-            var system = vf.System();
+            $http.post("/getIntervalLevel.json", $scope.intervalLevel)
+            .then(function successCallBack(res){
+              console.log(res);
+              $scope.intervalLevel = res.data;
+              $http.post("getInterval.json", $scope.intervalLevel).then(function successCallBack(res){
+              $scope.initialInterval = res.data;
+               var vf = new VF.Factory({renderer: {selector: 'boo'}});
+               var score = vf.EasyScore();
+               var system = vf.System();
+               console.log($scope.initialInterval);
+               system.addStave({
+                   voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
+               }).addClef('treble').addTimeSignature('4/4');
 
-            console.log($scope.initialInterval);
-            system.addStave({
-                voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
-            }).addClef('treble').addTimeSignature('4/4');
+               vf.draw();
+              }, function errorCallBack(err){
+                console.log(err);
+              })
 
-            vf.draw();
-
-
+            },function errorCallBack(err){
+              console.log(err);
+            });
         }
 
 
@@ -412,5 +456,6 @@
                 });
         };
 
+        $scope.getIntervalLevel();
 
    });
