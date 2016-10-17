@@ -208,12 +208,12 @@ public class MusicTheoryTrainerController {
 
 	@RequestMapping(path = "/intervalGameMenu", method = RequestMethod.GET)
 	public String intervalGameMenu() {
-		return"/intervalGameMenu";
+		return"intervalGameMenu";
 	}
 
 	@RequestMapping(path = "/intervalGame", method = RequestMethod.GET)
 	public String intervalGame(){
-		return"/intervalGame";
+		return"intervalGame";
 	}
 
 //	@RequestMapping(path = "/register", method = RequestMethod.GET)
