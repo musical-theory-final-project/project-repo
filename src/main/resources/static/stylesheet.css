@@ -44,6 +44,10 @@ h1 {
     position: relative;
 }
 
+.answerChoices {
+    margin: 10px;
+}
+
 .intervalScoring.false {
     background-color: red;
     float: left;

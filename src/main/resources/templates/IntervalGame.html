@@ -16,7 +16,12 @@
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
     <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <img class="image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
+<h1>Music Theory Trainer</h1>
 
 </head>
 <body ng-controller="midi-controller">
@@ -24,10 +29,12 @@
         <div id="boo"></div>
     </div>
     <div class="container">
-        <input class="button" type="button" value="Print note on score" ng-click="userInput()"/>
+        <a href="#" class="btn btn-xs btn-primary" ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+        <br>
+        <a href="#" class="btn btn-xs btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
     </div>
-    <br/>
-    <span>
+    <br/><br/><br>
+    <span class="answerChoices">
         <p>Please choose an interval</p>
         <input type="radio" value="P1" ng-model="answer"/>P1
         <input type="radio" value="m2" ng-model="answer"/>m2
@@ -41,21 +48,9 @@
         <input type="radio" value="M6" ng-model="answer"/>M6
         <input type="radio" value="m7" ng-model="answer"/>m7
         <input type="radio" value="M7" ng-model="answer"/>M7
-        <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
+        <a href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
 
     </span>
-
-    <div>
-        <input type="button" ng-click="getIntervalLevel()" value="Get Interval Level"/>
-        <input type="button" ng-click="getInitialInterval()" value="Get next interval"/>
-        <input type="button" ng-click="playInterval()" value="Play generated interval"/>
-    </div>
-
-
-
-
-
-
 
     </div>
         <p>Number of right/wrong</p>

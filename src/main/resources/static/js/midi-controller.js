@@ -78,6 +78,7 @@
                     console.log($scope.initialInterval);
                 },
                 function errorCallBack(response) {
+                    console.log(response);
                     console.log("Unable to recieve initial interval");
                 });
         };
@@ -93,6 +94,7 @@
                     console.log("Could not navigate to page");
                 });
         };
+
 
         $scope.playExample = function() {
             var Synth = function(audiolet, frequency) {
@@ -161,18 +163,28 @@
 
 
         $scope.userInput = function() {
-            var vf = new VF.Factory({renderer: {selector: 'boo'}});
-            var score = vf.EasyScore();
-            var system = vf.System();
+            $http.post("/getIntervalLevel.json", $scope.intervalLevel)
+            .then(function successCallBack(res){
+              console.log(res);
+              $scope.intervalLevel = res.data;
+              $http.post("getInterval.json", $scope.intervalLevel).then(function successCallBack(res){
+              $scope.initialInterval = res.data;
+               var vf = new VF.Factory({renderer: {selector: 'boo'}});
+               var score = vf.EasyScore();
+               var system = vf.System();
+               console.log($scope.initialInterval);
+               system.addStave({
+                   voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
+               }).addClef('treble').addTimeSignature('4/4');
 
-            console.log($scope.initialInterval);
-            system.addStave({
-                voices:[score.voice(score.notes($scope.initialInterval.note + $scope.initialInterval.octave + '/w'))]
-            }).addClef('treble').addTimeSignature('4/4');
+               vf.draw();
+              }, function errorCallBack(err){
+                console.log(err);
+              })
 
-            vf.draw();
-
-
+            },function errorCallBack(err){
+              console.log(err);
+            });
         }
 
 

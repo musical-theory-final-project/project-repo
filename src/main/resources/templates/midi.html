@@ -12,11 +12,11 @@
     <script src="../static/js/teoria.js"></script>
 
 
-<!--
-{{! changing the mustache delimiter so it doesn't conflict with  }}
-{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
-{{=<% %>=}}
---->
+    <!--
+    {{! changing the mustache delimiter so it doesn't conflict with  }}
+    {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+    {{=<% %>=}}
+    --->
 
 
 </head>
@@ -39,6 +39,7 @@
 <div ng-if="isLive">
 
     <input type="button" value="Print note on score" ng-click="userInput()"/>
+    <a href="#" class="btn btn-lg btn-success" ng-click="userInput()">Play Generated Interval <span class="glyphicon glyphicon-play"></span></a>
 
     <div id="boo">Hi i'm div</div>
     <input type="button" ng-click="playExample()" value="Pull the lever!"/>
@@ -115,3 +116,8 @@
 </html>
 
 <script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
