@@ -1,10 +1,7 @@
 package com.tiy.MusicTheoryTrainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -80,18 +77,37 @@ public class MusicTheoryTrainerJSONController {
         return myStatus;
     }
 
-    // Retrieve IntervalLevel based on user. Allows proper display of available levels for intervals.
-    @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
-    public IntervalLevel intervalLevel(HttpSession session) {
+    //returns a User object that is currently in the session
+    @RequestMapping (path = "/getUserFromSession.json", method = RequestMethod.POST)
+    public UserStatus getUserFromSession (HttpSession session) {
         User myUser = (User) session.getAttribute("user");
+        UserStatus myStatus = userStatuses.findByUser(myUser);
+        return myStatus;
+    }
+
+    //Retrieve desired IntervalLevel based on user input
+    @RequestMapping(path = "/getDesiredLevel.json", method = RequestMethod.POST)
+    public IntervalLevel getDesiredLevel(@RequestBody User user) {
+        users.save(user);
+        IntervalLevel intLevel = intervalLevels.findByLevelNumber(user.currentIntervalLevel);
+        return intLevel;
+
+    }
+
+    // Retrieve max IntervalLevel based on user. Allows proper display of available levels for intervals.
+    @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
+    public IntervalLevel intervalLevel(@RequestBody User myUser) {
         UserStatus userStatus = userStatuses.findByUser(myUser);
-        IntervalLevel intLevel = intervalLevels.findByLevelNumber(userStatus.getIntervalLevel().levelNumber);
+        IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
+        System.out.println(intLevel);
+
         return intLevel;
     }
 
     // Retrieve ScaleLevel based on user. Allows proper display of available levels for scales.
     @RequestMapping(path = "/getScaleLevel.json", method = RequestMethod.POST)
-    public ScaleLevel scaleLevel(@RequestBody User myUser) {
+    public ScaleLevel scaleLevel(HttpSession session) {
+        User myUser = (User)session.getAttribute("user");
         UserStatus userStatus = userStatuses.findByUser(myUser);
         ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(userStatus.getScaleLevel().levelNumber);
         return scaleLevel;

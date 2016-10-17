@@ -27,6 +27,9 @@ public class User {
     @Column(nullable = false)
     String password;
 
+    @Column(nullable = false)
+    int currentIntervalLevel = 1;
+
     public User() {
 
     }
@@ -76,5 +79,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getCurrentIntervalLevel() {
+        return currentIntervalLevel;
+    }
+
+    public void setCurrentIntervalLevel(int currentIntervalLevel) {
+        this.currentIntervalLevel = currentIntervalLevel;
     }
 }

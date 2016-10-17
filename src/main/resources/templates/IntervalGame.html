@@ -8,7 +8,7 @@
     {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
     {{=<% %>=}}
     --->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/Audiolet.js"></script>
     <script src="../static/js/Audiolet.js"></script>
     <script src="js/midi-controller.js"></script>
@@ -25,6 +25,8 @@
 
 </head>
 <body ng-controller="midi-controller">
+<input type="hidden" ng-init="getUser()"/>
+
     <div class="booContainer">
         <div id="boo"></div>
     </div>
@@ -64,4 +66,4 @@
 </body>
 </html>
 
-<script src="https://npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+<script src="//npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
