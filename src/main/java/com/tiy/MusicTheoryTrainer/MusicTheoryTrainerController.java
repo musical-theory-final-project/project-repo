@@ -203,7 +203,7 @@ public class MusicTheoryTrainerController {
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
-		return "/home";
+		return "home";
 	}
 
 	@RequestMapping(path = "/intervalGameMenu", method = RequestMethod.GET)
