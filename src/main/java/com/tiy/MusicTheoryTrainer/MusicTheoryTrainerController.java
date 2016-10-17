@@ -203,16 +203,24 @@ public class MusicTheoryTrainerController {
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
+		User myUser = (User) session.getAttribute("user");
+		session.setAttribute("user", myUser);
 		return "home";
 	}
 
 	@RequestMapping(path = "/intervalGameMenu", method = RequestMethod.GET)
-	public String intervalGameMenu() {
+	public String intervalGameMenu(HttpSession session) {
+		User myUser = (User) session.getAttribute("user");
+		session.setAttribute("user", myUser);
+
 		return"intervalGameMenu";
 	}
 
 	@RequestMapping(path = "/intervalGame", method = RequestMethod.GET)
-	public String intervalGame(){
+	public String intervalGame(HttpSession session){
+		User myUser = (User) session.getAttribute("user");
+		session.setAttribute("user", myUser);
+
 		return"intervalGame";
 	}
 

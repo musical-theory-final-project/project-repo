@@ -52,6 +52,21 @@
              console.log("done with callback");
         };
 
+        $scope.getUser = function () {
+            console.log("getting user from session");
+            $http.post("/getUserFromSession.json")
+            .then(
+                function successCallBack(response) {
+                    console.log(response.data);
+                    var everything = response.data;
+                    $scope.user = everything.user;
+                    $scope.intervalLevel = everything.intervalLevel;
+                },
+                function errorCallBack(response) {
+                    console.log("unable to get user");
+                });
+        };
+
         $scope.getIntervalLevel = function() {
             console.log("getting Intervals level");
             console.log($scope.user);
@@ -65,12 +80,29 @@
                 function errorCallBack(response) {
                     console.log("Could not return level");
                 });
+//                $scope.getInitialInterval();
+        };
+
+        $scope.setCurrentIntervalLevel = function(intLevel) {
+            console.log("setting interval level for user");
+            $scope.user.currentIntervalLevel = intLevel;
+            console.log($scope.user);
+            $http.post("/getDesiredLevel.json", $scope.user)
+            .then(
+                function successCallBack(response) {
+                    console.log("User updated");
+                    $scope.intervalLevel = response.data;
+                    console.log($scope.intervalLevel);
+                },
+                function errorCallBack(response) {
+                    console.log("unable to update user");
+                });
         };
 
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
 
-            $http.post("/getInterval.json", $scope.intervalLevel)
+            $http.post("/getInterval.json", $scope.user.currentIntervalLevel)
             .then (
                 function successCallBack(response) {
                     console.log(response.data);
@@ -412,5 +444,6 @@
                 });
         };
 
+        $scope.getIntervalLevel();
 
    });
