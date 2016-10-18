@@ -73,7 +73,6 @@ h1 {
     width: 25px;
     background: green;
     display: inline-block;
-    border: 1px solid black;
 }
 
 .falsePoint {
@@ -81,5 +80,5 @@ h1 {
     width: 25px;
     background: red;
     display: inline-block;
-    border: 1px solid black;
+    border: 1px solid white;
 }
