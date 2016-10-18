@@ -213,7 +213,7 @@ public class MusicTheoryTrainerController {
 		User myUser = (User) session.getAttribute("user");
 		session.setAttribute("user", myUser);
 
-		return"IntervalGameMenu.html";
+		return"IntervalGameMenu";
 	}
 
 	@RequestMapping(path = "/intGame", method = RequestMethod.GET)
@@ -221,7 +221,7 @@ public class MusicTheoryTrainerController {
 		User myUser = (User) session.getAttribute("user");
 		session.setAttribute("user", myUser);
 
-		return"IntervalGame.html";
+		return"IntervalGame";
 	}
 
 //	@RequestMapping(path = "/register", method = RequestMethod.GET)
