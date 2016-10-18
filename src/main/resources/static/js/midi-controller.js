@@ -3,6 +3,8 @@
     $scope.user;
     $scope.intervalLevel;
     $scope.initialInterval;
+    $scope.scaleLevel;
+    $scope.currentScale;
     $scope.intervalScoring = [];
     $scope.isLive = false;
     $scope.filter;
@@ -61,6 +63,7 @@
                     var everything = response.data;
                     $scope.user = everything.user;
                     $scope.intervalLevel = everything.intervalLevel;
+                    $scope.scaleLevel = everything.scaleLevel;
                 },
                 function errorCallBack(response) {
                     console.log("unable to get user");
@@ -329,7 +332,7 @@
         };
 
         $scope.playScale = function(scale) {
-            var scale = scale;
+            $scope.currentScale = scale;
             var initialNote = teoria.note(scale.startNote + scale.octave);
             console.log(initialNote.toString());
             var myScale = initialNote.scale(scale.name);
@@ -367,12 +370,12 @@
 
             };
 
-            var AudioletApp = function(scale) {
+            var AudioletApp = function() {
                 this.audiolet = new Audiolet();
                 var audioScale;
-                if (scale.name === "major") {
+                if ($scope.currentScale.name === "major") {
                     audioScale= new MajorScale();
-                } else if (scale.name === "minor") {
+                } else if ($scope.currentScale.name === "minor") {
                     audioScale = new MinorScale();
                 }
                 var baseFrequency = scaleFreq[0];
@@ -384,10 +387,11 @@
                 var freq5 = audioScale.getFrequency(4, baseFrequency, octave);
                 var freq6 = audioScale.getFrequency(5, baseFrequency, octave);
                 var freq7 = audioScale.getFrequency(6, baseFrequency, octave);
+                var freq8 = audioScale.getFrequency(7, baseFrequency, octave);
 
                 var note = new PSequence([440]);
 
-                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7], 1);
+                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7, freq8], 1);
                 var durationPattern = new PChoose([new PSequence([1])], Infinity);
 
                 this.audiolet.scheduler.play([frequencyPattern], durationPattern,
@@ -455,7 +459,4 @@
                     console.log("Could not move to next level");
                 });
         };
-
-        $scope.getIntervalLevel();
-
    });
