@@ -200,6 +200,11 @@
 
 
         $scope.userInput = function() {
+        var element;
+        element = document.getElementById("boo");
+        if (element) {
+            element.innerHTML = "";
+
             $http.post("/getIntervalLevel.json", $scope.user)
             .then(function successCallBack(res){
               console.log(res);
@@ -222,6 +227,7 @@
             },function errorCallBack(err){
               console.log(err);
             });
+            };
         }
 
 
