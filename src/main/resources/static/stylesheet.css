@@ -5,6 +5,10 @@
 }
 */
 .booContainer {
+    height: 200px;
+    width: 848px;
+    display: flex;
+    justify-content: space-around;
 }
 
 #boo {
