@@ -44,19 +44,23 @@
         <input type="radio" value="m3" ng-model="answer"/>m3
         <input type="radio" value="M3" ng-model="answer"/>M3
         <input type="radio" value="P4" ng-model="answer"/>P4
-        <input type="radio" value="TT" ng-model="answer"/>TT
+        <input type="radio" value="A4" ng-model="answer"/>A4
         <input type="radio" value="P5" ng-model="answer"/>P5
         <input type="radio" value="m6" ng-model="answer"/>m6
         <input type="radio" value="M6" ng-model="answer"/>M6
         <input type="radio" value="m7" ng-model="answer"/>m7
         <input type="radio" value="M7" ng-model="answer"/>M7
+        <input type="radio" value="P8" ng-model="answer"/>P8
         <a href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
 
     </span>
 
     </div>
         <p>Number of right/wrong</p>
-        {{intervalScoring}}
+<div class="points" ng-repeat="cindex in intervalScoring track by $index">
+    <div class="truePoint" ng-if="cindex == true"></div>
+    <div class="falsePoint" ng-if="cindex == false"></div>
+</div>
         <div ng-if="filter.length >= 8">
             <p>You are the bees knees!</p>
             <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>

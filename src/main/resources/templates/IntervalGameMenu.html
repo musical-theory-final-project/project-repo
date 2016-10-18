@@ -22,19 +22,13 @@
     <input type="hidden" ng-init="getUser()"/>
     <h3>Please choose a level</h3>
     <p>You have the following levels open to play:</p>
-    <p ng-if="intervalLevel.levelNumber >=1">Level 1</p>
-    <p ng-if="intervalLevel.levelNumber >=2">Level 2</p>
-    <p ng-if="intervalLevel.levelNumber >=3">Level 3</p>
-    <p ng-if="intervalLevel.levelNumber >=4">Level 4</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
     <input type="text" placeholder="Please type level number" ng-model="lvlnumber"/>
     <input type="submit" value="submit level number" ng-click="setCurrentIntervalLevel(lvlnumber)"/>
     <a href="/intGame">Interval Game</a>
-    <!--<br/>-->
-    <!--<a ng-if="intervalLevel.levelNumber >=2" href="/intervalGame">Interval Game level 2</a>-->
-    <!--<br/>-->
-    <!--<a ng-if="intervalLevel.levelNumber >=3" href="/intervalGame">Interval Game level 3</a>-->
-    <!--<br/>-->
-    <!--<a ng-if="intervalLevel.levelNumber >=4" href="/intervalGame">Interval Game level 4</a>-->
 </div>
 <div class="selections" ng-init="userInput()">
     <select name="select">

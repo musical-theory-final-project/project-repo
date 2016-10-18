@@ -97,9 +97,8 @@ public class MusicTheoryTrainerJSONController {
     // Retrieve max IntervalLevel based on user. Allows proper display of available levels for intervals.
     @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
     public IntervalLevel intervalLevel(@RequestBody User myUser) {
-        UserStatus userStatus = userStatuses.findByUser(myUser);
+//        UserStatus userStatus = userStatuses.findByUser(myUser);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
-        System.out.println(intLevel);
 
         return intLevel;
     }
@@ -354,7 +353,7 @@ public class MusicTheoryTrainerJSONController {
 
     // POST scale endpoint for app usage
     @RequestMapping(path = "/getChord.json", method = RequestMethod.POST)
-    public ReturnChordContainer scale(@RequestBody ChordLevel chordLevel) {
+    public ReturnChordContainer chord(@RequestBody ChordLevel chordLevel) {
         System.out.println("pinged");
         int levelNumber = chordLevel.getLevelNumber();
         ArrayList<Chord> chordList = new ArrayList<>();
