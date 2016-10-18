@@ -13,6 +13,10 @@
 
 }
 
+.points {
+    display: inline-block;
+}
+
 .button {
    background-color: white;
    color: black;
@@ -62,4 +66,18 @@ h1 {
     height: 75px;
     width: 75px;
     margin: 5px;
+}
+
+.truePoint {
+    height: 25px;
+    width: 25px;
+    background: green;
+    display: inline-block;
+}
+
+.falsePoint {
+    height: 25px;
+    width: 25px;
+    background: red;
+    display: inline-block;
 }
