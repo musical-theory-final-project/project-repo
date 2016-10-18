@@ -1,7 +1,8 @@
     angular.module('MidiApp', [])
    .controller('midi-controller', function($scope, $http) {
     $scope.user;
-    $scope.intervalLevel;
+    $scope.maxIntervalLevel;
+    $scope.currentIntervalLevel
     $scope.initialInterval;
     $scope.scaleLevel;
     $scope.currentScale;
@@ -28,7 +29,7 @@
                     console.log("logging in...");
                     var userStatus = response.data;
                     $scope.user = userStatus.user;
-                    $scope.intervalLevel = userStatus.intervalLevel;
+                    $scope.maxIntervalLevel = userStatus.intervalLevel;
                     console.log($scope.user);
                     $scope.isLive = true;
                 },
@@ -62,7 +63,8 @@
                     console.log(response.data);
                     var everything = response.data;
                     $scope.user = everything.user;
-                    $scope.intervalLevel = everything.intervalLevel;
+                    $scope.maxIntervalLevel = everything.intervalLevel;
+                    $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
                     $scope.scaleLevel = everything.scaleLevel;
                 },
                 function errorCallBack(response) {
@@ -94,7 +96,7 @@
             .then(
                 function successCallBack(response) {
                     console.log("User updated");
-                    $scope.intervalLevel = response.data;
+                    $scope.currentIntervalLevel = response.data;
                     console.log($scope.intervalLevel);
                 },
                 function errorCallBack(response) {
@@ -207,7 +209,7 @@
             .then(function successCallBack(res){
               console.log(res);
               $scope.intervalLevel = res.data;
-              $http.post("getInterval.json", $scope.intervalLevel).then(function successCallBack(res){
+              $http.post("getInterval.json", $scope.currentIntervalLevel).then(function successCallBack(res){
               $scope.initialInterval = res.data;
                var vf = new VF.Factory({renderer: {selector: 'boo'}});
                var score = vf.EasyScore();

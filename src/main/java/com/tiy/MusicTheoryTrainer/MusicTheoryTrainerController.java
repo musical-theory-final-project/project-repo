@@ -149,10 +149,8 @@ public class MusicTheoryTrainerController {
 			intervals.save(intervalMajorThird);
 			Interval intervalPerfectFourth = new Interval ("P4", intervalLevel2);
 			intervals.save(intervalPerfectFourth);
-			Interval intervalAugmentedFourth = new Interval ("TT", intervalLevel2);
+			Interval intervalAugmentedFourth = new Interval ("A4", intervalLevel2);
 			intervals.save(intervalAugmentedFourth);
-			Interval intervalDiminishedFifth = new Interval ("TT", intervalLevel2);
-			intervals.save(intervalDiminishedFifth);
 			Interval intervalPerfectFifth = new Interval ("P5", intervalLevel2);
 			intervals.save(intervalPerfectFifth);
 			Interval intervalMinorSixth = new Interval ("m6", intervalLevel4);
