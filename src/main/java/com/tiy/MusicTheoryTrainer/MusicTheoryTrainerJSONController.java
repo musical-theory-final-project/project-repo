@@ -97,9 +97,8 @@ public class MusicTheoryTrainerJSONController {
     // Retrieve max IntervalLevel based on user. Allows proper display of available levels for intervals.
     @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
     public IntervalLevel intervalLevel(@RequestBody User myUser) {
-        UserStatus userStatus = userStatuses.findByUser(myUser);
+//        UserStatus userStatus = userStatuses.findByUser(myUser);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
-        System.out.println(intLevel);
 
         return intLevel;
     }

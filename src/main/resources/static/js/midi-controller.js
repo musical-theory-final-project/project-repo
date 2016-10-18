@@ -209,7 +209,7 @@
             .then(function successCallBack(res){
               console.log(res);
               $scope.intervalLevel = res.data;
-              $http.post("getInterval.json", $scope.intervalLevel).then(function successCallBack(res){
+              $http.post("getInterval.json", $scope.currentIntervalLevel).then(function successCallBack(res){
               $scope.initialInterval = res.data;
                var vf = new VF.Factory({renderer: {selector: 'boo'}});
                var score = vf.EasyScore();
