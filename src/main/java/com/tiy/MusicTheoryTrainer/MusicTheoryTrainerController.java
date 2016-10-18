@@ -209,8 +209,8 @@ public class MusicTheoryTrainerController {
 	@RequestMapping(path = "/intGameMenu", method = RequestMethod.GET)
 	public String intervalGameMenu(HttpSession session) {
 
-		User myUser = (User) session.getAttribute("user");
-		session.setAttribute("user", myUser);
+//		User myUser = (User) session.getAttribute("user");
+//		session.setAttribute("user", myUser);
 
 		return "IntervalGameMenu";
 	}
