@@ -48,14 +48,20 @@ public class MusicTheoryTrainerJSONController {
 
     // Login
     @RequestMapping(path = "/login.json", method = RequestMethod.POST)
-    public UserStatus login(@RequestBody LoginInfoPost loginInfo, HttpSession session) {
+    public ReturnLoginStatus login(@RequestBody LoginInfoPost loginInfo, HttpSession session) {
         User myUser = users.findByEmail(loginInfo.getEmail());
+        ReturnLoginStatus loginStatus = new ReturnLoginStatus();
         if (myUser == null) {
             System.out.println("User does not exist.");
         }
+        if (myUser.getPassword() != loginInfo.getPassword()) {
+            loginStatus.setErrorMessage("Password does not match");
+            return loginStatus;
+        }
         UserStatus myStatus = userStatuses.findByUser(myUser);
+        loginStatus.setUserStatus(myStatus);
         session.setAttribute("user", myUser);
-        return myStatus;
+        return loginStatus;
     }
 
     // Creates a new user and assigns them default UserStatus (includes IntervalLevel, ScaleLevel, and eventually ChordLevel.
@@ -97,26 +103,21 @@ public class MusicTheoryTrainerJSONController {
     // Retrieve max IntervalLevel based on user. Allows proper display of available levels for intervals.
     @RequestMapping(path = "/getIntervalLevel.json", method = RequestMethod.POST)
     public IntervalLevel intervalLevel(@RequestBody User myUser) {
-//        UserStatus userStatus = userStatuses.findByUser(myUser);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
-
         return intLevel;
     }
 
     // Retrieve ScaleLevel based on user. Allows proper display of available levels for scales.
     @RequestMapping(path = "/getScaleLevel.json", method = RequestMethod.POST)
-    public ScaleLevel scaleLevel(HttpSession session) {
-        User myUser = (User)session.getAttribute("user");
-        UserStatus userStatus = userStatuses.findByUser(myUser);
-        ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(userStatus.getScaleLevel().levelNumber);
+    public ScaleLevel scaleLevel(@RequestBody User myUser) {
+        ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(myUser.currentScaleLevel);
         return scaleLevel;
     }
 
     // Retrieve ChordLevel based on user. Allows proper display of available levels for chords.
     @RequestMapping(path = "/getChordLevel.json", method = RequestMethod.POST)
     public ChordLevel chordLevel(@RequestBody User myUser) {
-        UserStatus userStatus = userStatuses.findByUser(myUser);
-        ChordLevel chordLevel = chordLevels.findByLevelNumber(userStatus.getChordLevel().levelNumber);
+        ChordLevel chordLevel = chordLevels.findByLevelNumber(myUser.currentChordLevel);
         return chordLevel;
     }
 
@@ -127,9 +128,11 @@ public class MusicTheoryTrainerJSONController {
     public IntervalLevel nextIntervalLevel(@RequestBody User myUser) {
         UserStatus currentUserStatus = userStatuses.findByUser(myUser);
         IntervalLevel currentIntervalLevel = currentUserStatus.getIntervalLevel();
-        if (currentIntervalLevel.getLevelNumber() <= 4) {
-            int newIntervalLevel = currentIntervalLevel.getLevelNumber() + 1;
-            currentIntervalLevel = intervalLevels.findByLevelNumber(newIntervalLevel);
+        if (myUser.currentIntervalLevel == currentIntervalLevel.getLevelNumber()) {
+            if (currentIntervalLevel.getLevelNumber() <= 4) {
+                int newIntervalLevel = currentIntervalLevel.getLevelNumber() + 1;
+                currentIntervalLevel = intervalLevels.findByLevelNumber(newIntervalLevel);
+            }
         }
         currentUserStatus.setIntervalLevel(currentIntervalLevel);
         userStatuses.save(currentUserStatus);
@@ -142,9 +145,11 @@ public class MusicTheoryTrainerJSONController {
     public ScaleLevel nextScaleLevel(@RequestBody User myUser) {
         UserStatus currentUserStatus = userStatuses.findByUser(myUser);
         ScaleLevel currentScaleLevel = currentUserStatus.getScaleLevel();
-        if (currentScaleLevel.getLevelNumber() <= 4) {
-            int newScaleLevel = currentScaleLevel.getLevelNumber() + 1;
-            currentScaleLevel= scaleLevels.findByLevelNumber(newScaleLevel);
+        if (myUser.currentScaleLevel == currentScaleLevel.getLevelNumber()) {
+            if (currentScaleLevel.getLevelNumber() <= 4) {
+                int newScaleLevel = currentScaleLevel.getLevelNumber() + 1;
+                currentScaleLevel = scaleLevels.findByLevelNumber(newScaleLevel);
+            }
         }
         currentUserStatus.setScaleLevel(currentScaleLevel);
         userStatuses.save(currentUserStatus);
@@ -157,9 +162,11 @@ public class MusicTheoryTrainerJSONController {
     public ChordLevel nextChordLevel(@RequestBody User myUser) {
         UserStatus currentUserStatus = userStatuses.findByUser(myUser);
         ChordLevel currentChordLevel = currentUserStatus.getChordLevel();
-        if (currentChordLevel.getLevelNumber() <= 4) {
-            int newChordLevel = currentChordLevel.getLevelNumber() + 1;
-            currentChordLevel= chordLevels.findByLevelNumber(newChordLevel);
+        if (myUser.currentChordLevel == currentChordLevel.getLevelNumber()) {
+            if (currentChordLevel.getLevelNumber() <= 4) {
+                int newChordLevel = currentChordLevel.getLevelNumber() + 1;
+                currentChordLevel = chordLevels.findByLevelNumber(newChordLevel);
+            }
         }
         currentUserStatus.setChordLevel(currentChordLevel);
         userStatuses.save(currentUserStatus);

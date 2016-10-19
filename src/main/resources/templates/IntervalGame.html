@@ -51,9 +51,16 @@
         <input type="radio" value="m7" ng-model="answer"/>m7
         <input type="radio" value="M7" ng-model="answer"/>M7
         <input type="radio" value="P8" ng-model="answer"/>P8
-        <a href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
 
     </span>
+
+<br/>
+<br/>
+<div class="truePoint">green test</div>
+<br/>
+<br/>
+<div class="falsePoint">red test</div>
 
     </div>
         <p>Number of right/wrong</p>

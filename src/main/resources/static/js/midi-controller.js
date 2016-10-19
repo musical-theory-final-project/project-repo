@@ -9,6 +9,8 @@
     $scope.intervalScoring = [];
     $scope.isLive = false;
     $scope.filter;
+    $scope.currentAnswer;
+
 
     const VF = Vex.Flow;
     $scope.frequencies = {};
@@ -200,6 +202,7 @@
 
 
         $scope.userInput = function() {
+        $scope.currentAnswer = null;
         var element;
         element = document.getElementById("boo");
         if (element) {
@@ -420,17 +423,22 @@
                 console.log("You are the greetest!");
                 if ($scope.intervalScoring.length < 10) {
                     $scope.intervalScoring.push(true);
+                    $scope.currentAnswer = true;
                 } else {
                     $scope.intervalScoring.shift();
                     $scope.intervalScoring.push(true);
+                    $scope.currentAnswer = true;
+
                 }
             } else {
                 console.log("Blargh");
                 if ($scope.intervalScoring.length < 10) {
                     $scope.intervalScoring.push(false);
+                    $scope.currentAnswer = false;
                 } else {
                     $scope.intervalScoring.shift();
                     $scope.intervalScoring.push(false);
+                    $scope.currentAnswer = false;
                 }
             }
             function isTrue(value) {
