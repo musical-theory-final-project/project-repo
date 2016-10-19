@@ -14,8 +14,12 @@ body {
     display: flex;
     justify-content: space-around;
 }
-.form1{
 
+.formcontainer{
+    width: 200px;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
 }
 #boo {
     display: flex;
