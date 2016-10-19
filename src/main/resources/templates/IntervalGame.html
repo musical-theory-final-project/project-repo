@@ -34,9 +34,9 @@
         <div id="boo"></div>
     </div>
     <div class="container">
-        <a href="#" class="btn btn-xs btn-primary" ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
-        <br>
-        <a href="#" class="btn btn-xs btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
+        <a href="#" class="btn btn-primary btn-primary" ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+
+        <a href="#" class="btn btn-primary btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
     </div>
     <br/><br/><br>
     <span class="answerChoices">
@@ -55,9 +55,10 @@
         <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="M7" ng-model="answer"/>M7
         <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="P8" ng-model="answer"/>P8
         <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
-
     </span>
-
+<br>
+<a ng-if="currentAnswer == null" href="#" class="btn btn-primary btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval
+</a>
 <br/>
 <br/>
 <!--<div class="truePoint">green test</div>-->
