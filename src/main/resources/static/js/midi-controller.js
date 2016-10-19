@@ -369,7 +369,7 @@
                     audioScale = new MajorPentatonicScale();
                 } else if ($scope.currentScale.name === "minorpentatonic") {
                     var MinorPentatonicScale = function() {
-                        degrees = [];
+                        degrees = [0, 3, 5, 7, 10];
                         Scale.call(this, degrees);
                     }
                     extend(MinorPentatonicScale, Scale);
@@ -386,10 +386,15 @@
                 var freq7 = audioScale.getFrequency(6, baseFrequency, octave);
                 var freq8 = audioScale.getFrequency(7, baseFrequency, octave);
 
+
                 var note = new PSequence([440]);
 
-                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7, freq8], 1);
-                var durationPattern = new PChoose([new PSequence([1])], Infinity);
+                if($scope.currentScale.name === "majorpentatonic" || $scope.currentScale.name === "minorpentatonic") {
+                    var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6], 1);
+                }else {
+                    var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7, freq8], 1);
+                }
+                    var durationPattern = new PChoose([new PSequence([1])], Infinity);
 
                 this.audiolet.scheduler.play([frequencyPattern], durationPattern,
                     function(frequency) {
