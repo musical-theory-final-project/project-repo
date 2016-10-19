@@ -201,8 +201,8 @@ public class MusicTheoryTrainerController {
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
-		User myUser = (User) session.getAttribute("user");
-		session.setAttribute("user", myUser);
+//		User myUser = (User) session.getAttribute("user");
+//		session.setAttribute("user", myUser);
 		return "home";
 	}
 

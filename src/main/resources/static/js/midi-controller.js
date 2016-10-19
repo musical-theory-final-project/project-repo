@@ -466,4 +466,18 @@
                     console.log("Could not move to next level");
                 });
         };
+
+        $scope.webAudio = function() {
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            var oscilator = audioCtx.createOscillator();
+            var gainNode = audioCtx.creatGain();
+
+            oscilator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscilator.type = "sine";
+            oscillator.frequency.value = 2500;
+            oscillator.start();
+
+        }
    });
