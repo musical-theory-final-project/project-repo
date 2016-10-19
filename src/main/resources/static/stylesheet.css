@@ -8,6 +8,14 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+a {
+    font-family: 'Exo', sans-serif;
+}
+
+button {
+    font-family: 'Exo', sans-serif;
+}
+
 .booContainer {
     height: 200px;
     width: 848px;
