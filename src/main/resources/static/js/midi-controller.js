@@ -30,10 +30,14 @@
                     console.log(response.data);
                     console.log("logging in...");
                     var userStatus = response.data;
+                    if (userStatus.userStatus == null) {
+                    console.log(userStatus.errorMessage);
+                    } else {
                     $scope.user = userStatus.user;
                     $scope.maxIntervalLevel = userStatus.intervalLevel;
                     console.log($scope.user);
                     $scope.isLive = true;
+                    }
                 },
                 function errorCallBack(response) {
                     console.log("Unable to log in");
