@@ -13,27 +13,63 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/midi-controller.js"></script>
     <script src="//npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
 </head>
 <body ng-controller="midi-controller">
 <br><br><br>
-<div ng-if=isLive==false>
-    <input type="text" placeholder="Username" ng-model="loginContainer.email"/>
-    <input type="password" placeholder="Password" ng-model="loginContainer.password"/>
-    <input type="button" ng-click="login(loginContainer)" value="Login"/>
-    <br/>
-    <input type="text" placeholder="Username" ng-model="registerContainer.email"/>
-    <input type="text" placeholder="Password" ng-model="registerContainer.password"/>
-    <input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>
-    <input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>
-    <input type="button" ng-click="register(registerContainer)" value="Register"/>
+<!--<div ng-if=isLive==false>-->
+    <!--<input type="text" placeholder="Username" ng-model="loginContainer.email"/>-->
+    <!--<input type="password" placeholder="Password" ng-model="loginContainer.password"/>-->
+    <!--<input type="button" ng-click="login(loginContainer)" value="Login"/>-->
+    <!--<br/>-->
+    <!--<input type="text" placeholder="Username" ng-model="registerContainer.email"/>-->
+    <!--<input type="text" placeholder="Password" ng-model="registerContainer.password"/>-->
+    <!--<input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>-->
+    <!--<input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>-->
+    <!--<input type="button" ng-click="register(registerContainer)" value="Register"/>-->
+<!--</div>-->
+<div ng-if="isLive==false" class="formcontainer">
+    <form class="form1">
+        <div class="form-group">
+            <label for="loginusername">Email</label>
+            <input type="text" class="form-control" id="loginusername" placeholder="Username" ng-model="loginContainer.email" style="width:200px">
+        </div>
+        <div class="form-group">
+            <label for="loginpassword">Password</label>
+            <input type="password" class="form-control" id="loginpassword" placeholder="Password" ng-model="loginContainer.password" style="width:200px">
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="login(loginContainer)">Login</button>
+    </form>
+    <br><br>
+    <form class="form">
+        <div class="form-group">
+            <label for="registeremail">Email</label>
+            <input type="email" class="form-control" id="registeremail" placeholder="Email" ng-model="registerContainer.email" style="width:200px">
+        </div>
+        <div class="form-group">
+            <label for="registerpassword">Password</label>
+            <input type="password" class="form-control" id="registerpassword" placeholder="Password" ng-model="registerContainer.password" style="width:200px">
+        </div>
+        <div class="form-group">
+            <label for="registerfirstname">First Name</label>
+            <input type="text" class="form-control" id="registerfirstname" placeholder="First Name" ng-model="registerContainer.firstName" style="width:200px">
+        </div>
+        <div class="form-group">
+            <label for="registerlastname">Last Name</label>
+            <input type="text" class="form-control" id="registerlastname" placeholder="Last Name" ng-model="registerContainer.lastName" style="width:200px">
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="register(registerContainer)">Register</button>
+    </form>
 </div>
+<br>
 
-<div clas="gameMode" ng-if="isLive">
+<div class="gameMode" ng-if="isLive">
     <h3>Please choose a game mode</h3>
-    <a class="likeabutton" href="/intGameMenu">Interval Game Menu</a>
-
+    <a href="#" class="btn btn-success" onclick="window.location.href='/intGameMenu'" >Intervals</a>
     <h4>More games to come at a later date</h4>
 </div>
 
