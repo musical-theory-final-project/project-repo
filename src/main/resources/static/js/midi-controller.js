@@ -132,73 +132,6 @@
                 });
         };
 
-
-        $scope.playExample = function() {
-            var Synth = function(audiolet, frequency) {
-            	AudioletGroup.apply(this, [audiolet, 0, 1]);
-
-                this.audiolet = new Audiolet();
-                this.sine = new Sine(this.audiolet, frequency);
-                this.modulator = new Saw(this.audiolet, 2 * frequency);
-                this.modulatorMulAdd = new MulAdd(this.audiolet, frequency/2, frequency);
-
-                this.gain = new Gain(this.audiolet);
-                this.envelope = new PercussiveEnvelope(this.audiolet, 1, 0.2, 0.5,
-                	function() {
-                		this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
-                	}.bind(this)
-                	);
-
-                this.modulator.connect(this.modulatorMulAdd);
-                this.modulatorMulAdd.connect(this.sine);
-                this.envelope.connect(this.gain, 0, 1);
-                this.sine.connect(this.gain);
-                this.gain.connect(this.outputs[0]);
-
-            };
-
-            var AudioletApp = function() {
-        	    this.audiolet = new Audiolet();
-
-        	    //trying scales
-
-        	    var scale = new MajorScale();
-        	    var baseFrequency = 261.63;
-        	    var octave = 0;
-        	    var freq1 = scale.getFrequency(0, baseFrequency, octave);
-        	    var freq2 = scale.getFrequency(1, baseFrequency, octave);
-        	    var freq3 = scale.getFrequency(2, baseFrequency, octave);
-        	    var freq4 = scale.getFrequency(3, baseFrequency, octave);
-        	    var freq5 = scale.getFrequency(4, baseFrequency, octave);
-
-//        	    var melodyA = new PSequence([262, 294, 330, 349]);
-//        	    var melodyB = new PSequence([349, 330, 349, 392]);
-//        	    var melodyC = new PSequence([440, 392, 349, 330]);
-        	    var note = new PSequence([440]);
-
-                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5], 1);
-                var durationPattern = new PChoose([new PSequence([2])], Infinity);
-//        	    var frequencyPattern = new PSequence([melodyA, melodyB, melodyC], 2);
-//        	    var durationPattern = new PChoose([new PSequence([3, 1, 2, 2]),
-//        	    								  new PSequence([2, 2, 1, 3]),
-//        	    								  new PSequence([1, 2, 1, 2])],
-//        	    								  Infinity);
-
-        	    this.audiolet.scheduler.play([frequencyPattern], durationPattern,
-        	    	function(frequency) {
-        	    		var synth = new Synth(this.audiolet, frequency);
-        	    		synth.connect(this.audiolet.output);
-        	    	}.bind(this)
-        	    	);
-        	};
-
-            extend (Synth, AudioletGroup);
-
-
-            this.audioletApp = new AudioletApp();
-        };
-
-
         $scope.userInput = function() {
         var element;
         element = document.getElementById("boo");
@@ -385,6 +318,55 @@
                     audioScale= new MajorScale();
                 } else if ($scope.currentScale.name === "minor") {
                     audioScale = new MinorScale();
+                } else if($scope.currentScale.name === "dorian") {
+                    var DorianScale = function() {
+                        var degrees = [0, 2, 3, 5, 7, 9, 10];
+                        Scale.call(this, degrees);
+                    }
+                    extend(DorianScale, Scale);
+                    audioScale = new DorianScale();
+                } else if($scope.currentScale.name === "phrygian") {
+                    var PhrygianScale = function() {
+                        var degrees = [0, 1, 3, 5, 7, 8, 10];
+                        Scale.call(this, degrees);
+                    }
+                    extend(PhrygianScale, Scale);
+                    audioScale = new PhrygianScale();
+                } else if($scope.currentScale.name === "lydian") {
+                    var LydianScale = function() {
+                        var degrees = [0, 2, 4, 6, 7, 9, 11];
+                        Scale.call(this, degrees);
+                    }
+                    extend(LydianScale, Scale);
+                    audioScale = new LydianScale();
+                } else if ($scope.currentScale.name === "mixolydian") {
+                    var MixolydianScale = function() {
+                        var degrees = [0, 2, 4, 5, 7, 9, 10];
+                        Scale.call(this, degrees);
+                    }
+                    extend(MixolydianScale, Scale);
+                    audioScale = new MixolydianScale;
+                } else if ($scope.currentScale.name === "locrian") {
+                    var LocrianScale = function() {
+                        var degrees = [0, 1, 3, 5, 6, 8, 10];
+                        Scale.call(this, degrees);
+                    }
+                    extend(LocrianScale, Scale);
+                    audioScale = new LocrianScale();
+                } else if ($scope.currentScale.name === "majorpentatonic") {
+                    var MajorPentatonicScale = function() {
+                        degrees = [0, 2, 4, 7, 9];
+                        Scale.call(this, degrees);
+                    }
+                    extend(MajorPentatonicScale, Scale);
+                    audioScale = new MajorPentatonicScale();
+                } else if ($scope.currentScale.name === "minorpentatonic") {
+                    var MinorPentatonicScale = function() {
+                        degrees = [];
+                        Scale.call(this, degrees);
+                    }
+                    extend(MinorPentatonicScale, Scale);
+                    audioScale = new MinorPentatonicScale();
                 }
                 var baseFrequency = scaleFreq[0];
                 var octave = 0;
