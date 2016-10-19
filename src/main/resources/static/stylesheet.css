@@ -75,9 +75,9 @@ h1 {
 .truePoint {
     height: 25px;
     width: 25px;
-    background: green;
     display: inline-block;
     border: 1px solid black;
+    background: green;
 }
 
 .falsePoint {

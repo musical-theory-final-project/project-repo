@@ -30,6 +30,12 @@ public class User {
     @Column(nullable = false)
     int currentIntervalLevel = 1;
 
+    @Column(nullable = false)
+    int currentScaleLevel = 1;
+
+    @Column(nullable = false)
+    int currentChordLevel = 1;
+
     public User() {
 
     }
