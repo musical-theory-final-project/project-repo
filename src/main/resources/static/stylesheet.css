@@ -14,7 +14,9 @@ body {
     display: flex;
     justify-content: space-around;
 }
+.form1{
 
+}
 #boo {
     display: flex;
     justify-content: space-around;
@@ -90,9 +92,4 @@ h1 {
     background: red;
     display: inline-block;
     border: 1px solid black;
-}
-
-.gameMode a: link{
-    color: green;
-
 }
