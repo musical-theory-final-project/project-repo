@@ -87,3 +87,8 @@ h1 {
     display: inline-block;
     border: 1px solid black;
 }
+
+.gameMode a: link{
+    color: green;
+
+}
