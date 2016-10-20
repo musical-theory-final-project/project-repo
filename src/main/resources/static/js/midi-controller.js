@@ -1,5 +1,5 @@
     angular.module('MidiApp', [])
-   .controller('midi-controller', function($scope, $http) {
+   .controller('midi-controller', function($scope, $http, $timeout) {
     $scope.user;
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
@@ -467,17 +467,18 @@
                 });
         };
 
-        $scope.webAudio = function() {
-            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            var oscilator = audioCtx.createOscillator();
-            var gainNode = audioCtx.creatGain();
-
-            oscilator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-
-            oscilator.type = "sine";
-            oscillator.frequency.value = 2500;
-            oscillator.start();
-
-        }
+//        $scope.webAudio = function() {
+//            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+//            oscillator = audioCtx.createOscillator();
+//            gainNode = audioCtx.createGain();
+//
+//            oscillator.connect(gainNode);
+//            gainNode.connect(audioCtx.destination);
+//
+//            oscillator.type = "sine";
+//            oscillator.frequency.value = 220;
+//            oscillator.start();
+//            oscillator.stop(audioCtx.currentTime + .5);
+//            $timeout($scope.webAudio, 100);
+//        };
    });
