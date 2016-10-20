@@ -32,6 +32,12 @@ button {
     display: flex;
     justify-content: space-around;
 }
+.btn btn-primary btn-primary {
+    display: inline-block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .points {
     display: inline-block;
@@ -63,10 +69,7 @@ h1 {
     font-style: oblique;
 }
 
-.container {
-    float: left;
-    position: relative;
-}
+
 
 .answerChoices {
     margin: 10px;
