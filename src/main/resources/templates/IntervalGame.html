@@ -23,23 +23,25 @@
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
 
-    <img class="image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTJQhNprdLuqdK__vEoQfoaC5n9equzV-0rRfuR92U15GISME8VUmZVlQ">
 <h1>Music Theory Trainer</h1>
 
 </head>
 <body ng-controller="midi-controller">
 <input type="hidden" ng-init="getUser()"/>
-    <div class="booContainer" >
+    <div class="booContainer">
         <div id="boo"></div>
     </div>
     <div class="container">
-        <a href="#" class="btn btn-primary btn-primary" ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+        <a href="#" class="btn btn-primary btn-primary"  ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
 
         <a href="#" class="btn btn-primary btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
     </div>
     <br/><br/><br>
+    <div class="instructionContainer">
+        <h4>Please choose an interval:</h4>
+
+    </div>
     <span class="answerChoices">
-        <p>Please choose an interval</p>
         <input type="radio" value="P1" ng-model="answer"/>P1
         <input type="radio" value="m2" ng-model="answer"/>m2
         <input type="radio" value="M2" ng-model="answer"/>M2
@@ -53,29 +55,26 @@
         <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="m7" ng-model="answer"/>m7
         <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="M7" ng-model="answer"/>M7
         <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="P8" ng-model="answer"/>P8
-        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
     </span>
-<br>
-<a ng-if="currentAnswer == null" href="#" class="btn btn-primary btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval
-</a>
-<br/>
-<br/>
-<!--<div class="truePoint">green test</div>-->
-<br/>
-<br/>
-<!--<div class="falsePoint">red test</div>-->
-
-    </div>
-        <p>Number of right/wrong</p>
-<div class="points" ng-repeat="cindex in intervalScoring track by $index">
-    <div class="truePoint" ng-if="cindex == true"></div>
-    <div class="falsePoint" ng-if="cindex == false"></div>
+<div class="checkAnswerContainer">
+    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
 </div>
-        <div ng-if="filter.length >= 8">
-            <p>You are the bees knees!</p>
-            <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
-        </div>
+<div class="answers">
+    <h5>Number of right/wrong</h5>
+</div>
+
+<div class="pointsContainer">
+
+    <div class="points"  id="something" ng-repeat="cindex in intervalScoring track by $index">
+        <br>
+        <div class="truePoint" ng-if="cindex == true"></div>
+        <div class="falsePoint" ng-if="cindex == false"></div>
     </div>
+            <div ng-if="filter.length >= 8">
+                <p>You are the bees knees!</p>
+                <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
+            </div>
+</div>
 
 </body>
 </html>
