@@ -45,24 +45,25 @@
         <input type="radio" value="M2" ng-model="answer"/>M2
         <input type="radio" value="m3" ng-model="answer"/>m3
         <input type="radio" value="M3" ng-model="answer"/>M3
-        <input type="radio" value="P4" ng-model="answer"/>P4
-        <input type="radio" value="A4" ng-model="answer"/>A4
-        <input type="radio" value="P5" ng-model="answer"/>P5
-        <input type="radio" value="m6" ng-model="answer"/>m6
-        <input type="radio" value="M6" ng-model="answer"/>M6
-        <input type="radio" value="m7" ng-model="answer"/>m7
-        <input type="radio" value="M7" ng-model="answer"/>M7
-        <input type="radio" value="P8" ng-model="answer"/>P8
+        <input ng-if="currentLevel.levelNumber >= 2" type="radio" value="P4" ng-model="answer"/>P4
+        <input ng-if="currentLevel.levelNumber >= 2" type="radio" value="A4" ng-model="answer"/>A4
+        <input ng-if="currentLevel.levelNumber >= 2" type="radio" value="P5" ng-model="answer"/>P5
+        <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="m6" ng-model="answer"/>m6
+        <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="M6" ng-model="answer"/>M6
+        <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="m7" ng-model="answer"/>m7
+        <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="M7" ng-model="answer"/>M7
+        <input ng-if="currentLevel.levelNumber >= 4" type="radio" value="P8" ng-model="answer"/>P8
+        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
     </span>
 <br>
 <a ng-if="currentAnswer == null" href="#" class="btn btn-primary btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval
 </a>
 <br/>
 <br/>
-<div class="truePoint">green test</div>
+<!--<div class="truePoint">green test</div>-->
 <br/>
 <br/>
-<div class="falsePoint">red test</div>
+<!--<div class="falsePoint">red test</div>-->
 
     </div>
         <p>Number of right/wrong</p>
