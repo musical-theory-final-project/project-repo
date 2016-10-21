@@ -17,6 +17,7 @@
     $scope.staff;
     $scope.note;
     $scope.nextNote;
+    $scope.playCounter = 0;
 
     var teoriaContainer;
     $scope.teoriaOutput;
@@ -405,6 +406,8 @@
             };
             extend (Synth, AudioletGroup);
             this.audioletApp = new AudioletApp();
+
+            $scope.playCounter++;
         };
 
         $scope.checkAnswer = function(noteInterval) {
@@ -438,6 +441,7 @@
             console.log($scope.intervalScoring);
             $scope.filter = $scope.intervalScoring.filter(isTrue);
             console.log($scope.filter);
+            $scope.playCounter = 0;
 
         };
 
