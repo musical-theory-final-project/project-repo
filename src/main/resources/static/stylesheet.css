@@ -4,6 +4,15 @@
     border: 1px solid black;
 }
 */
+
+#registerBackground {
+    /* background: url("../images/Background.paint");
+    background-image: url("../imgaes/Background.paint"); */
+    /* background: red; */
+    background: url("images/checkGreen.jpg");
+    background-image: url("/images/checkGreen.jpg");
+}
+
 body {
     font-family: 'Raleway', sans-serif;
 }

@@ -1,5 +1,5 @@
     angular.module('MidiApp', [])
-   .controller('midi-controller', function($scope, $http, $timeout) {
+   .controller('midi-controller', [function($scope, $http, $timeout) {
     $scope.user;
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
