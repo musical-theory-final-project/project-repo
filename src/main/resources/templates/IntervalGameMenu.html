@@ -27,20 +27,21 @@
 <body ng-controller="midi-controller">
 
 <input type="hidden" ng-init="getUser()"/>
-<h3 class="chooseLevel">Please choose a level</h3>
-<br><br>
+<br><br><br><br>
+<h1 class="chooseLevel">Please choose a level</h1>
+
 <div class="chooseLevel">
-    <p>You have the following levels open to play:</p>
+    <h3>You have the following levels open to play:</h3>
 </div>
-<div class="chooseLevel"><p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
+<div class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
     <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
     <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
     <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
 </div>
 <div class="chooseLevel">
-    <input type="text" placeholder="Please type level number" ng-model="lvlnumber"/>
+    <input type="text" placeholder="Level Number" ng-model="lvlnumber"/>
     <a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(lvlnumber)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
-
 </div>
 
 
