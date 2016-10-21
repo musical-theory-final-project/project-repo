@@ -4,8 +4,20 @@
     border: 1px solid black;
 }
 */
+
+html {
+    /* background: url("../images/Background.paint");
+    background-image: url("../imgaes/Background.paint"); */
+    /* background: red; */
+}
+
 body {
     font-family: 'Raleway', sans-serif;
+}
+
+#registerBackground {
+    background-image: url("https://cdn.tix.is/tix/EventImages/Event_2617.jpg");
+    background-size: cover;
 }
 
 a {
@@ -58,6 +70,25 @@ button {
 
 }
 
+.gameMode {
+    display:flex;
+    justify-content: center;
+}
+.chooseGameMode{
+    display: flex;
+    justify-content: center;
+}
+.moreLater {
+    display:flex;
+    justify-content: center;
+}
+.futureGames {
+    display: flex;
+    justify-content: center;
+}
+.input-group-btn{
+    display:flex;
+}
 .points {
     display: inline-block;
 }
