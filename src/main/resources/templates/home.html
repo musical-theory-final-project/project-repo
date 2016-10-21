@@ -38,11 +38,11 @@
 <div ng-if="isLive==false" class="formcontainer">
     <form class="form1">
         <div class="form-group">
-            <label for="loginusername">Email</label>
-            <input type="text" class="form-control" id="loginusername" placeholder="Username" ng-model="loginContainer.email" style="width:200px">
+            <label for="loginusername"></label>
+            <input type="text" class="form-control" id="loginusername" placeholder="Email" ng-model="loginContainer.email" style="width:200px">
         </div>
         <div class="form-group">
-            <label for="loginpassword">Password</label>
+            <label for="loginpassword"></label>
             <input type="password" class="form-control" id="loginpassword" placeholder="Password" ng-model="loginContainer.password" style="width:200px">
         </div>
         <button type="submit" class="btn btn-primary" ng-click="login(loginContainer)">Login</button>
@@ -50,19 +50,19 @@
     <br><br>
     <form class="form">
         <div class="form-group">
-            <label for="registeremail">Email</label>
+            <label for="registeremail"></label>
             <input type="email" class="form-control" id="registeremail" placeholder="Email" ng-model="registerContainer.email" style="width:200px">
         </div>
         <div class="form-group">
-            <label for="registerpassword">Password</label>
+            <label for="registerpassword"></label>
             <input type="password" class="form-control" id="registerpassword" placeholder="Password" ng-model="registerContainer.password" style="width:200px">
         </div>
         <div class="form-group">
-            <label for="registerfirstname">First Name</label>
+            <label for="registerfirstname"></label>
             <input type="text" class="form-control" id="registerfirstname" placeholder="First Name" ng-model="registerContainer.firstName" style="width:200px">
         </div>
         <div class="form-group">
-            <label for="registerlastname">Last Name</label>
+            <label for="registerlastname"></label>
             <input type="text" class="form-control" id="registerlastname" placeholder="Last Name" ng-model="registerContainer.lastName" style="width:200px">
         </div>
         <button type="submit" class="btn btn-primary" ng-click="register(registerContainer)">Register</button>

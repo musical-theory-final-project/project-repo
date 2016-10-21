@@ -5,16 +5,19 @@
 }
 */
 
-#registerBackground {
+html {
     /* background: url("../images/Background.paint");
     background-image: url("../imgaes/Background.paint"); */
     /* background: red; */
-    background: url("images/checkGreen.jpg");
-    background-image: url("http://blogfiles.wfmu.org/KF/2007/01/note/John_Stump_-_FaeriesAireandDeathWaltz.jpg");
 }
 
 body {
     font-family: 'Raleway', sans-serif;
+}
+
+#registerBackground {
+    background-image: url("https://cdn.tix.is/tix/EventImages/Event_2617.jpg");
+    background-size: cover;
 }
 
 a {
