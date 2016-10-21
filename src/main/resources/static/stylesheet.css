@@ -82,7 +82,13 @@ button {
     display:flex;
     justify-content: center;
 }
-
+.futureGames {
+    display: flex;
+    justify-content: center;
+}
+.input-group-btn{
+    display:flex;
+}
 .points {
     display: inline-block;
 }
