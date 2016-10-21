@@ -35,15 +35,7 @@
     <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
     <input type="text" placeholder="Please type level number" ng-model="lvlnumber"/>
     <input type="submit" value="submit level number" ng-click="setCurrentIntervalLevel(lvlnumber)"/>
-    <a href="/intGame">Level {{currentIntervalLevel.levelNumber}}</a>
-</div>
-<div class="selections" ng-init="userInput()">
-    <select name="select">
-        <option ng-if="maxIntervalLevel.levelNumber >=1" value="lvlnumber">Level 1</option>
-        <option ng-if="maxIntervalLevel.levelNumber >=2" value="lvlnumber">Level 2</option>
-        <option ng-if="maxIntervalLevel.levelNumber >=3" value="lvlnumber">Level 3</option>
-        <option ng-if="maxIntervalLevel.levelNumber >=4" value="lvlnumber">Level 4</option>
-    </select>
+    <a href="/intGame">Start Level {{currentIntervalLevel.levelNumber}}</a>
 </div>
 
 </body>
