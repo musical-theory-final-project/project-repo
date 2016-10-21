@@ -10,7 +10,7 @@
     background-image: url("../imgaes/Background.paint"); */
     /* background: red; */
     background: url("images/checkGreen.jpg");
-    background-image: url("/images/checkGreen.jpg");
+    background-image: url("http://blogfiles.wfmu.org/KF/2007/01/note/John_Stump_-_FaeriesAireandDeathWaltz.jpg");
 }
 
 body {
