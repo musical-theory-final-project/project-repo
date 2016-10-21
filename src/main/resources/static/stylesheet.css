@@ -58,6 +58,19 @@ button {
 
 }
 
+.gameMode {
+    display: flex;
+    justify-content: center;
+}
+.chooseGameMode{
+    display: flex;
+    justify-content: center;
+}
+.moreLater {
+    display:flex;
+    justify-content: center;
+}
+
 .points {
     display: inline-block;
 }
