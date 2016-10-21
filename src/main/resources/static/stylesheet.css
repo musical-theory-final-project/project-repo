@@ -4,8 +4,20 @@
     border: 1px solid black;
 }
 */
+
+html {
+    /* background: url("../images/Background.paint");
+    background-image: url("../imgaes/Background.paint"); */
+    /* background: red; */
+}
+
 body {
     font-family: 'Raleway', sans-serif;
+}
+
+#registerBackground {
+    background-image: url("https://cdn.tix.is/tix/EventImages/Event_2617.jpg");
+    background-size: cover;
 }
 
 a {
