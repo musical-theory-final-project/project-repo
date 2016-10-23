@@ -50,7 +50,7 @@
 </div>
 
 <div class="checkAnswerContainer">
-    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
 </div>
 
 <div class="answers">
@@ -59,7 +59,7 @@
 
 <div class="pointsContainer">
 
-    <div class="points"  id="something" ng-repeat="cindex in intervalScoring track by $index">
+    <div class="points"  id="something" ng-repeat="cindex in scaleScoring track by $index">
         <br>
         <div class="truePoint" ng-if="cindex == true"></div>
         <div class="falsePoint" ng-if="cindex == false"></div>

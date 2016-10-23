@@ -1,23 +1,24 @@
    var midiApp = angular.module('MidiApp', [])
 
    midiApp.controller('midi-controller', function($scope, $http, $timeout) {
+
     $scope.user;
+
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
     $scope.initialInterval;
     $scope.allIntervals
+    $scope.intervalScoring = [];
 
     $scope.maxScaleLevel;
     $scope.currentScale;
     $scope.currentScaleLevel;
     $scope.allScales;
+    $scope.scaleScoring = [];
 
-
-    $scope.intervalScoring = [];
     $scope.isLive = false;
     $scope.filter;
     $scope.currentAnswer;
-
 
     const VF = Vex.Flow;
     $scope.frequencies = {};
@@ -385,49 +386,49 @@
                     var audioScale = new MajorScale();
                 } else if ($scope.currentScale.scale == "minor") {
                      var audioScale = new MinorScale();
-                } else if($scope.currentScale.name === "dorian") {
+                } else if($scope.currentScale.scale === "dorian") {
                     var DorianScale = function() {
                         var degrees = [0, 2, 3, 5, 7, 9, 10];
                         Scale.call(this, degrees);
                     }
                     extend(DorianScale, Scale);
                     audioScale = new DorianScale();
-                } else if($scope.currentScale.name === "phrygian") {
+                } else if($scope.currentScale.scale === "phrygian") {
                     var PhrygianScale = function() {
                         var degrees = [0, 1, 3, 5, 7, 8, 10];
                         Scale.call(this, degrees);
                     }
                     extend(PhrygianScale, Scale);
                     audioScale = new PhrygianScale();
-                } else if($scope.currentScale.name === "lydian") {
+                } else if($scope.currentScale.scale === "lydian") {
                     var LydianScale = function() {
                         var degrees = [0, 2, 4, 6, 7, 9, 11];
                         Scale.call(this, degrees);
                     }
                     extend(LydianScale, Scale);
                     audioScale = new LydianScale();
-                } else if ($scope.currentScale.name === "mixolydian") {
+                } else if ($scope.currentScale.scale === "mixolydian") {
                     var MixolydianScale = function() {
                         var degrees = [0, 2, 4, 5, 7, 9, 10];
                         Scale.call(this, degrees);
                     }
                     extend(MixolydianScale, Scale);
                     audioScale = new MixolydianScale;
-                } else if ($scope.currentScale.name === "locrian") {
+                } else if ($scope.currentScale.scale === "locrian") {
                     var LocrianScale = function() {
                         var degrees = [0, 1, 3, 5, 6, 8, 10];
                         Scale.call(this, degrees);
                     }
                     extend(LocrianScale, Scale);
                     audioScale = new LocrianScale();
-                } else if ($scope.currentScale.name === "majorpentatonic") {
+                } else if ($scope.currentScale.scale === "majorpentatonic") {
                     var MajorPentatonicScale = function() {
                         degrees = [0, 2, 4, 7, 9];
                         Scale.call(this, degrees);
                     }
                     extend(MajorPentatonicScale, Scale);
                     audioScale = new MajorPentatonicScale();
-                } else if ($scope.currentScale.name === "minorpentatonic") {
+                } else if ($scope.currentScale.scale === "minorpentatonic") {
                     var MinorPentatonicScale = function() {
                         degrees = [0, 3, 5, 7, 10];
                         Scale.call(this, degrees);
@@ -449,7 +450,7 @@
 
                 var note = new PSequence([440]);
 
-                if($scope.currentScale.name === "majorpentatonic" || $scope.currentScale.name === "minorpentatonic") {
+                if($scope.currentScale.scale === "majorpentatonic" || $scope.currentScale.scale === "minorpentatonic") {
                     var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6], 1);
                 }else {
                     var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7, freq8], 1);
@@ -503,6 +504,42 @@
             console.log($scope.filter);
             $scope.playCounter = 0;
             sessionStorage.setItem('points', JSON.stringify($scope.intervalScoring));
+        };
+
+
+        $scope.checkScaleAnswer = function(scaleName) {
+        console.log(scaleName);
+        console.log($scope.currentScale.scale);
+            if ($scope.currentScale.scale === scaleName) {
+                console.log("You are the greetest!");
+                if ($scope.scaleScoring.length < 10) {
+                    $scope.scaleScoring.push(true);
+                    $scope.currentAnswer = true;
+                } else {
+                    $scope.scaleScoring.shift();
+                    $scope.scaleScoring.push(true);
+                    $scope.currentAnswer = true;
+
+                }
+            } else {
+                console.log("Blargh");
+                if ($scope.scaleScoring.length < 10) {
+                    $scope.scaleScoring.push(false);
+                    $scope.currentAnswer = false;
+                } else {
+                    $scope.scaleScoring.shift();
+                    $scope.scaleScoring.push(false);
+                    $scope.currentAnswer = false;
+                }
+            }
+            function isTrue(value) {
+                return value === true;
+            };
+            console.log($scope.scaleScoring);
+            $scope.filter = $scope.scaleScoring.filter(isTrue);
+            console.log($scope.filter);
+            $scope.playCounter = 0;
+            sessionStorage.setItem('points', JSON.stringify($scope.scaleScoring));
         };
 
         $scope.getSession = function() {
