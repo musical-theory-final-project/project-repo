@@ -5,18 +5,18 @@
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
     $scope.initialInterval;
+    $scope.allIntervals
 
     $scope.maxScaleLevel;
     $scope.currentScale;
     $scope.currentScaleLevel;
-    $scope.baseFreq;
-    $scope.audioScale;
+    $scope.allScales;
+
 
     $scope.intervalScoring = [];
     $scope.isLive = false;
     $scope.filter;
     $scope.currentAnswer;
-    $scope.allIntervals
 
 
     const VF = Vex.Flow;
@@ -82,6 +82,7 @@
                     $scope.maxScaleLevel = everything.scaleLevel;
                     $scope.scaleLevel = everything.currentScaleLevel;
 
+                    $scope.getListOfScales();
                     $scope.getListOfIntervals();
                 },
                 function errorCallBack(response) {
@@ -354,7 +355,6 @@
                 scaleFreq.push(newNote);
             };
             console.log(scaleFreq);
-            $scope.baseFreq = scaleFreq;
 
             var Synth = function(audiolet, frequency) {
                 AudioletGroup.apply(this, [audiolet, 0, 1]);
@@ -436,7 +436,6 @@
                     audioScale = new MinorPentatonicScale();
                 }
                 var baseFrequency = scaleFreq[0];
-                console.log($scope.audioScale);
                 var octave = 0;
                 var freq1 = audioScale.getFrequency(0, baseFrequency, octave);
                 var freq2 = audioScale.getFrequency(1, baseFrequency, octave);
@@ -555,9 +554,21 @@
                 },
                 function errorCallBack(response) {
                     console.log("Unable to get intervals");
-                }
-            )
-        }
+                });
+        };
+
+        $scope.getListOfScales = function() {
+            console.log("Getting list of scales...");
+            $http.post("/getListOfCurrentScales.json", $scope.user)
+            .then (
+                function successCallBack(response) {
+                    console.log("Received list of scales");
+                    $scope.allScales = response.data.myScales;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to get scales");
+                });
+        };
 
 //        $scope.webAudio = function() {
 //            audioCtx = new (window.AudioContext || window.webkitAudioContext)();

@@ -278,12 +278,12 @@ public class MusicTheoryTrainerJSONController {
 
     //Get endpoint to get a list of all intervals by level
     @RequestMapping(path = "/getListOfIntervals.json", method = RequestMethod.POST)
-    public IntervalListContainer getListOfIntervals (@RequestBody User activeUser) {
+    public ListContainer getListOfIntervals (@RequestBody User activeUser) {
         User myUser = users.findByEmail(activeUser.getEmail());
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
         int levelNumber = intLevel.getLevelNumber();
 
-        IntervalListContainer myContainer = new IntervalListContainer();
+        ListContainer myContainer = new ListContainer();
 
         int levelCounter = 0;
         while (levelCounter <= levelNumber) {
@@ -342,6 +342,30 @@ public class MusicTheoryTrainerJSONController {
         returnScaleContainer.setNote(noteList.get(noteRNG).getNote());
 
         return returnScaleContainer;
+    }
+
+    //Returns a list of Scales the the user may choose from
+    @RequestMapping(path = "/getListOfCurrentScales.json", method = RequestMethod.POST)
+    public ListContainer getAllScales (@RequestBody User activeUser) {
+        User myUser = users.findByEmail(activeUser.getEmail());
+        ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(myUser.currentScaleLevel);
+        int levelNumber = scaleLevel.getLevelNumber();
+
+        ListContainer myContainer = new ListContainer();
+
+        int levelCounter = 0;
+        while (levelCounter <= levelNumber) {
+            scaleLevel = scaleLevels.findByLevelNumber(levelCounter);
+
+            List<Scale> scale = scales.findByScaleLevelOrderByScaleIdAsc(scaleLevel);
+            for (Scale currentScale : scale) {
+                myContainer.myScales.add(currentScale);
+            }
+            levelCounter++;
+        }
+        return myContainer;
+
+
     }
 
     // GET scale endpoint to test JSON container

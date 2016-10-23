@@ -33,8 +33,7 @@
     <div id="boo"></div>
 </div>
 <div class="container">
-<<<<<<< HEAD
-    <a href="#" class="btn btn-primary btn-primary"  ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+    <a href="#" class="btn btn-primary btn-primary"  ng-click="scaleUserInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
 
     <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
 </div>
@@ -45,8 +44,8 @@
 </div>
 
 <div>
-        <span class="answerChoices" ng-repeat="interval in allIntervals">
-            <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="answer"/>{{interval.interval}}
+        <span class="answerChoices" ng-repeat="scale in allScales">
+            <input style="inline-block" type="radio" value="{{scale.scale}}" ng-model="$parent.answer"/>{{scale.scale}}
         </span>
 </div>
 

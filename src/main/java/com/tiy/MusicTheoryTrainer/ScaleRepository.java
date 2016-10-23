@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface ScaleRepository extends CrudRepository<Scale, Integer> {
     List<Scale> findByScaleLevel(ScaleLevel scaleLevel);
-
+    List<Scale> findByScaleLevelOrderByScaleIdAsc(ScaleLevel scaleLevel);
 }
