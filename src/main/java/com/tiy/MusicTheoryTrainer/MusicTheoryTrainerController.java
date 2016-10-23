@@ -42,6 +42,9 @@ public class MusicTheoryTrainerController {
 	@Autowired
 	ChordLevelRepository chordLevels;
 
+	@Autowired
+	UserStatusRepository userStatuses;
+
 	@PostConstruct
 	public void init() {
 		IntervalLevel intervalLevel1 = new IntervalLevel(1);
@@ -58,15 +61,6 @@ public class MusicTheoryTrainerController {
 		ChordLevel chordLevel2 = new ChordLevel(2);
 		ChordLevel chordLevel3 = new ChordLevel(3);
 		ChordLevel chordLevel4 = new ChordLevel(4);
-
-		if (users.count() == 0) {
-			User myUser1 = new User("Brett", "Gordon", "brett@gmail.com", "pass");
-			User myUser2 = new User("Clay", "Strickland", "clay@gmail.com", "pass");
-			User myUser3 = new User("Brice", "Blanch", "bricerb@gmail.com", "pass");
-			users.save(myUser1);
-			users.save(myUser2);
-			users.save(myUser3);
-		}
 
 		if (intervalLevels.count() == 0) {
 			intervalLevels.save(intervalLevel1);
@@ -87,6 +81,21 @@ public class MusicTheoryTrainerController {
 			chordLevels.save(chordLevel2);
 			chordLevels.save(chordLevel3);
 			chordLevels.save(chordLevel4);
+		}
+
+		if (users.count() == 0) {
+			User myUser1 = new User("Brett", "Gordon", "brett@gmail.com", "pass");
+			User myUser2 = new User("Clay", "Strickland", "clay@gmail.com", "pass");
+			User myUser3 = new User("Brice", "Blanch", "bricerb@gmail.com", "pass");
+			UserStatus myUserStatus1 = new UserStatus(myUser1, intervalLevel1, scaleLevel1);
+			UserStatus myUserStatus2 = new UserStatus(myUser2, intervalLevel2, scaleLevel2);
+			UserStatus myUserStatus3 = new UserStatus(myUser3, intervalLevel3, scaleLevel3);
+			users.save(myUser1);
+			users.save(myUser2);
+			users.save(myUser3);
+			userStatuses.save(myUserStatus1);
+			userStatuses.save(myUserStatus2);
+			userStatuses.save(myUserStatus3);
 		}
 
 		if (notes.count() == 0) {

@@ -512,6 +512,7 @@
                 $scope.intervalScoringSession
                 $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
                 $scope.isLive = true;
+                console.log($scope.isLive);
             }
         }
 
