@@ -277,14 +277,15 @@ public class MusicTheoryTrainerJSONController {
 
         IntervalListContainer myContainer = new IntervalListContainer();
 
-        while (levelNumber != 0) {
-            intLevel = intervalLevels.findByLevelNumber(levelNumber);
+        int levelCounter = 0;
+        while (levelCounter <= levelNumber) {
+            intLevel = intervalLevels.findByLevelNumber(levelCounter);
 
-            List<Interval> interval = intervals.findByIntervalLevel(intLevel);
+            List<Interval> interval = intervals.findByIntervalLevelOrderByIntervalIdAsc(intLevel);
             for (Interval currentInterval : interval) {
                 myContainer.myIntervals.add(currentInterval);
             }
-            levelNumber--;
+            levelCounter++;
         }
         return myContainer;
     }

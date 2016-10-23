@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface IntervalRepository extends CrudRepository<Interval, Integer>{
     List<Interval> findByIntervalLevel(IntervalLevel intervalLevel);
+    List<Interval> findByIntervalLevelOrderByIntervalIdAsc (IntervalLevel intervalLevel);
 }
