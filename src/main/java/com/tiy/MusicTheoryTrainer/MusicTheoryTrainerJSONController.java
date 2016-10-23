@@ -52,7 +52,9 @@ public class MusicTheoryTrainerJSONController {
         User myUser = users.findByEmail(loginInfo.getEmail());
         ReturnLoginStatus loginStatus = new ReturnLoginStatus();
         if (myUser == null) {
-            System.out.println("User does not exist.");
+            loginStatus.setErrorMessage("User does not exist.");
+            loginStatus.setUserStatus(null);
+            return loginStatus;
         }
         String incomingPassword = loginInfo.getPassword();
         if (!myUser.getPassword().equals(incomingPassword)) {
