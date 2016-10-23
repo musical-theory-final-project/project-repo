@@ -20,12 +20,15 @@ body {
     background-size: cover;
 }
 
-#intervalBackground {
+#gameSelectionBackground {
     background-image: url("http://4.bp.blogspot.com/_jFM-Fd8NDFE/TGay4I55gnI/AAAAAAAAIrA/-wANHR7A44k/s1600/Square+88+Aged+Parchment.jpg");
     background-size: cover;
 }
 
-
+#gameBackground {
+    background-image: url("http://www.myfreetextures.com/wp-content/uploads/2011/06/a-worn-parchment-paper-background-texture.jpg");
+    background-size: cover;
+}
 
 a {
     font-family: 'Exo', sans-serif;
@@ -54,6 +57,10 @@ button {
 .container {
     display: flex;
     justify-content: center;
+}
+
+.answerChoicesContainer {
+    display: inline;
 }
 .answerChoices{
     display: flex;

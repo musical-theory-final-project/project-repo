@@ -24,9 +24,8 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 <br><br><br><br>
 <h1>Music Theory Trainer</h1>
-<
 </head>
-<body ng-controller="midi-controller">
+<body ng-controller="midi-controller" id="gameBackground">
 <br><br>
 <input type="hidden" ng-init="getUser()"/>
     <div class="booContainer">
@@ -43,7 +42,7 @@
 
     </div>
 
-    <div>
+    <div id="answerChoicesContainer">
         <span class="answerChoices" ng-repeat="interval in allIntervals">
             <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="answer"/>{{interval.interval}}
         </span>
