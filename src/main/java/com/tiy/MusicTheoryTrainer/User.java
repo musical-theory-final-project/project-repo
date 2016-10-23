@@ -94,4 +94,20 @@ public class User {
     public void setCurrentIntervalLevel(int currentIntervalLevel) {
         this.currentIntervalLevel = currentIntervalLevel;
     }
+
+    public int getCurrentScaleLevel() {
+        return currentScaleLevel;
+    }
+
+    public void setCurrentScaleLevel(int currentScaleLevel) {
+        this.currentScaleLevel = currentScaleLevel;
+    }
+
+    public int getCurrentChordLevel() {
+        return currentChordLevel;
+    }
+
+    public void setCurrentChordLevel(int currentChordLevel) {
+        this.currentChordLevel = currentChordLevel;
+    }
 }
