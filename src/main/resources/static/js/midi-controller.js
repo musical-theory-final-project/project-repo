@@ -502,18 +502,15 @@
             $scope.filter = $scope.intervalScoring.filter(isTrue);
             console.log($scope.filter);
             $scope.playCounter = 0;
-            sessionStorage.setItem('points', $scope.intervalScoring);
+            sessionStorage.setItem('points', JSON.stringify($scope.intervalScoring));
         };
 
         $scope.getSession = function() {
             $scope.intervalScoringSession = sessionStorage.getItem('points');
             if ($scope.intervalScoringSession !== null) {
-                var tempArray = [];
                 $scope.intervalScoringSession
-//                $scope.intervalScoring = $scope.intervalScoringSession;
+                $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
             }
-            console.log("scoring: " + $scope.intervalScoring);
-            console.log("scoring session: " + $scope.intervalScoringSession);
         }
 
         $scope.getSession();

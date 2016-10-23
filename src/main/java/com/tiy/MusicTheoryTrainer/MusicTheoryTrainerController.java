@@ -59,6 +59,15 @@ public class MusicTheoryTrainerController {
 		ChordLevel chordLevel3 = new ChordLevel(3);
 		ChordLevel chordLevel4 = new ChordLevel(4);
 
+		if (users.count() == 0) {
+			User myUser1 = new User("Brett", "Gordon", "brett@gmail.com", "pass");
+			User myUser2 = new User("Clay", "Strickland", "clay@gmail.com", "pass");
+			User myUser3 = new User("Brice", "Blanch", "bricerb@gmail.com", "pass");
+			users.save(myUser1);
+			users.save(myUser2);
+			users.save(myUser3);
+		}
+
 		if (intervalLevels.count() == 0) {
 			intervalLevels.save(intervalLevel1);
 			intervalLevels.save(intervalLevel2);

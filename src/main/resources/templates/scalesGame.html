@@ -24,18 +24,19 @@
     <link rel="stylesheet" href="stylesheet.css"/>
     <br><br><br><br>
     <h1>Music Theory Trainer</h1>
-    <
 </head>
-<body ng-controller="midi-controller">
+
+<body ng-controller="midi-controller" id="gameBackground">
 <br><br>
 <input type="hidden" ng-init="getUser()"/>
 <div class="booContainer">
     <div id="boo"></div>
 </div>
 <div class="container">
-    <a href="#" class="btn btn-primary btn-primary"  ng-click="scaleUserInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+<<<<<<< HEAD
+    <a href="#" class="btn btn-primary btn-primary"  ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
 
-    <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
+    <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
 </div>
 <br/><br/><br>
 <div class="instructionContainer">
