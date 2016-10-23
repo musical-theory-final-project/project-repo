@@ -9,6 +9,8 @@
     $scope.scaleLevel;
     $scope.currentScale;
     $scope.currentScaleLevel;
+    $scope.baseFreq;
+    $scope.audioScale;
 
     $scope.intervalScoring = [];
     $scope.isLive = false;
@@ -77,7 +79,7 @@
                     $scope.user = everything.user;
                     $scope.maxIntervalLevel = everything.intervalLevel;
                     $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
-                    $scope.scaleLevel = everything.scaleLevel;
+                    $scope.scaleLevel = everything.currentScaleLevel;
 
                     $scope.getListOfIntervals();
                 },
@@ -125,7 +127,7 @@
                 function successCallBack(response) {
                     console.log("User updated");
                     $scope.currentScaleLevel = response.data;
-                }
+                },
                 function errorCallBack(response) {
                     console.log("Unable to update user");
                 });
@@ -155,7 +157,7 @@
                     console.log(response.data);
                     $scope.currentScale = response.data;
                     console.log($scope.currentScale);
-                }
+                },
                 function errorCallBack(response) {
                     console.log("Unable to receive scale");
                 });
@@ -191,7 +193,40 @@
               console.log(err);
             });
             };
-        }
+        };
+
+        $scope.scaleUserInput = function() {
+        $scope.currentAnswer = null;
+        var element;
+        element = document.getElementById("boo");
+        if (element) {
+            element.innerHTML = "";
+
+            $http.post("/getScaleLevel.json", $scope.user)
+            .then(function successCallBack(res){
+              console.log(res);
+              $scope.currentScaleLevel = res.data;
+              $http.post("getScale.json", $scope.currentScaleLevel).then(function successCallBack(res){
+              $scope.currentScale = res.data;
+               var vf = new VF.Factory({renderer: {selector: 'boo'}});
+               var score = vf.EasyScore();
+               var system = vf.System();
+               console.log($scope.currentScale);
+               system.addStave({
+                   voices:[score.voice(score.notes($scope.currentScale.note + $scope.currentScale.octave + '/w'))]
+               }).addClef('treble').addTimeSignature('4/4');
+
+               vf.draw();
+              }, function errorCallBack(err){
+                console.log(err);
+              })
+
+            },function errorCallBack(err){
+              console.log(err);
+            });
+            };
+        };
+
 
 
         $scope.chords = function() {
@@ -304,11 +339,10 @@
             console.log($scope.playCounter);
         };
 
-        $scope.playScale = function(scale) {
-            $scope.currentScale = scale;
-            var initialNote = teoria.note(scale.startNote + scale.octave);
+        $scope.playScale = function() {
+            var initialNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
             console.log(initialNote.toString());
-            var myScale = initialNote.scale(scale.name);
+            var myScale = initialNote.scale($scope.currentScale.scale);
             console.log(myScale);
             var scaleFreq = [];
 
@@ -319,6 +353,7 @@
                 scaleFreq.push(newNote);
             };
             console.log(scaleFreq);
+            $scope.baseFreq = scaleFreq;
 
             var Synth = function(audiolet, frequency) {
                 AudioletGroup.apply(this, [audiolet, 0, 1]);
@@ -345,11 +380,10 @@
 
             var AudioletApp = function() {
                 this.audiolet = new Audiolet();
-                var audioScale;
-                if ($scope.currentScale.name === "major") {
-                    audioScale= new MajorScale();
-                } else if ($scope.currentScale.name === "minor") {
-                    audioScale = new MinorScale();
+                if ($scope.currentScale.scale == "major") {
+                    var audioScale = new MajorScale();
+                } else if ($scope.currentScale.scale == "minor") {
+                     var audioScale = new MinorScale();
                 } else if($scope.currentScale.name === "dorian") {
                     var DorianScale = function() {
                         var degrees = [0, 2, 3, 5, 7, 9, 10];
@@ -401,6 +435,7 @@
                     audioScale = new MinorPentatonicScale();
                 }
                 var baseFrequency = scaleFreq[0];
+                console.log($scope.audioScale);
                 var octave = 0;
                 var freq1 = audioScale.getFrequency(0, baseFrequency, octave);
                 var freq2 = audioScale.getFrequency(1, baseFrequency, octave);
