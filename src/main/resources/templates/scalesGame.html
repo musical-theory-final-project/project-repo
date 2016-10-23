@@ -14,15 +14,29 @@
     <script src="../static/js/midi-controller.js"></script>
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
-
+    <br><br><br><br>
+    <h1>Music Theory Trainer</h1>
 </head>
 
 <body ng-controller="midi-controller" id="gameBackground">
-<h1>Something</h1>
-<img src="https://media.giphy.com/media/b9QBHfcNpvqDK/giphy.gif"/>
+<br><br>
+<input type="hidden" ng-init="getUser()"/>
+<div class="booContainer">
+    <div id="boo"></div>
+</div>
+<div class="container">
+    <a href="#" class="btn btn-primary btn-primary"  ng-click="userInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+
+    <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
+</div>
+<br/><br/><br>
 
 </body>
 </html>
