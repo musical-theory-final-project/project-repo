@@ -77,6 +77,15 @@ button {
 
 }
 
+.chooseLevel {
+    display: flex;
+    justify-content: center;
+}
+.openLevels {
+    display:flex;
+    justify-content: center;
+}
+
 .gameMode {
     display:flex;
     justify-content: center;
