@@ -268,6 +268,28 @@ public class MusicTheoryTrainerJSONController {
         return returnIntervalContainer;
     }
 
+    //Get endpoint to get a list of all intervals by level
+    @RequestMapping(path = "/getListOfIntervals.json", method = RequestMethod.POST)
+    public IntervalListContainer getListOfIntervals (@RequestBody User activeUser) {
+        User myUser = users.findByEmail(activeUser.getEmail());
+        IntervalLevel intLevel = intervalLevels.findByLevelNumber(myUser.currentIntervalLevel);
+        int levelNumber = intLevel.getLevelNumber();
+
+        IntervalListContainer myContainer = new IntervalListContainer();
+
+        int levelCounter = 0;
+        while (levelCounter <= levelNumber) {
+            intLevel = intervalLevels.findByLevelNumber(levelCounter);
+
+            List<Interval> interval = intervals.findByIntervalLevelOrderByIntervalIdAsc(intLevel);
+            for (Interval currentInterval : interval) {
+                myContainer.myIntervals.add(currentInterval);
+            }
+            levelCounter++;
+        }
+        return myContainer;
+    }
+
 
 
     // POST scale endpoint for app usage
