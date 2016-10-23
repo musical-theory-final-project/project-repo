@@ -511,6 +511,7 @@
             if ($scope.intervalScoringSession !== null) {
                 $scope.intervalScoringSession
                 $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
+                $scope.isLive = true;
             }
         }
 
