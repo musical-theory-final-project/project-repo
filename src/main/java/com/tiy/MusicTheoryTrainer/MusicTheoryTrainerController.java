@@ -86,7 +86,7 @@ public class MusicTheoryTrainerController {
 		if (users.count() == 0) {
 			User myUser1 = new User("Brett", "Gordon", "brett@gmail.com", "pass");
 			User myUser2 = new User("Clay", "Strickland", "clay@gmail.com", "pass");
-			User myUser3 = new User("Brice", "Blanch", "bricerb@gmail.com", "pass");
+			User myUser3 = new User("Brice", "Blanch", "brice@gmail.com", "pass");
 			UserStatus myUserStatus1 = new UserStatus(myUser1, intervalLevel1, scaleLevel1);
 			UserStatus myUserStatus2 = new UserStatus(myUser2, intervalLevel2, scaleLevel2);
 			UserStatus myUserStatus3 = new UserStatus(myUser3, intervalLevel3, scaleLevel3);
