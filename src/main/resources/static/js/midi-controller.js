@@ -1,5 +1,17 @@
-    angular.module('MidiApp', [])
-   .controller('midi-controller', function($scope, $http, $timeout) {
+   var midiApp = angular.module('MidiApp', [])
+
+//   midiApp.component('intervalAnswers', {
+//    template:
+//        '<span ng repeat="interval in $ctrl.allIntervals>' +
+//            '<p>Please choose an interval</p>' +
+//            '<input type="radio" value={{interval}} ng-model="answer"/>{{interval}}' +
+//         '</span>',
+//         controller: function getAllIntervals() {
+//            this.allIntervals = $scope.allIntervals;
+//         }
+//   });
+
+   midiApp.controller('midi-controller', function($scope, $http, $timeout) {
     $scope.user;
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
@@ -10,6 +22,7 @@
     $scope.isLive = false;
     $scope.filter;
     $scope.currentAnswer;
+    $scope.allIntervals
 
 
     const VF = Vex.Flow;
@@ -73,6 +86,8 @@
                     $scope.maxIntervalLevel = everything.intervalLevel;
                     $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
                     $scope.scaleLevel = everything.scaleLevel;
+
+                    $scope.getListOfIntervals();
                 },
                 function errorCallBack(response) {
                     console.log("unable to get user");
@@ -278,6 +293,8 @@
 
             extend (Synth, AudioletGroup);
             this.audioletApp = new AudioletApp();
+            $scope.playCounter++;
+            console.log($scope.playCounter);
         };
 
         $scope.playScale = function(scale) {
@@ -408,6 +425,7 @@
             this.audioletApp = new AudioletApp();
 
             $scope.playCounter++;
+//            console.log($scope.playCounter);
         };
 
         $scope.checkAnswer = function(noteInterval) {
@@ -470,6 +488,21 @@
                     console.log("Could not move to next level");
                 });
         };
+
+        $scope.getListOfIntervals = function() {
+            console.log("Getting all of the intervals for your level");
+            $http.post("/getListOfIntervals.json", $scope.user)
+            .then(
+                function successCallBack(response){
+                    console.log("For real getting things");
+                    var allIntervals = response.data;
+                    $scope.allIntervals = allIntervals.myIntervals;
+                },
+                function errorCallBack(response) {
+                    console.log("Unable to get intervals");
+                }
+            )
+        }
 
 //        $scope.webAudio = function() {
 //            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
