@@ -6,7 +6,7 @@
     $scope.currentIntervalLevel
     $scope.initialInterval;
 
-    $scope.scaleLevel;
+    $scope.maxScaleLevel;
     $scope.currentScale;
     $scope.currentScaleLevel;
     $scope.baseFreq;
