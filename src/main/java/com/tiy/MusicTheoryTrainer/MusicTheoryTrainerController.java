@@ -179,10 +179,10 @@ public class MusicTheoryTrainerController {
 			scales.save(major);
 			Scale minor = new Scale("minor", scaleLevel1);
 			scales.save(minor);
-			Scale majorPentatonic = new Scale("majorPentatonic", scaleLevel1);
-			scales.save(majorPentatonic);
-			Scale minorPentatonic = new Scale("minorPentatonic", scaleLevel2);
-			scales.save(minorPentatonic);
+			Scale majorpentatonic = new Scale("majorpentatonic", scaleLevel1);
+			scales.save(majorpentatonic);
+			Scale minorpentatonic = new Scale("minorpentatonic", scaleLevel2);
+			scales.save(minorpentatonic);
 			Scale dorian = new Scale("dorian", scaleLevel3);
 			scales.save(dorian);
 			Scale phrygian = new Scale("phrygian", scaleLevel4);
