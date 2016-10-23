@@ -6,7 +6,7 @@
     $scope.currentIntervalLevel
     $scope.initialInterval;
 
-    $scope.scaleLevel;
+    $scope.maxScaleLevel;
     $scope.currentScale;
     $scope.currentScaleLevel;
     $scope.baseFreq;
@@ -79,6 +79,7 @@
                     $scope.user = everything.user;
                     $scope.maxIntervalLevel = everything.intervalLevel;
                     $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
+                    $scope.maxScaleLevel = everything.scaleLevel;
                     $scope.scaleLevel = everything.currentScaleLevel;
 
                     $scope.getListOfIntervals();
