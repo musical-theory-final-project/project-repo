@@ -1,23 +1,15 @@
    var midiApp = angular.module('MidiApp', [])
 
-//   midiApp.component('intervalAnswers', {
-//    template:
-//        '<span ng repeat="interval in $ctrl.allIntervals>' +
-//            '<p>Please choose an interval</p>' +
-//            '<input type="radio" value={{interval}} ng-model="answer"/>{{interval}}' +
-//         '</span>',
-//         controller: function getAllIntervals() {
-//            this.allIntervals = $scope.allIntervals;
-//         }
-//   });
-
    midiApp.controller('midi-controller', function($scope, $http, $timeout) {
     $scope.user;
     $scope.maxIntervalLevel;
     $scope.currentIntervalLevel
     $scope.initialInterval;
+
     $scope.scaleLevel;
     $scope.currentScale;
+    $scope.currentScaleLevel;
+
     $scope.intervalScoring = [];
     $scope.isLive = false;
     $scope.filter;
@@ -107,7 +99,6 @@
                 function errorCallBack(response) {
                     console.log("Could not return level");
                 });
-//                $scope.getInitialInterval();
         };
 
         $scope.setCurrentIntervalLevel = function(intLevel) {
@@ -126,6 +117,20 @@
                 });
         };
 
+        $scope.setCurrentScaleLevel = function(scaleLevel) {
+            console.log("Setting scale level for user");
+            $scope.user.currentScaleLevel = scaleLevel;
+            $http.post("/getDesiredScaleLevel.json", $scope.user)
+            .then (
+                function successCallBack(response) {
+                    console.log("User updated");
+                    $scope.currentScaleLevel = response.data;
+                }
+                function errorCallBack(response) {
+                    console.log("Unable to update user");
+                });
+        };
+
         $scope.getInitialInterval = function() {
             console.log("Getting initial interval");
 
@@ -138,19 +143,21 @@
                 },
                 function errorCallBack(response) {
                     console.log(response);
-                    console.log("Unable to recieve initial interval");
+                    console.log("Unable to receive initial interval");
                 });
         };
 
-        $scope.goToIntervalGames = function() {
-            console.log("Going to the interval games menu");
-            $http.get("/intervalGameMenu")
+        $scope.getScale = function() {
+            console.log("Getting scale");
+            $http.post("/getScale.json", $scope.user.currentScaleLevel)
             .then(
                 function successCallBack(response) {
-                    console.log("Great success!");
-                },
-                function errorCallBack(response){
-                    console.log("Could not navigate to page");
+                    console.log(response.data);
+                    $scope.currentScale = response.data;
+                    console.log($scope.currentScale);
+                }
+                function errorCallBack(response) {
+                    console.log("Unable to receive scale");
                 });
         };
 

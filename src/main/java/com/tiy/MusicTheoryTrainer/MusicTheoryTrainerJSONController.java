@@ -99,7 +99,6 @@ public class MusicTheoryTrainerJSONController {
         users.save(user);
         IntervalLevel intLevel = intervalLevels.findByLevelNumber(user.currentIntervalLevel);
         return intLevel;
-
     }
 
     // Retrieve max IntervalLevel based on user. Allows proper display of available levels for intervals.
@@ -114,6 +113,15 @@ public class MusicTheoryTrainerJSONController {
     public ScaleLevel scaleLevel(@RequestBody User myUser) {
         ScaleLevel scaleLevel = scaleLevels.findByLevelNumber(myUser.currentScaleLevel);
         return scaleLevel;
+    }
+
+    //Retrieve the desired ScaleLevel based on user.
+    @RequestMapping(path = "/getDesiredScaleLevel.json", method = RequestMethod.POST)
+    public ScaleLevel desiredScaleLevel(@RequestBody User activeUser) {
+        users.save(activeUser);
+        ScaleLevel scaleLvl = scaleLevels.findByLevelNumber(activeUser.currentScaleLevel);
+        return scaleLvl;
+
     }
 
     // Retrieve ChordLevel based on user. Allows proper display of available levels for chords.
