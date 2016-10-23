@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" ng-app="MidiApp">
 <head>
     <meta charset="UTF-8">
@@ -14,12 +15,39 @@
     <script src="../static/js/midi-controller.js"></script>
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="//npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
 
 </head>
 <body ng-controller="midi-controller">
+
+<input type="hidden" ng-init="getUser()"/>
+<br><br><br><br>
+<h1 class="chooseLevel">Please choose a level</h1>
+
+<div class="chooseLevel">
+    <h3>You have the following levels open to play:</h3>
+</div>
+<div class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
+    <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
+</div>
+<div class="chooseLevel">
+    <input type="text" placeholder="Level Number" ng-model="lvlnumber"/>
+    <a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(lvlnumber)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
+</div>
+
+
+<!--<a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(lvlnumber)">Set Level Number</a>-->
+<!--<a href="#" class="btn btn-success"  onclick="window.location.href='/intGame'">Start Level {{currentIntervalLevel.levelNumber}}</a>-->
+
 
 </body>
 </html>

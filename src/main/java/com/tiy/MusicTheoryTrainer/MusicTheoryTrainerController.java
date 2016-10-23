@@ -216,6 +216,16 @@ public class MusicTheoryTrainerController {
 		return "home";
 	}
 
+	@RequestMapping(path = "/scalesMenu", method = RequestMethod.GET)
+	public String scalesGameMenu(HttpSession session){
+		return "scalesMenu";
+	}
+
+	@RequestMapping(path = "/scalesGame", method = RequestMethod.GET)
+	public String scalesGame(HttpSession session){
+		return "scalesGame";
+	}
+
 	@RequestMapping(path = "/intGame", method = RequestMethod.GET)
 	public String intervalGame(HttpSession session){
 		return "IntervalGame";
