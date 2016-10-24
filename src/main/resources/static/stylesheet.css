@@ -139,7 +139,10 @@ h1 {
     text-align: center;
     font-style: oblique;
 }
-
+.aContainer {
+    display: flex;
+    justify-content: center;
+}
 .noteInput{
     font-style: oblique;
 }
