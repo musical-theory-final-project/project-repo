@@ -25,7 +25,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 var everything = response.data;
                 $scope.user = everything.user;
                 $scope.maxScaleLevel = everything.scaleLevel;
-                $scope.scaleLevel = everything.currentScaleLevel;
+                $scope.currentScaleLevel = everything.user.currentScaleLevel;
 
                 $scope.getListOfScales();
             },
@@ -270,7 +270,21 @@ midiApp.controller('scale-controller', function($scope, $http) {
             });
     };
 
-
+    $scope.nextScaleLevel = function() {
+        console.log("Moving to level " + ($scope.maxScaleLevel.levelNumber + 1) + " from " + $scope.maxScaleLevel.levelNumber);
+        $http.post("/nextScaleLevel.json", $scope.user)
+        .then(
+            function successCallBack(response) {
+                console.log("We're moving on~~~");
+                $scope.maxScaleLevel = response.data;
+                console.log($scope.maxScaleLevel);
+                $scope.filter = [];
+                $scope.intervalScoring = [];
+            },
+            function errorCallBack(response) {
+                console.log("Could not move to next level");
+            });
+    };
 });
 
 midiApp.controller('midi-controller', function($scope, $http) {
@@ -341,10 +355,7 @@ $scope.playCounter = 0;
                 $scope.user = everything.user;
                 $scope.maxIntervalLevel = everything.intervalLevel;
                 $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
-                $scope.maxScaleLevel = everything.scaleLevel;
-                $scope.scaleLevel = everything.currentScaleLevel;
 
-                $scope.getListOfScales();
                 $scope.getListOfIntervals();
             },
             function errorCallBack(response) {
@@ -430,53 +441,6 @@ $scope.playCounter = 0;
           console.log(err);
         });
         };
-    };
-
-    $scope.chords = function() {
-        var Synth = function(audiolet, frequency) {
-            AudioletGroup.call(this, audiolet, 0, 1);
-            // Basic wave
-            this.saw = new Saw(audiolet, frequency);
-            // Gain envelope
-            this.gain = new Gain(audiolet);
-            this.env = new PercussiveEnvelope(audiolet, 1, 0.1, 0.1,
-                function() {
-                    this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
-                }.bind(this)
-            );
-            this.envMulAdd = new MulAdd(audiolet, 0.3, 0);
-            // Main signal path
-            this.saw.connect(this.gain);
-            this.gain.connect(this.outputs[0]);
-            // Envelope
-            this.env.connect(this.envMulAdd);
-            this.envMulAdd.connect(this.gain, 0, 1);
-        };
-        extend(Synth, AudioletGroup);
-
-        var SchedulerApp = function() {
-            this.audiolet = new Audiolet();
-
-            this.scale = new MajorScale();
-
-            // I IV V progression
-            var chordPattern = new PSequence([[0, 2, 4],
-                                              [3, 5, 7],
-                                              [4, 6, 8]]);
-            // Play the progression
-            this.audiolet.scheduler.play([chordPattern], 1,
-                                         this.playChord.bind(this));
-        };
-
-        SchedulerApp.prototype.playChord = function(chord) {
-            for (var i = 0; i < chord.length; i++) {
-                var degree = chord[i];
-                var frequency = this.scale.getFrequency(degree, 16.352, 4);
-                var synth = new Synth(this.audiolet, frequency);
-                synth.connect(this.audiolet.output);
-            }
-        };
-        var app = new SchedulerApp();
     };
 
     $scope.playInterval = function() {
@@ -643,4 +607,56 @@ $scope.playCounter = 0;
 //            oscillator.stop(audioCtx.currentTime + .5);
 //            $timeout($scope.webAudio, 100);
 //        };
+});
+
+midiApp.controller('chord-controller', function($scope, $http) {
+
+    $scope.playChords = function() {
+        var Synth = function(audiolet, frequency) {
+            AudioletGroup.call(this, audiolet, 0, 1);
+            // Basic wave
+            this.saw = new Saw(audiolet, frequency);
+            // Gain envelope
+            this.gain = new Gain(audiolet);
+            this.env = new PercussiveEnvelope(audiolet, 1, 0.1, 0.1,
+                function() {
+                    this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
+                }.bind(this)
+            );
+            this.envMulAdd = new MulAdd(audiolet, 0.3, 0);
+            // Main signal path
+            this.saw.connect(this.gain);
+            this.gain.connect(this.outputs[0]);
+            // Envelope
+            this.env.connect(this.envMulAdd);
+            this.envMulAdd.connect(this.gain, 0, 1);
+        };
+        extend(Synth, AudioletGroup);
+
+        var SchedulerApp = function() {
+            this.audiolet = new Audiolet();
+
+            this.scale = new MajorScale();
+
+            // I IV V progression
+            var chordPattern = new PSequence([[0, 2, 4],
+                                              [3, 5, 7],
+                                              [4, 6, 8]]);
+            // Play the progression
+            this.audiolet.scheduler.play([chordPattern], 1,
+                                         this.playChord.bind(this));
+        };
+
+        SchedulerApp.prototype.playChord = function(chord) {
+            for (var i = 0; i < chord.length; i++) {
+                var degree = chord[i];
+                var frequency = this.scale.getFrequency(degree, 16.352, 4);
+                var synth = new Synth(this.audiolet, frequency);
+                synth.connect(this.audiolet.output);
+            }
+        };
+        var app = new SchedulerApp();
+    };
+
+
 });
