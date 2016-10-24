@@ -180,3 +180,7 @@ h1 {
     display: inline-block;
     border: 1px solid black;
 }
+.logoutbutton {
+    background-color: red;
+    color: white;
+}
