@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 
-<body ng-controller="scale-controller" id="gameBackground">
-    <div ng-controller="midi-controller" class="container gameBackground">
+<body ng-controller="scale-controller" class="gameBackground">
+    <!--<div ng-controller="midi-controller" class="container gameBackground">-->
 
     <a href="#" class="btn btn-sm btn-success nav-btn" onclick="window.location.href='/scalesMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
 
@@ -37,14 +37,15 @@
     <div class="booContainer">
         <div id="boo"></div>
     </div>
-    <div class="aContainer">
+
+    <div class="answerChoices">
         <a href="#" class="btn btn-primary btn-primary"  ng-click="scaleUserInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
 
         <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
     </div>
     <br/><br/><br>
     <div class="instructionContainer">
-        <h4>Please choose an interval:</h4>
+        <h4>Please choose a scale:</h4>
 
     </div>
 
@@ -82,7 +83,7 @@
             <input type="button" value="Advance to the next level!" ng-click="nextScaleLevel()"/>
         </div>
     </div>
-</div>
+<!--</div>-->
 </body>
 </html>
 
