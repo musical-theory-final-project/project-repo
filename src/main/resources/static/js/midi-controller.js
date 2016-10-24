@@ -553,12 +553,12 @@ midiApp.controller('midi-controller', function($scope, $http) {
         $scope.filter = $scope.intervalScoring.filter(isTrue);
         console.log($scope.filter);
         $scope.playCounter = 0;
-        sessionStorage.setItem('points', JSON.stringify($scope.intervalScoring));
+        sessionStorage.setItem('intervalPoints', JSON.stringify($scope.intervalScoring));
     };
 
 
     $scope.getSession = function() {
-        $scope.intervalScoringSession = sessionStorage.getItem('points');
+        $scope.intervalScoringSession = sessionStorage.getItem('intervalPoints');
         if ($scope.intervalScoringSession !== null) {
             $scope.intervalScoringSession
             $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
