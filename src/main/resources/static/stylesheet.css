@@ -35,6 +35,10 @@ a {
     font-family: 'Exo', sans-serif;
 }
 
+p {
+    color: white;
+}
+
 button {
     font-family: 'Exo', sans-serif;
 }
@@ -181,5 +185,8 @@ h1 {
     border: 1px solid black;
 }
 .nav-btn {
+    margin: 15px;
+}
+#logout {
     margin: 15px;
 }
