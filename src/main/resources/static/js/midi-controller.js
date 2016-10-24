@@ -261,6 +261,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
         $scope.scaleScoringSession = sessionStorage.getItem('scalePoints');
         if ($scope.scaleScoringSession !== null) {
             $scope.scaleScoring = JSON.parse($scope.scaleScoringSession);
+            console.log($scope.user);
             $scope.isLive = true;
             console.log($scope.isLive);
         }
@@ -566,7 +567,8 @@ midiApp.controller('midi-controller', function($scope, $http) {
         }
     }
 
-        $scope.getSession();
+    $scope.getSession();
+
     $scope.checkNoteName = function(noteNotation) {
         console.log(noteNotation);
         console.log($scope.nextNote);
