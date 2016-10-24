@@ -22,7 +22,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
             $scope.userStatus = JSON.parse($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
             $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
-//            $scope.currentScaleLevel = $scope.userStatus.user.currentScaleLevel;
+            $scope.currentScaleLevel = $scope.user.currentScaleLevel;
             $scope.getListOfScales();
         } else {
             $scope.getUser();
@@ -341,8 +341,10 @@ midiApp.controller('midi-controller', function($scope, $http) {
         if ($scope.userStatus !== null) {
             $scope.userStatus = JSON.parse($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
+            console.log($scope.user);
             $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
-//            $scope.currentIntervalLevel = $scope.userStatus.user.currentIntervalLevel;
+            console.log($scope.maxIntervalLevel);
+            $scope.currentIntervalLevel = $scope.user.currentIntervalLevel;
             $scope.getListOfIntervals();
         } else {
             $scope.getUser();

@@ -52,6 +52,19 @@
 
         </div>
 
+    <div ng-if="currentAnswer === true">
+        <p>That's correct!</p>
+    </div>
+
+    <div ng-if="currentAnswer === false">
+        <p>Sorry, but the correct answer is {{nextNote}}</p>
+    </div>
+
+
+    <div class="answers">
+        <h5>Number of right/wrong</h5>
+    </div>
+
         <div id="answerChoicesContainer">
             <span class="answerChoices" ng-repeat="interval in allIntervals">
                 <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="$parent.answer"/>{{interval.interval}}
