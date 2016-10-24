@@ -273,7 +273,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
 });
 
-midiApp.controller('midi-controller', function($scope, $http, $timeout) {
+midiApp.controller('midi-controller', function($scope, $http) {
 
 $scope.user;
 
@@ -289,14 +289,8 @@ $scope.currentAnswer;
 
 const VF = Vex.Flow;
 $scope.frequencies = {};
-$scope.staff;
-$scope.note;
 $scope.nextNote;
 $scope.playCounter = 0;
-
-var teoriaContainer;
-$scope.teoriaOutput;
-var a4;
 
     $scope.login = function(loginContainer) {
         console.log(loginContainer);
