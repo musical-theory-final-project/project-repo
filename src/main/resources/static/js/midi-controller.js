@@ -289,6 +289,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
 midiApp.controller('midi-controller', function($scope, $http) {
 
+    $scope.userStatus;
     $scope.user;
 
     $scope.maxIntervalLevel;
@@ -314,12 +315,15 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 console.log(response.data);
                 console.log("logging in...");
                 var userStatus = response.data;
-                if (userStatus.userStatus == null) {
+                $scope.userStatus = userStatus;
+                if ($scope.userStatus.userStatus == null) {
                 console.log(userStatus.errorMessage);
                 } else {
-                $scope.user = userStatus.user;
-                $scope.maxIntervalLevel = userStatus.intervalLevel;
+                console.log($scope.userStatus);
+                $scope.user = $scope.userStatus.userStatus.user;
                 console.log($scope.user);
+                $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
+                console.log($scope.maxIntervalLevel);
                 $scope.isLive = true;
                 }
             },
