@@ -289,22 +289,22 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
 midiApp.controller('midi-controller', function($scope, $http) {
 
-$scope.user;
+    $scope.user;
 
-$scope.maxIntervalLevel;
-$scope.currentIntervalLevel
-$scope.initialInterval;
-$scope.allIntervals
-$scope.intervalScoring = [];
+    $scope.maxIntervalLevel;
+    $scope.currentIntervalLevel
+    $scope.initialInterval;
+    $scope.allIntervals
+    $scope.intervalScoring = [];
 
-$scope.isLive = false;
-$scope.filter;
-$scope.currentAnswer;
+    $scope.isLive = false;
+    $scope.filter;
+    $scope.currentAnswer;
 
-const VF = Vex.Flow;
-$scope.frequencies = {};
-$scope.nextNote;
-$scope.playCounter = 0;
+    const VF = Vex.Flow;
+    $scope.frequencies = {};
+    $scope.nextNote;
+    $scope.playCounter = 0;
 
     $scope.login = function(loginContainer) {
         console.log(loginContainer);
@@ -593,21 +593,8 @@ $scope.playCounter = 0;
             });
     };
 
-//        $scope.webAudio = function() {
-//            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-//            oscillator = audioCtx.createOscillator();
-//            gainNode = audioCtx.createGain();
-//
-//            oscillator.connect(gainNode);
-//            gainNode.connect(audioCtx.destination);
-//
-//            oscillator.type = "sine";
-//            oscillator.frequency.value = 220;
-//            oscillator.start();
-//            oscillator.stop(audioCtx.currentTime + .5);
-//            $timeout($scope.webAudio, 100);
-//        };
 });
+
 
 midiApp.controller('chord-controller', function($scope, $http) {
 
@@ -658,5 +645,19 @@ midiApp.controller('chord-controller', function($scope, $http) {
         var app = new SchedulerApp();
     };
 
+//        $scope.webAudio = function() {
+//            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+//            oscillator = audioCtx.createOscillator();
+//            gainNode = audioCtx.createGain();
+//
+//            oscillator.connect(gainNode);
+//            gainNode.connect(audioCtx.destination);
+//
+//            oscillator.type = "sine";
+//            oscillator.frequency.value = 220;
+//            oscillator.start();
+//            oscillator.stop(audioCtx.currentTime + .5);
+//            $timeout($scope.webAudio, 100);
+//        };
 
 });
