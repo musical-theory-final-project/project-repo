@@ -34,7 +34,12 @@ body {
 a {
     font-family: 'Exo', sans-serif;
 }
-
+.logoutContainer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
 p {
     color: white;
 }
@@ -138,7 +143,10 @@ h1 {
     text-align: center;
     font-style: oblique;
 }
-
+.aContainer {
+    display: flex;
+    justify-content: center;
+}
 .noteInput{
     font-style: oblique;
 }

@@ -25,9 +25,12 @@
 <body ng-controller="midi-controller" class="container registerBackground">
     <!--<div ng-controller="midi-controller" class="container registerBackground">-->
     <br>
-    <div class="logoutContainer" ng-if="isLive">
-        <a href="#"  id="logout" class="btn btn-danger" onclick="window.location.href='/'"><span class="glyphicon glyphicon-log-out"></span> </a>
-    </div>
+    <!--<div class="logoutContainer" ng-if="isLive">-->
+        <!--<a href="#"  id="logout" class="btn btn-danger" ><span onclick="logout()" class="glyphicon glyphicon-log-out"></span> </a>-->
+    <!--</div>-->
+    <form class="logoutContainer" action="logout" method="post" ng-if="isLive">
+        <input type="image" src="http://findicons.com/files/icons/2352/frankfurt/32/logout.png"  class="logout" type="submit" value="Logout"/>
+    </form>
     <h1 style="color:white">Music Theory Trainer</h1>
     <br><br><br>
     <!--<div ng-if=isLive==false>-->
