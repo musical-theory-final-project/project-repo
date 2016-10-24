@@ -258,14 +258,13 @@ midiApp.controller('scale-controller', function($scope, $http) {
     };
 
     $scope.getSession = function() {
-        $scope.intervalScoringSession = sessionStorage.getItem('scalePoints');
-        if ($scope.intervalScoringSession !== null) {
-            $scope.intervalScoringSession
-            $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
+        $scope.scaleScoringSession = sessionStorage.getItem('scalePoints');
+        if ($scope.scaleScoringSession !== null) {
+            $scope.scaleScoring = JSON.parse($scope.scaleScoringSession);
             $scope.isLive = true;
             console.log($scope.isLive);
         }
-    }
+    };
 
 
     $scope.getListOfScales = function() {
@@ -296,6 +295,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 console.log("Could not move to next level");
             });
     };
+    $scope.getSession();
 });
 
 midiApp.controller('midi-controller', function($scope, $http) {
@@ -560,14 +560,13 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.getSession = function() {
         $scope.intervalScoringSession = sessionStorage.getItem('intervalPoints');
         if ($scope.intervalScoringSession !== null) {
-            $scope.intervalScoringSession
             $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
             $scope.isLive = true;
             console.log($scope.isLive);
         }
     }
 
-//        $scope.getSession();
+        $scope.getSession();
     $scope.checkNoteName = function(noteNotation) {
         console.log(noteNotation);
         console.log($scope.nextNote);
