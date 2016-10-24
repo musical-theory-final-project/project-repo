@@ -26,7 +26,7 @@
     <h1>Music Theory Trainer</h1>
 </head>
 
-<body ng-controller="midi-controller" id="gameBackground">
+<body ng-controller="scale-controller" id="gameBackground">
 <br><br>
 <input type="hidden" ng-init="getUser()"/>
 <div class="booContainer">
@@ -50,7 +50,7 @@
 </div>
 
 <div class="checkAnswerContainer">
-    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
 </div>
 
 <div class="answers">
@@ -66,7 +66,7 @@
     </div>
     <div ng-if="filter.length >= 8">
         <p>You are the bees knees!</p>
-        <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
+        <input type="button" value="Advance to the next level!" ng-click="nextScaleLevel()"/>
     </div>
 </div>
 
