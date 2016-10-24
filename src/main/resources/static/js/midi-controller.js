@@ -16,6 +16,21 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.playCounter = 0;
 
 
+    $scope.onPageLoad = function() {
+        $scope.userStatus = sessionStorage.getItem('userStatus');
+        if ($scope.userStatus !== null) {
+            $scope.userStatus = JSON.parse($scope.userStatus);
+            $scope.user = $scope.userStatus.userStatus.user;
+            $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
+//            $scope.currentScaleLevel = $scope.userStatus.user.currentScaleLevel;
+            $scope.getListOfScales();
+        } else {
+            $scope.getUser();
+//            $scope.getListOfIntervals();
+        }
+    };
+
+
     $scope.getUser = function () {
         console.log("getting user from session");
         $http.post("/getUserFromSession.json")
@@ -321,6 +336,20 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.nextNote;
     $scope.playCounter = 0;
 
+    $scope.onPageLoad = function() {
+        $scope.userStatus = sessionStorage.getItem('userStatus');
+        if ($scope.userStatus !== null) {
+            $scope.userStatus = JSON.parse($scope.userStatus);
+            $scope.user = $scope.userStatus.userStatus.user;
+            $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
+//            $scope.currentIntervalLevel = $scope.userStatus.user.currentIntervalLevel;
+            $scope.getListOfIntervals();
+        } else {
+            $scope.getUser();
+//            $scope.getListOfIntervals();
+        }
+    };
+
     $scope.login = function(loginContainer) {
         console.log(loginContainer);
         $http.post("/login.json", loginContainer)
@@ -333,12 +362,11 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 if ($scope.userStatus.userStatus == null) {
                 console.log(userStatus.errorMessage);
                 } else {
-                console.log($scope.userStatus);
                 $scope.user = $scope.userStatus.userStatus.user;
-                console.log($scope.user);
                 $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
-                console.log($scope.maxIntervalLevel);
+
                 $scope.isLive = true;
+                sessionStorage.setItem('userStatus', JSON.stringify($scope.userStatus));
                 }
             },
             function errorCallBack(response) {
@@ -364,7 +392,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
     };
 
     $scope.getUser = function () {
-        console.log("getting user from session");
+        console.log("getting user from backend");
         $http.post("/getUserFromSession.json")
         .then(
             function successCallBack(response) {
@@ -569,7 +597,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
             $scope.isLive = true;
             console.log($scope.isLive);
         }
-    }
+    };
 
     $scope.getSession();
 
