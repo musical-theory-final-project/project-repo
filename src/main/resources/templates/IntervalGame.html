@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 
-
-
-
 <body>
     <div ng-controller="midi-controller" class="container gameBackground">
 
@@ -52,19 +49,6 @@
 
         </div>
 
-    <div ng-if="currentAnswer === true">
-        <p>That's correct!</p>
-    </div>
-
-    <div ng-if="currentAnswer === false">
-        <p>Sorry, but the correct answer is {{nextNote}}</p>
-    </div>
-
-
-    <div class="answers">
-        <h5>Number of right/wrong</h5>
-    </div>
-
         <div id="answerChoicesContainer">
             <span class="answerChoices" ng-repeat="interval in allIntervals">
                 <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="$parent.answer"/>{{interval.interval}}
@@ -73,6 +57,14 @@
 
         <div class="checkAnswerContainer">
             <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+        </div>
+
+        <div ng-if="currentAnswer === true">
+            <p>That's correct!</p>
+        </div>
+
+        <div ng-if="currentAnswer === false">
+            <p>Sorry, but the correct answer is {{nextNote}}</p>
         </div>
 
         <div class="answers">

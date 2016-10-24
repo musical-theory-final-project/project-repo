@@ -22,7 +22,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
             $scope.userStatus = JSON.parse($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
             $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
-            $scope.currentScaleLevel = $scope.user.currentScaleLevel;
+//            $scope.currentScaleLevel = $scope.user.currentScaleLevel;
             $scope.getListOfScales();
         } else {
             $scope.getUser();
