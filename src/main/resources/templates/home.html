@@ -71,9 +71,11 @@
     </form>
 </div>
 <br>
+<div class="chooseGameMode" style="color: white" ng-if="isLive">
+    <h2>Welcome, {{user.firstName}}</h2>
+    <br><br>
+</div>
 <div class="chooseGameMode" ng-if="isLive">
-
-    <h1>Welcome, {{user.firstName}}</h1>
     <h4 style="color: white">Please choose a game mode</h4>
 </div>
 <div class="gameMode" ng-if="isLive">
