@@ -22,89 +22,90 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 
 </head>
-<body ng-controller="midi-controller" id="registerBackground">
-<br>
-<div class="logoutContainer" ng-if="isLive">
-    <a href="#"  id="logout" class="btn btn-danger" onclick="window.location.href='/'"><span class="glyphicon glyphicon-log-out"></span> </a>
-</div>
-<h1 style="color:white">Music Theory Trainer</h1>
-<br><br><br>
-<!--<div ng-if=isLive==false>-->
-    <!--<input type="text" placeholder="Username" ng-model="loginContainer.email"/>-->
-    <!--<input type="password" placeholder="Password" ng-model="loginContainer.password"/>-->
-    <!--<input type="button" ng-click="login(loginContainer)" value="Login"/>-->
-    <!--<br/>-->
-    <!--<input type="text" placeholder="Username" ng-model="registerContainer.email"/>-->
-    <!--<input type="text" placeholder="Password" ng-model="registerContainer.password"/>-->
-    <!--<input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>-->
-    <!--<input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>-->
-    <!--<input type="button" ng-click="register(registerContainer)" value="Register"/>-->
-<!--</div>-->
-<div ng-if="isLive==false" class="formcontainer">
-    <form class="form1">
-        <div class="form-group">
-            <label for="loginusername"></label>
-            <input type="text" class="form-control" id="loginusername" placeholder="Email" ng-model="loginContainer.email" style="width:200px">
-        </div>
-        <div class="form-group">
-            <label for="loginpassword"></label>
-            <input type="password" class="form-control" id="loginpassword" placeholder="Password" ng-model="loginContainer.password" style="width:200px">
-        </div>
-        <button type="submit" class="btn btn-primary" ng-click="login(loginContainer)">Login</button>
-    </form>
+<body >
+    <div ng-controller="midi-controller" class="container registerBackground">
+    <br>
+    <div class="logoutContainer" ng-if="isLive">
+        <a href="#"  id="logout" class="btn btn-danger" onclick="window.location.href='/'"><span class="glyphicon glyphicon-log-out"></span> </a>
+    </div>
+    <h1 style="color:white">Music Theory Trainer</h1>
+    <br><br><br>
+    <!--<div ng-if=isLive==false>-->
+        <!--<input type="text" placeholder="Username" ng-model="loginContainer.email"/>-->
+        <!--<input type="password" placeholder="Password" ng-model="loginContainer.password"/>-->
+        <!--<input type="button" ng-click="login(loginContainer)" value="Login"/>-->
+        <!--<br/>-->
+        <!--<input type="text" placeholder="Username" ng-model="registerContainer.email"/>-->
+        <!--<input type="text" placeholder="Password" ng-model="registerContainer.password"/>-->
+        <!--<input type="text" placeholder="First Name" ng-model="registerContainer.firstName"/>-->
+        <!--<input type="text" placeholder="Last Name" ng-model="registerContainer.lastName"/>-->
+        <!--<input type="button" ng-click="register(registerContainer)" value="Register"/>-->
+    <!--</div>-->
+    <div ng-if="isLive==false" class="formcontainer">
+        <form class="form1">
+            <div class="form-group">
+                <label for="loginusername"></label>
+                <input type="text" class="form-control" id="loginusername" placeholder="Email" ng-model="loginContainer.email" style="width:200px">
+            </div>
+            <div class="form-group">
+                <label for="loginpassword"></label>
+                <input type="password" class="form-control" id="loginpassword" placeholder="Password" ng-model="loginContainer.password" style="width:200px">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="login(loginContainer)">Login</button>
+        </form>
+        <br><br>
+        <form class="form">
+            <div class="form-group">
+                <label for="registeremail"></label>
+                <input type="email" class="form-control" id="registeremail" placeholder="Email" ng-model="registerContainer.email" style="width:200px">
+            </div>
+            <div class="form-group">
+                <label for="registerpassword"></label>
+                <input type="password" class="form-control" id="registerpassword" placeholder="Password" ng-model="registerContainer.password" style="width:200px">
+            </div>
+            <div class="form-group">
+                <label for="registerfirstname"></label>
+                <input type="text" class="form-control" id="registerfirstname" placeholder="First Name" ng-model="registerContainer.firstName" style="width:200px">
+            </div>
+            <div class="form-group">
+                <label for="registerlastname"></label>
+                <input type="text" class="form-control" id="registerlastname" placeholder="Last Name" ng-model="registerContainer.lastName" style="width:200px">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="register(registerContainer)">Register</button>
+        </form>
+    </div>
+    <br>
+    <div class="chooseGameMode" style="color: white" ng-if="isLive">
+        <h2>Welcome, {{user.firstName}}!</h2>
+        <br><br>
+    </div>
+    <div class="chooseGameMode" ng-if="isLive">
+        <h4 style="color: white">Please choose a game mode</h4>
+    </div>
+    <div class="gameMode" ng-if="isLive">
+        <a href="#" class="btn btn-success" onclick="window.location.href='/intGameMenu'">Intervals</a>
+    </div>
+    <br>
+    <p class="gameMode" ng-if="isLive">Training your ear to listen for and identify intervals.</p>
     <br><br>
-    <form class="form">
-        <div class="form-group">
-            <label for="registeremail"></label>
-            <input type="email" class="form-control" id="registeremail" placeholder="Email" ng-model="registerContainer.email" style="width:200px">
-        </div>
-        <div class="form-group">
-            <label for="registerpassword"></label>
-            <input type="password" class="form-control" id="registerpassword" placeholder="Password" ng-model="registerContainer.password" style="width:200px">
-        </div>
-        <div class="form-group">
-            <label for="registerfirstname"></label>
-            <input type="text" class="form-control" id="registerfirstname" placeholder="First Name" ng-model="registerContainer.firstName" style="width:200px">
-        </div>
-        <div class="form-group">
-            <label for="registerlastname"></label>
-            <input type="text" class="form-control" id="registerlastname" placeholder="Last Name" ng-model="registerContainer.lastName" style="width:200px">
-        </div>
-        <button type="submit" class="btn btn-primary" ng-click="register(registerContainer)">Register</button>
-    </form>
-</div>
-<br>
-<div class="chooseGameMode" style="color: white" ng-if="isLive">
-    <h2>Welcome, {{user.firstName}}!</h2>
-    <br><br>
-</div>
-<div class="chooseGameMode" ng-if="isLive">
-    <h4 style="color: white">Please choose a game mode</h4>
-</div>
-<div class="gameMode" ng-if="isLive">
-    <a href="#" class="btn btn-success" onclick="window.location.href='/intGameMenu'">Intervals</a>
-</div>
-<br>
-<p class="gameMode" ng-if="isLive">Training your ear to listen for and identify intervals.</p>
-<br><br>
-<div class="gameMode" ng-if="isLive">
-    <a href="#" class="btn btn-success" onclick="window.location.href='/scalesMenu'">Scales</a>
-</div>
-<br>
-<p class="gameMode" ng-if="isLive">Training your ear to listen for and identify scales.</p>
-<br><br><br><br><br><br><br><br>
-<div class="moreLater" ng-if="isLive">
-    <p style="color: white">*More games to come at a later date</p>
-</div>
-<div class="futureGames" ng-if="isLive">
-    <a href="#" class="btn btn-xs btn-danger">Chords</a>
-</div>
+    <div class="gameMode" ng-if="isLive">
+        <a href="#" class="btn btn-success" onclick="window.location.href='/scalesMenu'">Scales</a>
+    </div>
+    <br>
+    <p class="gameMode" ng-if="isLive">Training your ear to listen for and identify scales.</p>
+    <br><br><br><br><br><br><br><br>
+    <div class="moreLater" ng-if="isLive">
+        <p style="color: white">*More games to come at a later date</p>
+    </div>
+    <div class="futureGames" ng-if="isLive">
+        <a href="#" class="btn btn-xs btn-danger">Chords</a>
+    </div>
 
-<!--<form action="/logout" method="post">-->
-    <!--<button class="logoutbutton" type="submit">Logout-->
-    <!--</button>-->
-<!--</form>-->
-
+    <!--<form action="/logout" method="post">-->
+        <!--<button class="logoutbutton" type="submit">Logout-->
+        <!--</button>-->
+    <!--</form>-->
+    </div>
 </body>
 
 </html>
