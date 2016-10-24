@@ -254,8 +254,19 @@ midiApp.controller('scale-controller', function($scope, $http) {
         $scope.filter = $scope.scaleScoring.filter(isTrue);
         console.log($scope.filter);
         $scope.playCounter = 0;
-        sessionStorage.setItem('points', JSON.stringify($scope.scaleScoring));
+        sessionStorage.setItem('scalePoints', JSON.stringify($scope.scaleScoring));
     };
+
+    $scope.getSession = function() {
+        $scope.intervalScoringSession = sessionStorage.getItem('scalePoints');
+        if ($scope.intervalScoringSession !== null) {
+            $scope.intervalScoringSession
+            $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
+            $scope.isLive = true;
+            console.log($scope.isLive);
+        }
+    }
+
 
     $scope.getListOfScales = function() {
         console.log("Getting list of scales...");
@@ -542,12 +553,12 @@ midiApp.controller('midi-controller', function($scope, $http) {
         $scope.filter = $scope.intervalScoring.filter(isTrue);
         console.log($scope.filter);
         $scope.playCounter = 0;
-        sessionStorage.setItem('points', JSON.stringify($scope.intervalScoring));
+        sessionStorage.setItem('intervalPoints', JSON.stringify($scope.intervalScoring));
     };
 
 
     $scope.getSession = function() {
-        $scope.intervalScoringSession = sessionStorage.getItem('points');
+        $scope.intervalScoringSession = sessionStorage.getItem('intervalPoints');
         if ($scope.intervalScoringSession !== null) {
             $scope.intervalScoringSession
             $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
