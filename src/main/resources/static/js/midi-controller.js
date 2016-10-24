@@ -225,7 +225,9 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.checkScaleAnswer = function(scaleName) {
     console.log(scaleName);
     console.log($scope.currentScale.scale);
-        if ($scope.currentScale.scale === scaleName) {
+        if(scaleName == null){
+            console.log("You need to input an answer!");
+        } else if ($scope.currentScale.scale === scaleName) {
             console.log("You are the greetest!");
             if ($scope.scaleScoring.length < 10) {
                 $scope.scaleScoring.push(true);
@@ -524,7 +526,9 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.checkAnswer = function(noteInterval) {
     console.log(noteInterval);
     console.log($scope.initialInterval.interval);
-        if ($scope.initialInterval.interval === noteInterval) {
+        if(noteInterval == null){
+            console.log("You need an answer!");
+        } else if ($scope.initialInterval.interval === noteInterval) {
             console.log("You are the greetest!");
             if ($scope.intervalScoring.length < 10) {
                 $scope.intervalScoring.push(true);
