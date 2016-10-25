@@ -17,39 +17,28 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
 
     $scope.onPageLoad = function() {
-        $scope.userStatus = sessionStorage.getItem('userStatus');
-        if ($scope.userStatus !== null) {
-            console.log($scope.userStatus);
-
-            $scope.userStatus = JSON.parse($scope.userStatus);
-            console.log($scope.userStatus);
-            $scope.user = $scope.userStatus.userStatus.user;
-            $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
-
-            console.log($scope.userStatus);
-            $scope.currentScaleLevel = $scope.userStatus.userStatus.user.currentScaleLevel;
-
-            $scope.getListOfScales();
-        } else {
             $scope.getUser();
-        }
     };
 
     $scope.onGameLoad = function() {
-        $scope.userStatus = sessionStorage.getItem('userStatus');
-        if ($scope.userStatus !== null) {
-            $scope.userStatus = JSON.parse($scope.userStatus);
-            $scope.user = $scope.userStatus.userStatus.user;
-            $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
-
-            $scope.currentScaleLevel = $scope.userStatus.userStatus.user.currentScaleLevel;
-
-
-            $scope.getListOfScales();
-            $scope.scaleUserInput();
-        } else {
-            $scope.getUser();
-        }
+        $http.post("/getUserFromSession.json")
+        .then(
+            function successCallBack (response) {
+                var everything = response.data;
+                $scope.user = everything.user;
+                $scope.maxScaleLevel = everything.scaleLevel;
+                $scope.currentScaleLevel = everything.user.currentScaleLevel;
+                $http.post("/getListOfCurrentScales.json", $scope.user)
+                .then (
+                    function successCallBack(response) {
+                        console.log("Received list of scales");
+                        $scope.allScales = response.data.myScales;
+                        $scope.scaleUserInput();
+                    },
+                    function errorCallBack(response) {
+                        console.log("Unable to get scales");
+                    });
+            })
     };
 
 
@@ -362,34 +351,31 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.playCounter = 0;
 
     $scope.onPageLoad = function() {
-        $scope.userStatus = sessionStorage.getItem('userStatus');
-        if ($scope.userStatus !== null) {
-            $scope.userStatus = JSON.parse($scope.userStatus);
-            $scope.user = $scope.userStatus.userStatus.user;
-            console.log($scope.user);
-            $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
-            console.log($scope.maxIntervalLevel);
-            $scope.currentIntervalLevel = $scope.user.currentIntervalLevel;
-            $scope.getListOfIntervals();
-        } else {
             $scope.getUser();
-//            $scope.getListOfIntervals();
-        }
     };
 
     $scope.onGameLoad = function() {
-        $scope.userStatus = sessionStorage.getItem('userStatus');
-        if ($scope.userStatus !== null) {
-            $scope.userStatus = JSON.parse($scope.userStatus);
-            $scope.user = $scope.userStatus.userStatus.user;
-            $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
-            $scope.currentIntervalLevel = $scope.user.currentIntervalLevel;
-            $scope.getListOfIntervals();
+        $http.post("/getUserFromSession.json")
+        .then(
+            function successCallBack(response) {
+                var everything = response.data;
+                $scope.user = everything.user;
+                $scope.maxIntervalLevel = everything.intervalLevel;
+                $scope.currentIntervalLevel = everything.user.currentIntervalLevel;
+                $scope.getListOfIntervals();
+                $http.post("/getListOfIntervals.json", $scope.user)
+                .then(
+                    function successCallBack(response){
+                        console.log("For real getting things");
+                        var allIntervals = response.data;
+                        $scope.allIntervals = allIntervals.myIntervals;
+                        $scope.userInput();
+                    },
+                    function errorCallBack(response) {
+                        console.log("Unable to get intervals");
+                    });
 
-            $scope.userInput();
-        } else {
-            $scope.getUser();
-        }
+            });
     };
 
     $scope.login = function(loginContainer) {
@@ -480,7 +466,9 @@ midiApp.controller('midi-controller', function($scope, $http) {
             function successCallBack(response) {
                 console.log("User updated");
                 $scope.currentIntervalLevel = response.data;
-                console.log($scope.intervalLevel);
+                $scope.user.currentIntervalLevel = response.data.levelNumber;
+                console.log($scope.currentIntervalLevel);
+                sessionStorage.setItem('currentIntervalLevel', JSON.stringify($scope.currentIntervalLevel));
             },
             function errorCallBack(response) {
                 console.log("unable to update user");
@@ -491,7 +479,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.getInitialInterval = function() {
         console.log("Getting initial interval");
 
-        $http.post("/getInterval.json", $scope.user.currentIntervalLevel)
+        $http.post("/getInterval.json", $scope.currentIntervalLevel)
         .then (
             function successCallBack(response) {
                 console.log(response.data);
@@ -514,7 +502,9 @@ midiApp.controller('midi-controller', function($scope, $http) {
         $http.post("/getIntervalLevel.json", $scope.user)
         .then(function successCallBack(res){
           console.log(res);
-          $scope.intervalLevel = res.data;
+          $scope.currentIntervalLevel = res.data;
+          console.log($scope.user);
+          console.log($scope.currentIntervalLevel);
           $http.post("getInterval.json", $scope.currentIntervalLevel).then(function successCallBack(res){
           $scope.initialInterval = res.data;
            var vf = new VF.Factory({renderer: {selector: 'boo'}});
