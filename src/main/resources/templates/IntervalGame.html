@@ -2,7 +2,7 @@
 <html lang="en" ng-app="MidiApp">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Interval Game</title>
     <!--
     {{! changing the mustache delimiter so it doesn't conflict with  }}
     {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
@@ -45,7 +45,7 @@
             <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
         </div>
 
-        <br/><br/><br>
+        <br/>
 
         <div class="instructionContainer">
             <h4>Please choose an interval:</h4>
@@ -64,7 +64,7 @@
 
         <div class="answers" ng-if="currentAnswer === true">
             <div>
-                <h5>That's correct!</h5>
+                <h5>That's correct! </h5>
             </div>
 
             <br/>
@@ -76,7 +76,7 @@
 
         <div class="answers" ng-if="currentAnswer === false">
             <div>
-                <h5>Sorry, but the correct answer is {{initialInterval.interval}}</h5>
+                <h5>Sorry, but the correct answer is {{initialInterval.interval}} </h5>
             </div>
 
             <br/>
