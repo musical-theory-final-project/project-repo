@@ -19,9 +19,16 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.onPageLoad = function() {
         $scope.userStatus = sessionStorage.getItem('userStatus');
         if ($scope.userStatus !== null) {
+            console.log($scope.userStatus);
+
             $scope.userStatus = JSON.parse($scope.userStatus);
+            console.log($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
             $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
+
+            console.log($scope.userStatus);
+            $scope.currentScaleLevel = $scope.userStatus.userStatus.user.currentScaleLevel;
+
             $scope.getListOfScales();
         } else {
             $scope.getUser();
@@ -34,6 +41,10 @@ midiApp.controller('scale-controller', function($scope, $http) {
             $scope.userStatus = JSON.parse($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
             $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
+
+            $scope.currentScaleLevel = $scope.userStatus.userStatus.user.currentScaleLevel;
+
+
             $scope.getListOfScales();
             $scope.scaleUserInput();
         } else {
@@ -287,9 +298,12 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
     $scope.getSession = function() {
         $scope.scaleScoringSession = sessionStorage.getItem('scalePoints');
+        $scope.userStatus = sessionStorage.getItem('userStatus');
         if ($scope.scaleScoringSession !== null) {
             $scope.scaleScoring = JSON.parse($scope.scaleScoringSession);
-            console.log($scope.user);
+                        $scope.userStatus = JSON.parse($scope.userStatus);
+
+            console.log($scope.userStatus);
             $scope.isLive = true;
             console.log($scope.isLive);
         }
