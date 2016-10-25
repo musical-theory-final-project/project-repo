@@ -419,6 +419,11 @@ midiApp.controller('midi-controller', function($scope, $http) {
          console.log("done with callback");
     };
 
+    $scope.logout = function () {
+        sessionStorage.clear();
+        $scope.isLive = false;
+    }
+
     $scope.getUser = function () {
         console.log("getting user from backend");
         $http.post("/getUserFromSession.json")
@@ -564,7 +569,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
             var interval = new PSequence([$scope.frequencies.freq1, $scope.frequencies.freq2]);
 
             var durationPattern = new PChoose([new PSequence([2])], Infinity);
-            var frequencyPattern = new PSequence([interval], 2);
+            var frequencyPattern = new PSequence([interval], 1);
 
             this.audiolet.scheduler.play([frequencyPattern], durationPattern,
                 function(frequency) {

@@ -62,13 +62,15 @@
             <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
         </div>
 
-        <div ng-if="currentAnswer === true">
-            <p>That's correct!</p>
+        <div class="answers" ng-if="currentAnswer === true">
+            <h5>That's correct!</h5>
+            <br/>
             <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
 
-        <div ng-if="currentAnswer === false">
-            <p>Sorry, but the correct answer is {{initialInterval.interval}}</p>
+        <div class="answers" ng-if="currentAnswer === false">
+            <h5>Sorry, but the correct answer is {{initialInterval.interval}}</h5>
+            <br/>
             <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
 
