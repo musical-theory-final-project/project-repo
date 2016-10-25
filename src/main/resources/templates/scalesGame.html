@@ -58,13 +58,14 @@
     </div>
 
     <div class="answers" ng-if="currentAnswer === true">
-        <h5>That's correct! </h5>
-        <br/>
+        <h4>That's correct! </h4>
+    </div>
+    <div class="answers" ng-if="currentAnswer ===  true">
         <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
 
     <div class="answers" ng-if="currentAnswer === false">
-        <h5>Sorry, but the correct answer is {{currentScale.scale}} </h5>
+        <h4>Sorry, but the correct answer is {{currentScale.scale}} </h4>
         <br/>
         <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>

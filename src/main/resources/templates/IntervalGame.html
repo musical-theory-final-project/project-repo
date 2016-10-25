@@ -72,7 +72,7 @@
 
         <div class="answers" ng-if="currentAnswer === false">
             <div>
-                <h5>Sorry, but the correct answer is {{initialInterval.interval}} </h5>
+                <h4>Sorry, but the correct answer is {{initialInterval.interval}} </h4>
             </div>
 
             <br/>
@@ -93,6 +93,8 @@
                 <div class="truePoint" ng-if="cindex == true"></div>
                 <div class="falsePoint" ng-if="cindex == false"></div>
             </div>
+        </div>
+        <div class="pointsContainer">
             <div ng-if="filter.length >= 8">
                 <p style="color: black">You are the bees knees!</p>
                 <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
