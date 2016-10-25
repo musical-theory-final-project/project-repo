@@ -33,13 +33,13 @@
     <h1>Music Theory Trainer</h1>
 
     <br><br>
-    <input type="hidden" ng-init="onPageLoad()"/>
+    <input type="hidden" ng-init="onGameLoad()"/>
     <div class="booContainer">
         <div id="boo"></div>
     </div>
 
     <div class="answerChoices">
-        <a href="#" class="btn btn-primary btn-primary"  ng-click="scaleUserInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>
+        <!--<a href="#" class="btn btn-primary btn-primary"  ng-click="scaleUserInput()"><span class="glyphicon glyphicon-music"></span>Start Edutainment</a>-->
 
         <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
     </div>
@@ -61,11 +61,14 @@
 
     <div ng-if="currentAnswer === true">
         <p>That's correct!</p>
+        <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
 
     <div ng-if="currentAnswer === false">
         <p>Sorry, but the correct answer is {{currentScale.scale}}</p>
+        <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
+
 
     <div class="answers">
         <h5>Number of right/wrong</h5>

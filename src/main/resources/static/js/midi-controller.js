@@ -22,11 +22,22 @@ midiApp.controller('scale-controller', function($scope, $http) {
             $scope.userStatus = JSON.parse($scope.userStatus);
             $scope.user = $scope.userStatus.userStatus.user;
             $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
-//            $scope.currentScaleLevel = $scope.user.currentScaleLevel;
             $scope.getListOfScales();
         } else {
             $scope.getUser();
-//            $scope.getListOfIntervals();
+        }
+    };
+
+    $scope.onGameLoad = function() {
+        $scope.userStatus = sessionStorage.getItem('userStatus');
+        if ($scope.userStatus !== null) {
+            $scope.userStatus = JSON.parse($scope.userStatus);
+            $scope.user = $scope.userStatus.userStatus.user;
+            $scope.maxScaleLevel = $scope.userStatus.userStatus.scaleLevel;
+            $scope.getListOfScales();
+            $scope.scaleUserInput();
+        } else {
+            $scope.getUser();
         }
     };
 
