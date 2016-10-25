@@ -57,13 +57,15 @@
         <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
     </div>
 
-    <div ng-if="currentAnswer === true">
-        <p>That's correct!</p>
+    <div class="answerChoices" ng-if="currentAnswer === true">
+        <h5>That's correct!</h5>
+        <br/>
         <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
 
-    <div ng-if="currentAnswer === false">
-        <p>Sorry, but the correct answer is {{currentScale.scale}}</p>
+    <div class="answerChoices" ng-if="currentAnswer === false">
+        <h5>Sorry, but the correct answer is {{currentScale.scale}}</h5>
+        <br/>
         <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
 

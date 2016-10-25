@@ -63,15 +63,27 @@
         </div>
 
         <div class="answers" ng-if="currentAnswer === true">
-            <h5>That's correct!</h5>
+            <div>
+                <h5>That's correct!</h5>
+            </div>
+
             <br/>
-            <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+            
+            <div>
+                <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+            </div>
         </div>
 
         <div class="answers" ng-if="currentAnswer === false">
-            <h5>Sorry, but the correct answer is {{initialInterval.interval}}</h5>
+            <div>
+                <h5>Sorry, but the correct answer is {{initialInterval.interval}}</h5>
+            </div>
+
             <br/>
-            <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+
+            <div>
+                <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+            </div>
         </div>
 
         <div class="answers">
