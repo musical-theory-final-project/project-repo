@@ -34,16 +34,19 @@
         <h1>Music Theory Trainer</h1>
 
         <br><br>
-        <input type="hidden" ng-init="onPageLoad()"/>
+
+        <input type="hidden" ng-init="onGameLoad()"/>
+
         <div class="booContainer">
             <div id="boo"></div>
         </div>
-        <div class="answerChoices">
-            <a href="#" class="btn btn-primary btn-primary"  ng-click="userInput()"><span class="glyphicon glyphicon-music"></span> Start Edutainment</a>
 
+        <div class="answerChoices">
             <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
         </div>
+
         <br/><br/><br>
+
         <div class="instructionContainer">
             <h4>Please choose an interval:</h4>
 
@@ -61,10 +64,12 @@
 
         <div ng-if="currentAnswer === true">
             <p>That's correct!</p>
+            <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
 
         <div ng-if="currentAnswer === false">
-            <p>Sorry, but the correct answer is {{nextNote}}</p>
+            <p>Sorry, but the correct answer is {{initialInterval.interval}}</p>
+            <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
 
         <div class="answers">

@@ -363,6 +363,21 @@ midiApp.controller('midi-controller', function($scope, $http) {
         }
     };
 
+    $scope.onGameLoad = function() {
+        $scope.userStatus = sessionStorage.getItem('userStatus');
+        if ($scope.userStatus !== null) {
+            $scope.userStatus = JSON.parse($scope.userStatus);
+            $scope.user = $scope.userStatus.userStatus.user;
+            $scope.maxIntervalLevel = $scope.userStatus.userStatus.intervalLevel;
+            $scope.currentIntervalLevel = $scope.user.currentIntervalLevel;
+            $scope.getListOfIntervals();
+
+            $scope.userInput();
+        } else {
+            $scope.getUser();
+        }
+    };
+
     $scope.login = function(loginContainer) {
         console.log(loginContainer);
         $http.post("/login.json", loginContainer)
