@@ -53,9 +53,9 @@
         </div>
 
         <div id="answerChoicesContainer">
-            <span class="answerChoices" ng-repeat="interval in allIntervals">
-                <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="$parent.answer"/>{{interval.interval}}
-            </span>
+            <label class="answerChoices" ng-repeat="interval in allIntervals">
+                <input style="inline-block" type="radio" value="{{interval.interval}}" ng-model="$parent.answer"/><div></div> {{interval.interval}}
+            </label>
         </div>
 
         <div class="checkAnswerContainer">
