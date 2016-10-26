@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Interval Menu</title>
-<!--
-{{! changing the mustache delimiter so it doesn't conflict with  }}
-{{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
-{{=<% %>=}}
---->
+    <!--
+    {{! changing the mustache delimiter so it doesn't conflict with  }}
+    {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+    {{=<% %>=}}
+    --->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/Audiolet.js"></script>
     <script src="../static/js/Audiolet.js"></script>
@@ -22,40 +22,39 @@
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
-
 </head>
 <body ng-controller="midi-controller" class="container background">
-    <!--<div ng-controller="midi-controller" class="container gameSelectionBackground">-->
-        <a href="#" class="btn btn-sm btn-success nav-btn" onclick="window.location.href='/'"><span class="glyphicon glyphicon-arrow-left"></span> Main Menu</a>
-        <!--<input type="hidden" ng-init="getUser()"/>-->
-        <input type="hidden" ng-init="onPageLoad()"/>
-        <br><br><br><br>
-        <h1 class="chooseLevel">Please choose a level</h1>
+<!--<div ng-controller="midi-controller" class="container gameSelectionBackground">-->
+<a href="#" class="btn btn-sm btn-primary nav-btn" onclick="window.location.href='/'"><span class="glyphicon glyphicon-arrow-left"></span> Main Menu</a>
+<!--<input type="hidden" ng-init="getUser()"/>-->
+<input type="hidden" ng-init="onPageLoad()"/>
+<br><br><br><br>
+<h1 class="chooseLevel">Please choose a level</h1>
 
-        <div class="chooseLevel">
-            <h3>You have the following levels open to play:</h3>
-        </div>
-        <div class="chooseLevel">
-            <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
-        </div>
-        <div class="chooseLevel">
-            <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
-        </div>
-        <div  class="chooseLevel">
-            <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
-        </div>
-        <div class="chooseLevel">
-            <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
-        </div>
-        <div class="chooseLevel">
-            <input type="text" style="color: black" placeholder="Level Number" ng-model="intLevel"/>
-            <a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(intLevel)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
-        </div>
+<div class="chooseLevel">
+    <h3>You have the following levels open to play:</h3>
+</div>
+<div class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
+</div>
+<div class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
+</div>
+<div  class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
+</div>
+<div class="chooseLevel">
+    <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
+</div>
+<div class="chooseLevel">
+    <input type="text" style="color: black" placeholder="Level Number" ng-model="intLevel"/>
+    <a href="#" class="btn btn-primary" ng-click="setCurrentIntervalLevel(intLevel)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
+</div>
 
 
-        <!--<a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(lvlnumber)">Set Level Number</a>-->
-        <!--<a href="#" class="btn btn-success"  onclick="window.location.href='/intGame'">Start Level {{currentIntervalLevel.levelNumber}}</a>-->
+<!--<a href="#" class="btn btn-success" ng-click="setCurrentIntervalLevel(lvlnumber)">Set Level Number</a>-->
+<!--<a href="#" class="btn btn-success"  onclick="window.location.href='/intGame'">Start Level {{currentIntervalLevel.levelNumber}}</a>-->
 
-    <!--</div>-->
+<!--</div>-->
 </body>
 </html>
