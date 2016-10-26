@@ -26,10 +26,10 @@
 
 <body ng-controller="scale-controller" class="gameBackground">
 
-    <a href="#" class="btn btn-sm btn-success nav-btn" onclick="window.location.href='/scalesMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
+    <a href="#" class="btn btn-sm btn-primary nav-btn" onclick="window.location.href='/scalesMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
 
-    <br><br><br><br>
-    <h1>Music Theory Trainer</h1>
+    <br>
+    <h1>Scales</h1>
 
     <br><br>
     <input type="hidden" ng-init="onGameLoad()"/>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="answerChoices">
-        <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
+        <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-primary" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
     </div>
 
     <br/>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="checkAnswerContainer">
-        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-default" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
+        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
     </div>
 
     <div class="answers" ng-if="currentAnswer === true">
@@ -66,7 +66,8 @@
 
     <div class="answers" ng-if="currentAnswer === false">
         <h4>Sorry, but the correct answer is {{currentScale.scale}} </h4>
-        <br/>
+    </div>
+    <div class="answers" ng-if="currentAnswer === false">
         <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
     </div>
 
@@ -81,13 +82,16 @@
             <div class="truePoint" ng-if="cindex == true"></div>
             <div class="falsePoint" ng-if="cindex == false"></div>
         </div>
-
-        <div ng-if="filter.length >= 8">
-            <p>You are the bees knees!</p>
-            <input type="button" value="Advance to the next level!" ng-click="nextScaleLevel()"/>
-        </div>
-
     </div>
+    <!--<div class="pointsContainer">-->
+        <div ng-if="filter.length >= 8" class="answers">
+            <p style="color:black">You are the bees knees!</p>
+        </div>
+        <div ng-if="filter.length >= 8" class="answers">
+            <!--<input type="button" value="Advance to the next level!" ng-click="nextScaleLevel()"/>-->
+            <a href="#" class="btn btn-primary btn-primary" ng-click="nextScaleLevel()">Advance Level</a>
+        </div>
+    <!--</div>-->
 </body>
 </html>
 

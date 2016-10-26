@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+    <script src="https://use.fontawesome.com/57f4de6621.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
@@ -29,7 +29,9 @@
         <!--<a href="#"  id="logout" class="btn btn-danger" ><span onclick="logout()" class="glyphicon glyphicon-log-out"></span> </a>-->
     <!--</div>-->
     <form class="logoutContainer" action="logout" method="post" ng-if="isLive" ng-click="logout()">
-        <input type="image" src="http://findicons.com/files/icons/2352/frankfurt/32/logout.png"  class="logout" type="submit" value="Logout"/>
+        <i class="fa fa-sign-out fa-3x" aria-hidden="true" class="logout" style="color:red"></i>
+
+        <!--<input type="image" src="http://findicons.com/files/icons/2352/frankfurt/32/logout.png"  class="logout" type="submit" value="Logout" style="color: red"/>-->
     </form>
     <h1 style="color:white">Pitch Please</h1>
     <br><br><br>
@@ -86,13 +88,13 @@
         <h4 style="color: white">Please choose a game mode</h4>
     </div>
     <div class="gameMode" ng-if="isLive">
-        <a href="#" class="btn btn-success" onclick="window.location.href='/intGameMenu'">Intervals</a>
+        <a href="#" class="btn btn-primary" onclick="window.location.href='/intGameMenu'">Intervals</a>
     </div>
     <br>
     <p class="gameMode" ng-if="isLive">Training your ear to listen for and identify intervals.</p>
     <br><br>
     <div class="gameMode" ng-if="isLive">
-        <a href="#" class="btn btn-success" onclick="window.location.href='/scalesMenu'">Scales</a>
+        <a href="#" class="btn btn-primary" onclick="window.location.href='/scalesMenu'">Scales</a>
     </div>
     <br>
     <p class="gameMode" ng-if="isLive">Training your ear to listen for and identify scales.</p>
