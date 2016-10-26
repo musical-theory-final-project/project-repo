@@ -28,12 +28,7 @@
     <div ng-controller="midi-controller" >
 
         <a href="#" class="btn btn-sm btn-success nav-btn" onclick="window.location.href='/intGameMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
-
-        <br><br><br><br>
-
-        <h1>Music Theory Trainer</h1>
-
-        <br><br>
+        <h1>Intervals</h1>
 
         <input type="hidden" ng-init="onGameLoad()"/>
 
@@ -43,7 +38,6 @@
     <div class="answerChoices">
         <a href="#" ng-if="playCounter < 2" class="btn btn-primary btn-success" ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
     </div>
-    <br/>
     <div class="instructionContainer">
         <h4>Please choose an interval:</h4>
     </div>
@@ -62,14 +56,12 @@
         </div>
     </div>
     <div class="answers" ng-if="currentAnswer === false">
-        <div>
-            <h5>Sorry, but the correct answer is {{initialInterval.interval}} </h5>
-        </div>
-        <br/>
-        <div>
+        <h5>Sorry, but the correct answer is {{initialInterval.interval}} </h5>
+    </div>
+    <div class="answers" ng-if="currentAnswer === false">
             <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
-    </div>
+    <!--</div>-->
     <div class="answers">
         <h5>Number of right/wrong</h5>
     </div>
@@ -79,12 +71,16 @@
             <div class="truePoint" ng-if="cindex == true"></div>
             <div class="falsePoint" ng-if="cindex == false"></div>
         </div>
-        <div ng-if="filter.length >= 8">
-            <p style="color: black">You are the bees knees!</p>
-            <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
-        </div>
     </div>
+        <div ng-if="filter.length >= 8" class="answers">
+            <p style="color: black">You are the bees knees!</p>
+        </div>
+        <div ng-if="filter.length >= 8" class="answers">
+            <!--<input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>-->
+            <a href="#" class="btn btn-primary btn-primary" ng-click="nextIntervalLevel()">Advance Level</a>
+        </div>
 </div>
+
 </body>
 </html>
 <script src="//npmcdn.com/vexflow@1.2.83/releases/vexflow-debug.js"></script>
