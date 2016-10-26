@@ -45,7 +45,7 @@ p {
 }
 
 label {
-
+    font-size: 20;
 }
 
 input[type="radio"] {
