@@ -16,7 +16,7 @@ body {
 }
 
 .registerBackground {
-    background-image: url("images/Sheet_Music.jpg");
+    background-image: url("images/Sheet_Music_30.jpg");
     background-size: cover;
 }
 
@@ -236,7 +236,7 @@ h1 {
     position: absolute;
 }
 .background {
-    background-color: #F5F5F5;
+    background-color: #EDEDED;
     height: auto;
     width: auto;
 }
