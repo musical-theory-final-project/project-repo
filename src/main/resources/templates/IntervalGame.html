@@ -25,14 +25,14 @@
 </head>
 <body class="background">
 <div ng-controller="midi-controller" >
-    <a href="#" class="btn btn-sm btn-primary nav-btn" onclick="window.location.href='/intGameMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
+    <a href="#" class="btn btn-lg btn-primary nav-btn" onclick="window.location.href='/intGameMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
     <h1>Intervals</h1>
     <input type="hidden" ng-init="onGameLoad()"/>
     <div class="booContainer">
         <div id="boo"></div>
     </div>
     <div class="answerChoices">
-        <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-primary btn-primary " ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a> <h4>You have {{playCounter}} plays remaining</h4></div>
+        <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-lg btn-primary " ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a> <h4>You have {{playCounter}} plays remaining</h4></div>
         <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
             <br>
             <h4>You have {{playCounter}} plays remaining</h4></div>
@@ -46,19 +46,19 @@
         </label>
     </div>
     <div class="checkAnswerContainer">
-        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+        <a ng-if="currentAnswer == null" href="#" class="btn btn-lg btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
     </div>
     <div class="answers" ng-if="currentAnswer === true">
         <div class="thing">
             <h4>  That's correct! </h4>
-            <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+            <a href="#" class="btn btn-lg btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
     </div>
     <div class="answers" ng-if="currentAnswer === false">
         <h4>Sorry, but the correct answer is {{initialInterval.interval}} </h4>
     </div>
     <div class="answers" ng-if="currentAnswer === false">
-        <a href="#" class="btn btn-primary btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
+        <a href="#" class="btn btn-lg btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
     </div>
     <!--</div>-->
     <div class="answers">
@@ -77,7 +77,7 @@
     </div>
     <div ng-if="filter.length >= 8" class="answers">
         <!--<input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>-->
-        <a href="#" class="btn btn-primary btn-primary" ng-click="nextIntervalLevel()">Advance Level</a>
+        <a href="#" class="btn btn-lg btn-primary" ng-click="nextIntervalLevel()">Advance Level</a>
     </div>
 </div>
 

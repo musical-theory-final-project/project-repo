@@ -25,30 +25,30 @@
 </head>
 <body ng-controller="midi-controller" class="container background">
 <!--<div ng-controller="midi-controller" class="container gameSelectionBackground">-->
-<a href="#" class="btn btn-sm btn-primary nav-btn" onclick="window.location.href='/'"><span class="glyphicon glyphicon-arrow-left"></span> Main Menu</a>
+<a href="#" class="btn btn-lg btn-primary nav-btn" onclick="window.location.href='/'"><span class="glyphicon glyphicon-arrow-left"></span> Main Menu</a>
 <!--<input type="hidden" ng-init="getUser()"/>-->
 <input type="hidden" ng-init="onPageLoad()"/>
 <br><br><br><br>
 <h1 class="chooseLevel">Please choose a level</h1>
 
 <div class="chooseLevel">
-    <h3>You have the following levels open to play:</h3>
+    <h2>You have the following levels open to play:</h2>
 </div>
 <div class="chooseLevel">
-    <p ng-if="maxIntervalLevel.levelNumber >=1">Level 1</p>
+    <h3 ng-if="maxIntervalLevel.levelNumber >=1">Level 1</h3>
 </div>
 <div class="chooseLevel">
-    <p ng-if="maxIntervalLevel.levelNumber >=2">Level 2</p>
+    <h3 ng-if="maxIntervalLevel.levelNumber >=2">Level 2</h3>
 </div>
 <div  class="chooseLevel">
-    <p ng-if="maxIntervalLevel.levelNumber >=3">Level 3</p>
+    <h3 ng-if="maxIntervalLevel.levelNumber >=3">Level 3</h3>
 </div>
 <div class="chooseLevel">
-    <p ng-if="maxIntervalLevel.levelNumber >=4">Level 4</p>
+    <h3 ng-if="maxIntervalLevel.levelNumber >=4">Level 4</h3>
 </div>
 <div class="chooseLevel">
     <input type="text" style="color: black" placeholder="Level Number" ng-model="intLevel"/>
-    <a href="#" class="btn btn-primary" ng-click="setCurrentIntervalLevel(intLevel)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
+    <a href="#" class="btn btn-lg btn-primary" ng-click="setCurrentIntervalLevel(intLevel)" onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music" ></span></a>
 </div>
 
 

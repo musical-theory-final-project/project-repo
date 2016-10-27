@@ -24,17 +24,17 @@
     <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 <body ng-controller="scale-controller" class="background">
-<a href="#" class="btn btn-sm btn-primary nav-btn" onclick="window.location.href='/scalesMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
+<a href="#" class="btn btn-lg btn-primary nav-btn" onclick="window.location.href='/scalesMenu'"><span class="glyphicon glyphicon-arrow-left"></span> Level Select</a>
 <h1>Scales</h1>
 <input type="hidden" ng-init="onGameLoad()"/>
 <div class="booContainer">
     <div id="boo"></div>
 </div>
 <div class="answerChoices">
-    <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-primary btn-primary" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
+    <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-lg btn-primary" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a>
         <h4>You have {{playCounter}} plays remaining</h4>
     </div>
-    <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h4>You have {{playCounter}} plays remaining</h4></div>
+    <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h4>You have {{playCounter}} plays remaining</h4></div>
 </div>
 <div class="instructionContainer">
     <h3>Please choose a scale:</h3>
@@ -45,19 +45,19 @@
     </label>
 </div>
 <div class="checkAnswerContainer">
-    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
+    <a ng-if="currentAnswer == null" href="#" class="btn btn-lg btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
 </div>
 <div class="answers" ng-if="currentAnswer === true">
     <h4>That's correct! </h4>
 </div>
 <div class="answers" ng-if="currentAnswer === true">
-    <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
+    <a href="#" class="btn btn-lg btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
 </div>
 <div class="answers" ng-if="currentAnswer === false">
     <h4>Sorry, but the correct answer is {{currentScale.scale}} </h4>
 </div>
 <div class="answers" ng-if="currentAnswer === false">
-    <a href="#" class="btn btn-primary btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
+    <a href="#" class="btn btn-lg btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
 </div>
 <div class="answers">
     <h4>Number of right/wrong</h4>
