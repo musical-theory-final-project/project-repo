@@ -44,7 +44,7 @@
         </label>
     </div>
     <div class="checkAnswerContainer">
-        <a style="padding: 5px;" ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
+        <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Interval</a>
     </div>
     <div class="answers" ng-if="currentAnswer === true">
         <div class="thing">

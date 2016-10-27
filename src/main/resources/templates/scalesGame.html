@@ -43,7 +43,7 @@
     </label>
 </div>
 <div class="checkAnswerContainer">
-    <a style="padding: 5px;" ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
+    <a ng-if="currentAnswer == null" href="#" class="btn btn-xs btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
 </div>
 <div class="answers" ng-if="currentAnswer === true">
     <h4>That's correct! </h4>
