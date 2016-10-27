@@ -31,8 +31,8 @@
     <div id="boo"></div>
 </div>
 <div class="answerChoices">
-    <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-primary btn-primary" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h4>You have {{playCounter}} plays remaining</h4></div>
-    <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h4>You have {{playCounter}} plays remaining</h4></div>
+    <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-primary btn-primary" ng-click="playScale()"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h5>You have {{playCounter}} plays remaining</h5></div>
+    <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Scale</a> <h5>You have {{playCounter}} plays remaining</h5></div>
 </div>
 <div class="instructionContainer">
     <h3>Please choose a scale:</h3>
@@ -66,6 +66,7 @@
         <div class="truePoint" ng-if="cindex == true"></div>
         <div class="falsePoint" ng-if="cindex == false"></div>
     </div>
+    <div ng-if="filter.length != 0"><h5>You have {{filter.length}} out of 10 correct!</h5></div>
 </div>
 <div ng-if="filter.length >= 8" class="answers">
     <p>You are the bees knees!</p>
