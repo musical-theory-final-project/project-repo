@@ -7,7 +7,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.currentScale;
     $scope.currentScaleLevel;
     $scope.allScales;
-    $scope.scaleScoring = [];
+    $scope.scaleScoring = [null, null, null, null, null, null, null, null, null, null];
 
     $scope.filter;
     $scope.currentAnswer;
@@ -256,22 +256,22 @@ midiApp.controller('scale-controller', function($scope, $http) {
         } else if ($scope.currentScale.scale === scaleName) {
             console.log("You are the greetest!");
             if ($scope.scaleScoring.length < 10) {
-                $scope.scaleScoring.push(true);
+                $scope.scaleScoring.unshift(true);
                 $scope.currentAnswer = true;
             } else {
-                $scope.scaleScoring.shift();
-                $scope.scaleScoring.push(true);
+                $scope.scaleScoring.pop();
+                $scope.scaleScoring.unshift(true);
                 $scope.currentAnswer = true;
 
             }
         } else {
             console.log("Blargh");
             if ($scope.scaleScoring.length < 10) {
-                $scope.scaleScoring.push(false);
+                $scope.scaleScoring.unshift(false);
                 $scope.currentAnswer = false;
             } else {
-                $scope.scaleScoring.shift();
-                $scope.scaleScoring.push(false);
+                $scope.scaleScoring.pop();
+                $scope.scaleScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
         }
@@ -281,20 +281,18 @@ midiApp.controller('scale-controller', function($scope, $http) {
         console.log($scope.scaleScoring);
         $scope.filter = $scope.scaleScoring.filter(isTrue);
         console.log($scope.filter);
-        $scope.playCounter = 3;
         sessionStorage.setItem('scalePoints', JSON.stringify($scope.scaleScoring));
     };
 
     $scope.getSession = function() {
         $scope.scaleScoringSession = sessionStorage.getItem('scalePoints');
-        $scope.userStatus = sessionStorage.getItem('userStatus');
         if ($scope.scaleScoringSession !== null) {
             $scope.scaleScoring = JSON.parse($scope.scaleScoringSession);
-                        $scope.userStatus = JSON.parse($scope.userStatus);
-
-            console.log($scope.userStatus);
-            $scope.isLive = true;
-            console.log($scope.isLive);
+            function isTrue(value) {
+                return value === true;
+            };
+            console.log($scope.scaleScoring);
+            $scope.filter = $scope.scaleScoring.filter(isTrue);
         }
     };
 
@@ -321,7 +319,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 $scope.maxScaleLevel = response.data;
                 console.log($scope.maxScaleLevel);
                 $scope.filter = [];
-                $scope.intervalScoring = [];
+                $scope.scaleScoring = [null, null, null, null, null, null, null, null, null, null];
             },
             function errorCallBack(response) {
                 console.log("Could not move to next level");
@@ -339,7 +337,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
     $scope.currentIntervalLevel
     $scope.initialInterval;
     $scope.allIntervals
-    $scope.intervalScoring = [];
+    $scope.intervalScoring = [null, null, null, null, null, null, null, null, null, null];
 
     $scope.isLive = false;
     $scope.filter;
@@ -586,7 +584,6 @@ midiApp.controller('midi-controller', function($scope, $http) {
         extend (Synth, AudioletGroup);
         this.audioletApp = new AudioletApp();
         $scope.playCounter--;
-        console.log($scope.playCounter);
     };
 
     $scope.checkAnswer = function(noteInterval) {
@@ -597,22 +594,22 @@ midiApp.controller('midi-controller', function($scope, $http) {
         } else if ($scope.initialInterval.interval === noteInterval) {
             console.log("You are the greetest!");
             if ($scope.intervalScoring.length < 10) {
-                $scope.intervalScoring.push(true);
+                $scope.intervalScoring.unshift(true);
                 $scope.currentAnswer = true;
             } else {
-                $scope.intervalScoring.shift();
-                $scope.intervalScoring.push(true);
+                $scope.intervalScoring.pop();
+                $scope.intervalScoring.unshift(true);
                 $scope.currentAnswer = true;
 
             }
         } else {
             console.log("Blargh");
             if ($scope.intervalScoring.length < 10) {
-                $scope.intervalScoring.push(false);
+                $scope.intervalScoring.unshift(false);
                 $scope.currentAnswer = false;
             } else {
-                $scope.intervalScoring.shift();
-                $scope.intervalScoring.push(false);
+                $scope.intervalScoring.pop();
+                $scope.intervalScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
         }
@@ -622,7 +619,6 @@ midiApp.controller('midi-controller', function($scope, $http) {
         console.log($scope.intervalScoring);
         $scope.filter = $scope.intervalScoring.filter(isTrue);
         console.log($scope.filter);
-        $scope.playCounter = 3;
         sessionStorage.setItem('intervalPoints', JSON.stringify($scope.intervalScoring));
     };
 
@@ -631,6 +627,10 @@ midiApp.controller('midi-controller', function($scope, $http) {
         $scope.intervalScoringSession = sessionStorage.getItem('intervalPoints');
         if ($scope.intervalScoringSession !== null) {
             $scope.intervalScoring = JSON.parse($scope.intervalScoringSession);
+            function isTrue(value) {
+                return value === true;
+            };
+            $scope.filter = $scope.intervalScoring.filter(isTrue);
             $scope.isLive = true;
             console.log($scope.isLive);
         }
@@ -657,7 +657,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 $scope.intervalLevel = response.data;
                 console.log($scope.intervalLevel);
                 $scope.filter = [];
-                $scope.intervalScoring = [];
+                $scope.intervalScoring = ["blank", "blank", "blank", "blank", "blank", "blank", "blank", "blank", "blank", "blank"];
             },
             function errorCallBack(response) {
                 console.log("Could not move to next level");
