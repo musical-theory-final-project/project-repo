@@ -30,13 +30,18 @@ body {
     background-size: cover;
 }
 
+.glyphicon {
+    padding-right: 5px;
+}
+
+
 .btn {
     padding: 10px;
 }
 
 a {
     font-family: 'Exo', sans-serif;
-    padding: 5px;
+    padding: 10px;
 }
 .btn {
     padding: 10px;
@@ -50,7 +55,7 @@ a {
 }
 
 label {
-    font-size: large;
+    font-size: x-large;
 }
 
 input[type="radio"] {
@@ -58,8 +63,8 @@ input[type="radio"] {
 }
 
 input[type="radio"] + div {
-   height: 20px;
-   width: 20px;
+   height: 30px;
+   width: 30px;
    display: inline-block;
    cursor: pointer;
    vertical-align: middle;
@@ -211,6 +216,13 @@ h1 {
     height: 75px;
     width: 75px;
     margin: 5px;
+}
+
+.emptyPoint {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    border: 1px solid black;
 }
 
 .truePoint {
