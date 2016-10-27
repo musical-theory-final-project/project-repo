@@ -34,6 +34,9 @@ a {
     font-family: 'Exo', sans-serif;
     padding: 5px;
 }
+.btn {
+    padding: 10px;
+}
 
 .logoutContainer {
     border-top-left-radius: 0;
@@ -253,4 +256,7 @@ h1 {
 
 .playButton {
     margin-right: 10px;
+}
+h4 {
+    padding:5px;
 }
