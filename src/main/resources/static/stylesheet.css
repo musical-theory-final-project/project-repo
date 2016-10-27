@@ -16,7 +16,7 @@ body {
 }
 
 .registerBackground {
-    background-image: url("images/Sheet_Music_30.jpg");
+    background-image: url("images/Sheet_Music.jpg");
     background-size: cover;
 }
 
@@ -28,6 +28,10 @@ body {
 .gameBackground {
     background-image: url("images/Worn_Parchment.jpg");
     background-size: cover;
+}
+
+.btn {
+    padding: 10px;
 }
 
 a {
@@ -191,7 +195,6 @@ h1 {
 
 .answerChoices {
     margin: 10px;
-    justify-content: center;
 }
 
 .intervalScoring.false {
@@ -225,13 +228,6 @@ h1 {
     display: inline-block;
     border: 1px solid black;
 }
-
-.emptyPoint {
-    height: 25px;
-    width: 25px;
-    display: inline-block;
-    border: 1px solid black;
-}
 .nav-btn {
     margin: 15px;
 }
@@ -249,7 +245,7 @@ h1 {
     position: absolute;
 }
 .background {
-    background-color: #EDEDED;
+    background-color: #F5F5F5;
     height: auto;
     width: auto;
 }
