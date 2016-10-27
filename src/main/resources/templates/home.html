@@ -25,8 +25,8 @@
     <!--<input type="image" src="http://findicons.com/files/icons/2352/frankfurt/32/logout.png"  class="logout" type="submit" value="Logout"/>-->
     <i class="fa fa-sign-out fa-3x" aria-hidden="true" class="logout" style="color:red"></i>
 </form>
-<h1>Ear Trainer</h1>
-<br><br><br>
+<h1 class="menuAppTitle">Ear Trainer</h1>
+<br>
 <div ng-if="isLive==false" class="formcontainer">
     <form class="form1">
         <div class="form-group">
@@ -60,32 +60,31 @@
         <button type="submit" class="btn btn-primary" ng-click="register(registerContainer)">Register</button>
     </form>
 </div>
-<br>
+
 <div class="chooseGameMode" ng-if="isLive">
     <!--<div class="opacity" ng-if="isLive"></div>-->
-    <h2>Welcome, {{user.firstName}}!</h2>
+    <h1>Welcome, {{user.firstName}}!</h1>
     <br><br>
 </div>
 <div class="chooseGameMode" ng-if="isLive">
-    <h3>Please choose a game mode</h3>
+    <h2>Please choose a game mode</h2>
 </div>
-<div class="gameMode" ng-if="isLive">
-    <a href="#" class="btn btn-success" onclick="window.location.href='/intGameMenu'">Intervals</a>
-</div>
-<br>
-<p class="gameMode" ng-if="isLive">Training your ear to listen for and identify intervals.</p>
 <br><br>
 <div class="gameMode" ng-if="isLive">
-    <a href="#" class="btn btn-success" onclick="window.location.href='/scalesMenu'">Scales</a>
+    <a href="#" class="btn btn-lg btn-success" onclick="window.location.href='/intGameMenu'">Intervals</a>
 </div>
-<br>
-<p class="gameMode" ng-if="isLive">Training your ear to listen for and identify scales.</p>
-<br>
+<h3 class="gameMode" ng-if="isLive">Training your ear to listen for and identify intervals.</h3>
+<br><br>
+<div class="gameMode" ng-if="isLive">
+    <a href="#" class="btn btn-lg btn-success" onclick="window.location.href='/scalesMenu'">Scales</a>
+</div>
+<h3 class="gameMode" ng-if="isLive">Training your ear to listen for and identify scales.</h3>
+<br><br>
 <div class="moreLater" ng-if="isLive">
-    <p>*More games to come at a later date</p>
+    <h3>*More games to come at a later date</h3>
 </div>
 <div class="futureGames" ng-if="isLive">
-    <a href="#" class="btn btn-xs btn-danger">Chords</a>
+    <a href="#" class="btn btn-lg btn-danger">Chords</a>
 </div>
 </body>
 </html>
