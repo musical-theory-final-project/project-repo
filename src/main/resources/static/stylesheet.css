@@ -222,6 +222,13 @@ h1 {
     display: inline-block;
     border: 1px solid black;
 }
+
+.emptyPoint {
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    border: 1px solid black;
+}
 .nav-btn {
     margin: 15px;
 }
