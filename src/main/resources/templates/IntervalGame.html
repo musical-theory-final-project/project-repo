@@ -33,7 +33,9 @@
     </div>
     <div class="answerChoices">
         <div class="answerChoices" ng-if="playCounter != 0"><a href="#" class="btn btn-primary btn-primary " ng-click="playInterval()"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a> <h4>You have {{playCounter}} plays remaining</h4></div>
-        <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a> <h4>You have {{playCounter}} plays remaining</h4></div>
+        <div class="answerChoices" ng-if="playCounter == 0"><a href="#" class="btn btn-default btn-default"><span class="glyphicon glyphicon-play-circle"></span> Play Interval</a>
+            <br>
+            <h4>You have {{playCounter}} plays remaining</h4></div>
     </div>
     <div class="instructionContainer">
         <h3>Please choose an interval:</h3>
