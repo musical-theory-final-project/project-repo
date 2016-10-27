@@ -188,6 +188,7 @@ h1 {
 
 .answerChoices {
     margin: 10px;
+    justify-content: center;
 }
 
 .intervalScoring.false {
@@ -241,4 +242,8 @@ h1 {
     background-color: #EDEDED;
     height: auto;
     width: auto;
+}
+
+.playButton {
+    margin-right: 10px;
 }

@@ -13,7 +13,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.currentAnswer;
 
     const VF = Vex.Flow;
-    $scope.playCounter = 0;
+    $scope.playCounter = 3;
 
 
     $scope.onPageLoad = function() {
@@ -245,7 +245,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
         extend (Synth, AudioletGroup);
         this.audioletApp = new AudioletApp();
 
-        $scope.playCounter++;
+        $scope.playCounter--;
     };
 
     $scope.checkScaleAnswer = function(scaleName) {
@@ -281,7 +281,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
         console.log($scope.scaleScoring);
         $scope.filter = $scope.scaleScoring.filter(isTrue);
         console.log($scope.filter);
-        $scope.playCounter = 0;
+        $scope.playCounter = 3;
         sessionStorage.setItem('scalePoints', JSON.stringify($scope.scaleScoring));
     };
 
@@ -348,7 +348,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
     const VF = Vex.Flow;
     $scope.frequencies = {};
     $scope.nextNote;
-    $scope.playCounter = 0;
+    $scope.playCounter = 3;
 
     $scope.onPageLoad = function() {
             $scope.getUser();
@@ -585,7 +585,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
 
         extend (Synth, AudioletGroup);
         this.audioletApp = new AudioletApp();
-        $scope.playCounter++;
+        $scope.playCounter--;
         console.log($scope.playCounter);
     };
 
@@ -622,7 +622,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
         console.log($scope.intervalScoring);
         $scope.filter = $scope.intervalScoring.filter(isTrue);
         console.log($scope.filter);
-        $scope.playCounter = 0;
+        $scope.playCounter = 3;
         sessionStorage.setItem('intervalPoints', JSON.stringify($scope.intervalScoring));
     };
 
