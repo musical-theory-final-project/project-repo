@@ -50,12 +50,12 @@
     </div>
     <div class="answers" ng-if="currentAnswer === true">
         <div class="thing">
-            <h4>  That's correct! </h4>
+            <h3>  That's correct! </h3>
             <a href="#" class="btn btn-lg btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
         </div>
     </div>
     <div class="answers" ng-if="currentAnswer === false">
-        <h4>Sorry, but the correct answer is {{initialInterval.interval}} </h4>
+        <h3>Sorry, but the correct answer is {{initialInterval.interval}} </h3>
     </div>
     <div class="answers" ng-if="currentAnswer === false">
         <a href="#" class="btn btn-lg btn-primary"  onclick="window.location.href='/intGame'"><span class="glyphicon glyphicon-music"></span> Next Interval</a>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div ng-if="filter.length >= 8" class="answers">
-        <p style="color: black">You are the bees knees!</p>
+        <h3 style="color: black">You are the bees knees!</h3>
     </div>
     <div ng-if="filter.length >= 8" class="answers">
         <!--<input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>-->

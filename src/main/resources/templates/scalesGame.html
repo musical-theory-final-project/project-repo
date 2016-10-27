@@ -48,13 +48,13 @@
     <a ng-if="currentAnswer == null" href="#" class="btn btn-lg btn-primary" ng-click="checkScaleAnswer(answer)"><span class="glyphicon glyphicon-ok"></span> Check Scale</a>
 </div>
 <div class="answers" ng-if="currentAnswer === true">
-    <h4>That's correct! </h4>
+    <h3>That's correct! </h3>
 </div>
 <div class="answers" ng-if="currentAnswer === true">
     <a href="#" class="btn btn-lg btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
 </div>
 <div class="answers" ng-if="currentAnswer === false">
-    <h4>Sorry, but the correct answer is {{currentScale.scale}} </h4>
+    <h3>Sorry, but the correct answer is {{currentScale.scale}} </h3>
 </div>
 <div class="answers" ng-if="currentAnswer === false">
     <a href="#" class="btn btn-lg btn-primary" onclick="window.location.href='/scalesGame'"><span class="glyphicon glyphicon-music"></span> Next Scale</a>
@@ -71,7 +71,7 @@
     </div>
 </div>
 <div ng-if="filter.length >= 8" class="answers">
-    <p>You are the bees knees!</p>
+    <h3>You are the bees knees!</h3>
 </div>
 <div ng-if="filter.length >= 8" class="answers">
     <a href="#" class="btn btn-primary btn-primary" ng-click="nextScaleLevel()">Advance Level</a>
