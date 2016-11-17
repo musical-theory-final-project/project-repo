@@ -690,7 +690,7 @@ midiApp.controller('chord-controller', function($scope, $http) {
             this.saw = new Saw(audiolet, frequency);
             // Gain envelope
             this.gain = new Gain(audiolet);
-            this.env = new PercussiveEnvelope(audiolet, 1, 0.1, 0.1,
+            this.env = new PercussiveEnvelope(audiolet, .1, .1, 1,
                 function() {
                     this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
                 }.bind(this)
@@ -708,12 +708,13 @@ midiApp.controller('chord-controller', function($scope, $http) {
         var SchedulerApp = function() {
             this.audiolet = new Audiolet();
 
-            this.scale = new MajorScale();
+            this.scale = new MinorScale();
 
             // I IV V progression
             var chordPattern = new PSequence([[0, 2, 4],
                                               [3, 5, 7],
-                                              [4, 6, 8]]);
+                                              [4, 6, 8]
+                                              ]);
             // Play the progression
             this.audiolet.scheduler.play([chordPattern], 1,
                                          this.playChord.bind(this));
@@ -722,7 +723,7 @@ midiApp.controller('chord-controller', function($scope, $http) {
         SchedulerApp.prototype.playChord = function(chord) {
             for (var i = 0; i < chord.length; i++) {
                 var degree = chord[i];
-                var frequency = this.scale.getFrequency(degree, 16.352, 4);
+                var frequency = this.scale.getFrequency(degree, 220, 0);
                 var synth = new Synth(this.audiolet, frequency);
                 synth.connect(this.audiolet.output);
             }
