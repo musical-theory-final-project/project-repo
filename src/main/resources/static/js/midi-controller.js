@@ -105,8 +105,10 @@ midiApp.controller('scale-controller', function($scope, $http) {
            var score = vf.EasyScore();
            var system = vf.System();
            console.log($scope.currentScale);
+           var startNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
+           console.log(startNote);
            system.addStave({
-               voices:[score.voice(score.notes($scope.currentScale.note + $scope.currentScale.octave + '/w'))]
+               voices:[score.voice(score.notes(/*$scope.currentScale.note + $scope.currentScale.octave*/ startNote + '/w'))]
            }).addClef('treble').addTimeSignature('4/4');
 
            vf.draw();
@@ -118,6 +120,51 @@ midiApp.controller('scale-controller', function($scope, $http) {
           console.log(err);
         });
         };
+    };
+
+    $scope.drawScaleAnswer = function (){
+        var initialNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
+        console.log(initialNote.toString());
+        var myScale = initialNote.scale($scope.currentScale.scale);
+        console.log(myScale);
+        var scaleNotes = [];
+
+        for (var count = 0; count < myScale.scale.length; count++) {
+            var newNote = teoria.interval(initialNote, myScale.scale[count]);
+            console.log(newNote.toString());
+            scaleNotes.push(newNote);
+        }
+        var octave = teoria.interval(initialNote, 'P8');
+        console.log(octave.toString());
+        scaleNotes.push(octave);
+
+        var noteString = scaleNotes[0];
+        for (var count = 0; count < scaleNotes.length -1; count++) {
+            noteString = noteString + ", " + scaleNotes[count +1];
+//            console.log(noteString);
+        }
+//        console.log(scaleNotes);
+
+       var element;
+       element = document.getElementById("boo");
+       if (element) {
+           element.innerHTML = "";
+
+            console.log(noteString);
+
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var score = vf.EasyScore();
+            var system = vf.System();
+            console.log("Attempting to draw answer");
+            if (scaleNotes.length > 6) {
+                console.log("Before drawing answer");
+                system.addStave({voices:[score.voice(score.notes(noteString + "/8"))]
+                }).addClef('treble').addTimeSignature('4/4');
+                console.log("After drawing answer");
+                vf.draw();
+            }
+        }
+
     };
 
     $scope.playScale = function() {
@@ -262,8 +309,8 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 $scope.scaleScoring.pop();
                 $scope.scaleScoring.unshift(true);
                 $scope.currentAnswer = true;
-
             }
+        $scope.drawScaleAnswer();
         } else {
             console.log("Blargh");
             if ($scope.scaleScoring.length < 10) {
@@ -274,6 +321,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 $scope.scaleScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
+        $scope.drawScaleAnswer();
         }
         function isTrue(value) {
             return value === true;
