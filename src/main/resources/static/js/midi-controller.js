@@ -131,19 +131,18 @@ midiApp.controller('scale-controller', function($scope, $http) {
 
         for (var count = 0; count < myScale.scale.length; count++) {
             var newNote = teoria.interval(initialNote, myScale.scale[count]);
-            console.log(newNote.toString());
+//            console.log(newNote.toString());
             scaleNotes.push(newNote);
         }
         var octave = teoria.interval(initialNote, 'P8');
         console.log(octave.toString());
         scaleNotes.push(octave);
 
-        var noteString = scaleNotes[0];
+        var noteString = scaleNotes[0] + "/8";
         for (var count = 0; count < scaleNotes.length -1; count++) {
             noteString = noteString + ", " + scaleNotes[count +1];
 //            console.log(noteString);
         }
-//        console.log(scaleNotes);
 
        var element;
        element = document.getElementById("boo");
@@ -157,11 +156,41 @@ midiApp.controller('scale-controller', function($scope, $http) {
             var system = vf.System();
             console.log("Attempting to draw answer");
             if (scaleNotes.length > 6) {
+
+                var first = scaleNotes[0] + "/8, " + scaleNotes[1];
+                var second = scaleNotes[2] + "/8, " + scaleNotes[3];
+                var third = scaleNotes[4] + "/8, " + scaleNotes[5];
+                var fourth = scaleNotes[6] + "/8, " + scaleNotes[7];
+
                 console.log("Before drawing answer");
-                system.addStave({voices:[score.voice(score.notes(noteString + "/8"))]
+                system.addStave({voices:[
+                    score.voice(
+                        score.beam(
+                            score.notes(first))
+                                .concat(score.beam(score.notes(second)))
+                                .concat(score.beam(score.notes(third)))
+                                .concat(score.beam(score.notes(fourth)))
+                        )
+                    ]
                 }).addClef('treble').addTimeSignature('4/4');
                 console.log("After drawing answer");
                 vf.draw();
+            } else {
+                var first = scaleNotes[0] + "/q, " + scaleNotes[1] + ", " + scaleNotes[2];
+                var second = scaleNotes[3] + "/q, " + scaleNotes[4] + ", " + scaleNotes[5];
+                console.log(first);
+                console.log(second);
+
+                system.addStave({voices:[
+                    score.voice(
+                        score.tuplet(
+                                score.notes(first))
+                                .concat(score.tuplet(score.notes(second)))
+                        )
+                    ]
+                }).addClef('treble').addTimeSignature('4/4');
+                vf.draw();
+
             }
         }
 
