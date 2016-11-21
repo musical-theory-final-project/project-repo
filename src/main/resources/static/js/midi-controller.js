@@ -601,6 +601,32 @@ midiApp.controller('midi-controller', function($scope, $http) {
         };
     };
 
+    $scope.drawIntervalAnswer = function() {
+        var initialNote = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
+        var secondNote = teoria.interval(initialNote, $scope.initialInterval.interval);
+//        console.log(initialNote.toString());
+//        console.log(secondNote.toString());
+        var intervalAnswer = initialNote + "/h, " + secondNote;
+//        console.log(intervalAnswer);
+
+        var element;
+        element = document.getElementById("boo");
+        if (element) {
+            element.innerHTML = "";
+
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var score = vf.EasyScore();
+            var system = vf.System();
+            system.addStave({voices:[
+                score.voice(
+                    score.notes(intervalAnswer))
+                ]
+            }).addClef('treble').addTimeSignature('4/4');
+            vf.draw();
+        }
+
+    };
+
     $scope.playInterval = function() {
         console.log($scope.initialInterval.note + $scope.initialInterval.octave);
         var noteOut = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
@@ -677,8 +703,8 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 $scope.intervalScoring.pop();
                 $scope.intervalScoring.unshift(true);
                 $scope.currentAnswer = true;
-
             }
+         $scope.drawIntervalAnswer();
         } else {
             console.log("Blargh");
             if ($scope.intervalScoring.length < 10) {
@@ -689,6 +715,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 $scope.intervalScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
+        $scope.drawIntervalAnswer();
         }
         function isTrue(value) {
             return value === true;
