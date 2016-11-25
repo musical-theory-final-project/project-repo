@@ -138,7 +138,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
         console.log(octave.toString());
         scaleNotes.push(octave);
 
-        var noteString = scaleNotes[0] + "/8";
+        var noteString = scaleNotes[0] + "/q";
         for (var count = 0; count < scaleNotes.length -1; count++) {
             noteString = noteString + ", " + scaleNotes[count +1];
 //            console.log(noteString);
@@ -154,7 +154,6 @@ midiApp.controller('scale-controller', function($scope, $http) {
             var vf = new VF.Factory({renderer: {selector: 'boo'}});
             var score = vf.EasyScore();
             var system = vf.System();
-            console.log("Attempting to draw answer");
             if (scaleNotes.length > 6) {
 
                 var first = scaleNotes[0] + "/8, " + scaleNotes[1];
@@ -166,10 +165,10 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 system.addStave({voices:[
                     score.voice(
                         score.beam(
-                            score.notes(first))
-                                .concat(score.beam(score.notes(second)))
-                                .concat(score.beam(score.notes(third)))
-                                .concat(score.beam(score.notes(fourth)))
+                            score.notes(first), {autoStem: true})
+                                .concat(score.beam(score.notes(second), {autoStem: true}))
+                                .concat(score.beam(score.notes(third), {autoStem: true}))
+                                .concat(score.beam(score.notes(fourth), {autoStem: true}))
                         )
                     ]
                 }).addClef('treble').addTimeSignature('4/4');
