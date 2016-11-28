@@ -105,8 +105,10 @@ midiApp.controller('scale-controller', function($scope, $http) {
            var score = vf.EasyScore();
            var system = vf.System();
            console.log($scope.currentScale);
+           var startNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
+           console.log(startNote);
            system.addStave({
-               voices:[score.voice(score.notes($scope.currentScale.note + $scope.currentScale.octave + '/w'))]
+               voices:[score.voice(score.notes(/*$scope.currentScale.note + $scope.currentScale.octave*/ startNote + '/w'))]
            }).addClef('treble').addTimeSignature('4/4');
 
            vf.draw();
@@ -118,6 +120,79 @@ midiApp.controller('scale-controller', function($scope, $http) {
           console.log(err);
         });
         };
+    };
+
+    $scope.drawScaleAnswer = function (){
+        var initialNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
+        console.log(initialNote.toString());
+        var myScale = initialNote.scale($scope.currentScale.scale);
+        console.log(myScale);
+        var scaleNotes = [];
+
+        for (var count = 0; count < myScale.scale.length; count++) {
+            var newNote = teoria.interval(initialNote, myScale.scale[count]);
+//            console.log(newNote.toString());
+            scaleNotes.push(newNote);
+        }
+        var octave = teoria.interval(initialNote, 'P8');
+        console.log(octave.toString());
+        scaleNotes.push(octave);
+
+        var noteString = scaleNotes[0] + "/q";
+        for (var count = 0; count < scaleNotes.length -1; count++) {
+            noteString = noteString + ", " + scaleNotes[count +1];
+//            console.log(noteString);
+        }
+
+       var element;
+       element = document.getElementById("boo");
+       if (element) {
+           element.innerHTML = "";
+
+            console.log(noteString);
+
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var score = vf.EasyScore();
+            var system = vf.System();
+            if (scaleNotes.length > 6) {
+
+                var first = scaleNotes[0] + "/8, " + scaleNotes[1];
+                var second = scaleNotes[2] + "/8, " + scaleNotes[3];
+                var third = scaleNotes[4] + "/8, " + scaleNotes[5];
+                var fourth = scaleNotes[6] + "/8, " + scaleNotes[7];
+
+                console.log("Before drawing answer");
+                system.addStave({voices:[
+                    score.voice(
+                        score.beam(
+                            score.notes(first), {autoStem: true})
+                                .concat(score.beam(score.notes(second), {autoStem: true}))
+                                .concat(score.beam(score.notes(third), {autoStem: true}))
+                                .concat(score.beam(score.notes(fourth), {autoStem: true}))
+                        )
+                    ]
+                }).addClef('treble').addTimeSignature('4/4');
+                console.log("After drawing answer");
+                vf.draw();
+            } else {
+                var first = scaleNotes[0] + "/q, " + scaleNotes[1] + ", " + scaleNotes[2];
+                var second = scaleNotes[3] + "/q, " + scaleNotes[4] + ", " + scaleNotes[5];
+                console.log(first);
+                console.log(second);
+
+                system.addStave({voices:[
+                    score.voice(
+                        score.tuplet(
+                                score.notes(first))
+                                .concat(score.tuplet(score.notes(second)))
+                        )
+                    ]
+                }).addClef('treble').addTimeSignature('4/4');
+                vf.draw();
+
+            }
+        }
+
     };
 
     $scope.playScale = function() {
@@ -262,8 +337,8 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 $scope.scaleScoring.pop();
                 $scope.scaleScoring.unshift(true);
                 $scope.currentAnswer = true;
-
             }
+        $scope.drawScaleAnswer();
         } else {
             console.log("Blargh");
             if ($scope.scaleScoring.length < 10) {
@@ -274,6 +349,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
                 $scope.scaleScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
+        $scope.drawScaleAnswer();
         }
         function isTrue(value) {
             return value === true;
@@ -524,6 +600,32 @@ midiApp.controller('midi-controller', function($scope, $http) {
         };
     };
 
+    $scope.drawIntervalAnswer = function() {
+        var initialNote = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
+        var secondNote = teoria.interval(initialNote, $scope.initialInterval.interval);
+//        console.log(initialNote.toString());
+//        console.log(secondNote.toString());
+        var intervalAnswer = initialNote + "/h, " + secondNote;
+//        console.log(intervalAnswer);
+
+        var element;
+        element = document.getElementById("boo");
+        if (element) {
+            element.innerHTML = "";
+
+            var vf = new VF.Factory({renderer: {selector: 'boo'}});
+            var score = vf.EasyScore();
+            var system = vf.System();
+            system.addStave({voices:[
+                score.voice(
+                    score.notes(intervalAnswer))
+                ]
+            }).addClef('treble').addTimeSignature('4/4');
+            vf.draw();
+        }
+
+    };
+
     $scope.playInterval = function() {
         console.log($scope.initialInterval.note + $scope.initialInterval.octave);
         var noteOut = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
@@ -600,8 +702,8 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 $scope.intervalScoring.pop();
                 $scope.intervalScoring.unshift(true);
                 $scope.currentAnswer = true;
-
             }
+         $scope.drawIntervalAnswer();
         } else {
             console.log("Blargh");
             if ($scope.intervalScoring.length < 10) {
@@ -612,6 +714,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
                 $scope.intervalScoring.unshift(false);
                 $scope.currentAnswer = false;
             }
+        $scope.drawIntervalAnswer();
         }
         function isTrue(value) {
             return value === true;
