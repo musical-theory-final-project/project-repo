@@ -10,9 +10,12 @@
     <script src="../static/js/midi-controller.js"></script>
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="text/javascript" src="https://tonejs.github.io/CDN/r8/Tone.js"></script>
+    <!--<script type="text/javascript" src="https://tonejs.github.io/CDN/latest/Tone.js"></script>-->
+
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
@@ -26,88 +29,104 @@
 
 
 </head>
-<body ng-controller="midi-controller">
-    <!--<div ng-controller="midi-controller">-->
+<body ng-controller="sandbox-controller">
+    Interval:
+    <select name="intervalName" ng-model="interval.interval">
+        <option value="P1" selected>Unison</option>
+        <option value="m2">Minor 2nd</option>
+        <option value="M2">Major 2nd</option>
+        <option value="m3">Minor 3rd</option>
+        <option value="M3">Major 3rd</option>
+        <option value="P4">Perfect 4th</option>
+        <option value="A4">Tritone</option>
+        <option value="P5">Perfect 5th</option>
+        <option value="m6">Minor 6th</option>
+        <option value="M6">Major 6th</option>
+        <option value="m7">Minor 7th</option>
+        <option value="M7">Major 7th</option>
+        <option value="P8">Octave</option>
+    </select>
+    Starting Note:
+    <select name="startNote" ng-model="interval.startNote">
+        <option value="C" selected>C</option>
+        <option value="C#">C sharp</option>
+        <option value="Db">D flat</option>
+        <option value="D">D</option>
+        <option value="D#">D sharp</option>
+        <option value="Eb">E flat</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="F#">F sharp</option>
+        <option value="Gb">G flat</option>
+        <option value="G">G</option>
+        <option value="G#">G sharp</option>
+        <option value="Ab">A flat</option>
+        <option value="A">A</option>
+        <option value="A#">A sharp</option>
+        <option value="Bb">B flat</option>
+        <option value="B">B</option>
+    </select>
+    Octave:
+    <select name="octave" ng-model="interval.octave">
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <select name="playType" ng-model="interval.playType">
+        <option value="harmonic">Harmonic</option>
+        <option value="melodic">Melodic</option>
+    </select>
+    <input type="button" ng-click="playInterval(interval)" value="Play Interval"/>
+</div>
+<br>
+<div>
+    Chord Type:
+    <select name="chord" ng-model="chord.chord">
+        <option value="M">Major</option>
+        <option value="m">Minor</option>
+        <option value="aug">Augmented</option>
+        <option value="dim">Diminished</option>
+        <option value="maj">Major Major 7</option>
+        <option value="dom">Major Minor 7</option>
+        <option value="minMin">Minor Minor 7 - manual chord</option>
+        <option value="ø">Half Diminished 7</option>
+        <option value="fullDim">Fully Diminished 7 - manual chord</option>
+    </select>
+    Starting Note:
+    <select name="startNote" ng-model="chord.startNote">
+        <option value="C" selected>C</option>
+        <option value="C#">C sharp</option>
+        <option value="Db">D flat</option>
+        <option value="D">D</option>
+        <option value="D#">D sharp</option>
+        <option value="Eb">E flat</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+        <option value="F#">F sharp</option>
+        <option value="Gb">G flat</option>
+        <option value="G">G</option>
+        <option value="G#">G sharp</option>
+        <option value="Ab">A flat</option>
+        <option value="A">A</option>
+        <option value="A#">A sharp</option>
+        <option value="Bb">B flat</option>
+        <option value="B">B</option>
+    </select>
+    Octave:
+    <select name="octave" ng-model="chord.octave">
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <select name="playType" ng-model="chord.playType">
+        <option value="harmonic">Harmonic</option>
+        <option value="melodic">Melodic</option>
+    </select>
+
+    <input type="button" ng-click="playChord(chord)" value="Play Chord"/>
 
 
-        <input type="button" value="Print note on score" ng-click="userInput()"/>
-        <a href="#" class="btn btn-lg btn-success" ng-click="userInput()">Play Generated Interval <span class="glyphicon glyphicon-play"></span></a>
-
-        <div id="boo">Hi i'm div</div>
-        <input type="button" ng-click="playExample()" value="Pull the lever!"/>
-
-            <div>
-                <p>Give me a note, and an interval!</p>
-                <input type="text" ng-model="note.name" placeholder="Note"/>
-                <input type="text" ng-model="note.octave" placeholder="Octave"/>
-                <input type="text" ng-model="note.interval" placeholder="Interval"/>
-                <input type="button" ng-click="playInterval()" value="Play generated interval"/>
-                {{a4}}
-            </div>
-
-            <div>
-                <input type="text" value="{{a4}}" placeholder="Tone frequency"/>
-            </div>
-        <span>
-            <p>Please choose an interval</p>
-                <input type="radio" value="P1" ng-model="answer"/>P1
-                <input type="radio" value="m2" ng-model="answer"/>m2
-                <input type="radio" value="M2" ng-model="answer"/>M2
-                <input type="radio" value="m3" ng-model="answer"/>m3
-                <input type="radio" value="M3" ng-model="answer"/>M3
-                <input type="radio" value="P4" ng-model="answer"/>P4
-                <input type="radio" value="TT" ng-model="answer"/>TT
-                <input type="radio" value="P5" ng-model="answer"/>P5
-                <input type="radio" value="m6" ng-model="answer"/>m6
-                <input type="radio" value="M6" ng-model="answer"/>M6
-                <input type="radio" value="m7" ng-model="answer"/>m7
-                <input type="radio" value="M7" ng-model="answer"/>M7
-        </span>
-        <span>
-            <div>
-                <input type="button" value="Check interval" ng-click="checkAnswer(answer)"/>
-            </div>
-        </span>
-
-        <br/><br/>
-
-        <div>
-            <input type="button" ng-click="getIntervalLevel()" value="Get Interval Level"/>
-        </div>
-
-        <br/><br/>
-
-        <div>
-            <input type="button" ng-click="getInitialInterval()" value="Get Initial Interval"/>
-        </div>
-
-        <br/><br/>
-
-
-        <div>
-            <p>Please give me a starting note, and a scale name</p>
-            <input type="text" ng-model="scale.startNote" placeholder="Note Name"/>
-            <input type="text" ng-model="scale.octave" placeholder="Note Octave"/>
-            <input type="text" ng-model="scale.name" placeholder="Scale Name"/>
-            <input type="button" ng-click="playScale(scale)" value="Get pitch slapped!"/>
-        </div>
-
-    <input type="button" ng-click="getInitialInterval()" value="Get you some!"/>
-    </div>
-    <p>Number of right/wrong</p>
-    {{intervalScoring}}
-    <div ng-if="filter.length >= 8">
-        <p>You are the bees knees!</p>
-        <input type="button" value="Advance to the next level!" ng-click="nextIntervalLevel()"/>
-    </div>
-
-    <div ng-controller="chord-controller">
-        <input type="button" ng-click="playChords()" value="Play the chords!" />
-    </div>
-
-
-    <input type="button" value="WebAPI test" ng-click="webAudio()"/>
-
+</div>
 
 
 </body>

@@ -786,7 +786,7 @@ midiApp.controller('midi-controller', function($scope, $http) {
 
 midiApp.controller('chord-controller', function($scope, $http) {
 
-    $scope.playChords = function() {
+    $scope.playChords = function(chord) {
         var Synth = function(audiolet, frequency) {
             AudioletGroup.call(this, audiolet, 0, 1);
             // Basic wave
@@ -811,12 +811,18 @@ midiApp.controller('chord-controller', function($scope, $http) {
         var SchedulerApp = function() {
             this.audiolet = new Audiolet();
 
+//            if (chord.scale == "major") {
+//                this.scale = new MajorScale();
+//            } else if (chord.scale == "minor") {
+//                this.scale = new MinorScale();
+//            }
+
             this.scale = new MinorScale();
 
             // I IV V progression
-            var chordPattern = new PSequence([[0, 2, 4],
-                                              [3, 5, 7],
-                                              [4, 6, 8]
+            var chordPattern = new PSequence([[1, 3, 5]
+//                                              [3, 5, 7],
+//                                              [4, 6, 8]
                                               ]);
             // Play the progression
             this.audiolet.scheduler.play([chordPattern], 1,
@@ -849,4 +855,76 @@ midiApp.controller('chord-controller', function($scope, $http) {
 //            $timeout($scope.webAudio, 100);
 //        };
 
+});
+
+midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
+
+//    $scope.synth = new Tone.Synth().toMaster();
+    $scope.counter = 0;
+
+    $scope.playInterval = function(interval) {
+        var synth = new Tone.Synth().toMaster();
+        var startNote = teoria.note(interval.startNote + interval.octave);
+        var secondNote = startNote.interval(interval.interval);
+        startNote = startNote.toString();
+        secondNote = secondNote.toString();
+
+        if (interval.playType == "melodic") {
+            var seq = new Tone.Sequence(function(time, note) {
+                synth.triggerAttackRelease(note, .5);
+            }, [startNote, secondNote], "4n");
+
+            Tone.Transport.start();
+            seq.start($scope.counter);
+            $scope.counter++;
+            seq.stop($scope.counter);
+            $scope.counter++;
+
+        } else {
+            var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
+            synth.triggerAttackRelease([startNote, secondNote], "2n");
+        }
+//        var pattern = new Tone.Pattern(function(time, note){
+//            synth.triggerAttackRelease(note, .5);
+//        }, [startNote, secondNote]);
+
+//        console.log($scope.counter);
+//        console.log(seq.state);
+
+    };
+
+    $scope.playChord = function(inputChord) {
+        var baseNote = teoria.note(inputChord.startNote + inputChord.octave);
+        if (inputChord.chord !== "fullDim") {
+            var chord = baseNote.chord(inputChord.chord);
+        }
+        var notes = [];
+        switch (inputChord.chord) {
+            case "minMin":
+                minor7 = ["P1", "m3", "P5", "m7"];
+                for (var count = 0; count < minor7.length; count++) {
+                    notes.push(teoria.interval(baseNote, minor7[count]).toString());
+                }
+                break;
+            case "fullDim":
+                diminished = ["P1", "m3", "d5", "dd7"];
+                for (var count = 0; count < diminished.count; count++) {
+                    notes.push(teoria.interval(baseNote, diminished[count]).toString());
+                }
+                break;
+            default:
+                for (var count = 0; count < chord.intervals.length; count++) {
+                    notes.push(teoria.interval(baseNote, chord.intervals[count]).toString());
+                }
+        }
+
+        console.log(notes)
+        if (notes.length === 3) {
+            var synth = new Tone.PolySynth(3, Tone.Synth).toMaster();
+            synth.triggerAttackRelease([notes[0], notes[1], notes[2]], "2n");
+        } else {
+            var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
+            synth.triggerAttackRelease([notes[0], notes[1], notes[2], notes[3]], "2n");
+        }
+    }
 });
