@@ -860,7 +860,6 @@ midiApp.controller('chord-controller', function($scope, $http) {
 midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
 //    $scope.synth = new Tone.Synth().toMaster();
-    $scope.counter = 0;
 
     $scope.playInterval = function(interval) {
         var synth = new Tone.Synth().toMaster();
@@ -868,29 +867,27 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         var secondNote = startNote.interval(interval.interval);
         startNote = startNote.toString();
         secondNote = secondNote.toString();
+        notes = [startNote, secondNote];
 
-        if (interval.playType == "melodic") {
-            var seq = new Tone.Sequence(function(time, note) {
-                synth.triggerAttackRelease(note, .5);
-            }, [startNote, secondNote], "4n");
 
-            Tone.Transport.start();
-            seq.start($scope.counter);
-            $scope.counter++;
-            seq.stop($scope.counter);
-            $scope.counter++;
-
-        } else {
-            var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
-            synth.triggerAttackRelease([startNote, secondNote], "2n");
+        switch (interval.playType) {
+            case "melodic":
+                var synth = new Tone.Synth().toMaster();
+                var count = 0;
+                $timeout(function wasteTime() {
+                    synth.triggerAttackRelease(notes[count], "4n");
+                    console.log(count);
+                    count++;
+                    if (count < notes.length){
+                        $timeout(wasteTime, 500);
+                    }
+                }, 500);
+                break;
+            case "harmonic":
+                var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
+                synth.triggerAttackRelease([startNote, secondNote], "2n");
+                break;
         }
-//        var pattern = new Tone.Pattern(function(time, note){
-//            synth.triggerAttackRelease(note, .5);
-//        }, [startNote, secondNote]);
-
-//        console.log($scope.counter);
-//        console.log(seq.state);
-
     };
 
     $scope.playChord = function(inputChord) {
@@ -908,7 +905,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 break;
             case "fullDim":
                 diminished = ["P1", "m3", "d5", "dd7"];
-                for (var count = 0; count < diminished.count; count++) {
+                for (var count = 0; count < diminished.length; count++) {
                     notes.push(teoria.interval(baseNote, diminished[count]).toString());
                 }
                 break;
@@ -918,13 +915,77 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 }
         }
 
-        console.log(notes)
-        if (notes.length === 3) {
-            var synth = new Tone.PolySynth(3, Tone.Synth).toMaster();
-            synth.triggerAttackRelease([notes[0], notes[1], notes[2]], "2n");
-        } else {
-            var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
-            synth.triggerAttackRelease([notes[0], notes[1], notes[2], notes[3]], "2n");
+        switch (inputChord.playType) {
+            case "harmonic":
+                if (notes.length === 3) {
+                    var synth = new Tone.PolySynth(3, Tone.Synth).toMaster();
+                    synth.triggerAttackRelease([notes[0], notes[1], notes[2]], "2n");
+                } else {
+                    var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
+                    synth.triggerAttackRelease([notes[0], notes[1], notes[2], notes[3]], "2n");
+                }
+                break;
+
+            case "melodic":
+                var synth = new Tone.Synth().toMaster();
+                var count = 0;
+                $timeout(function wasteTime() {
+                    synth.triggerAttackRelease(notes[count], "4n");
+//                    console.log(count);
+                    count++;
+                    if (count < notes.length){
+                        $timeout(wasteTime, 500);
+                    }
+                }, 500);
+                break;
         }
-    }
+        console.log(notes)
+    };
+
+    $scope.playScale = function(inputScale) {
+        var root = teoria.note(inputScale.startNote + inputScale.octave);
+        var notes = [];
+        var synth = new Tone.Synth().toMaster();
+
+        //Teoria does not know what these are, they must manually be programmed
+        if(inputScale.name !== "whole-half" && inputScale.name !== "half-whole"){
+            var scale = root.scale(inputScale.name);
+        }
+
+//        console.log(scale);
+        switch (inputScale.name) {
+            case "whole-half":
+                var wholeHalf = ["P1", "M2", "m3", "P4", "d5", "m6", "M6", "M7", "P8"];
+                for (var count = 0; count < wholeHalf.length; count++) {
+                    notes.push(root.interval(wholeHalf[count]).toString());
+                }
+                break;
+            case "half-whole":
+                var halfWhole = ["P1", "m2", "m3", "M3", "A4", "P5", "M6", "m7", "P8"];
+                for (var count = 0; count < halfWhole.length; count++){
+                    notes.push(root.interval(halfWhole[count]).toString());
+                }
+                break;
+            default:
+                for (var count = 0; count < scale.scale.length; count++) {
+                    notes.push(teoria.interval(root, scale.scale[count]).toString());
+                }
+                notes.push(root.interval("P8").toString());
+        }
+        console.log(notes);
+
+        var synth = new Tone.Synth().toMaster();
+        var count = 0;
+        $timeout(function wasteTime() {
+            synth.triggerAttackRelease(notes[count], "4n");
+//            console.log(count);
+            count++;
+            if (count < notes.length){
+                $timeout(wasteTime, 500);
+            }
+        }, 500);
+
+
+    };
+
 });
