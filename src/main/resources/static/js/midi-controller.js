@@ -942,6 +942,10 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
                 if (intervalArray[count].length > 2) {
                     accidental = intervalArray[count].slice(1, -1);
+                    if (accidental === "x") {
+                        //vexflow does not understand the double sharp accidental "x"
+                        accidental = "##";
+                    }
                     notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h", auto_stem: true})
                     .addAccidental(0, new VF.Accidental(accidental)));
                 } else {
@@ -982,45 +986,47 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         if (inputChord.chord !== "fullDim") {
             var chord = baseNote.chord(inputChord.chord);
         }
-        var notes = [];
+        var chordArray = [];
         switch (inputChord.chord) {
             case "minMin":
                 minor7 = ["P1", "m3", "P5", "m7"];
                 for (var count = 0; count < minor7.length; count++) {
-                    notes.push(teoria.interval(baseNote, minor7[count]).toString());
+                    chordArray.push(teoria.interval(baseNote, minor7[count]).toString());
                 }
                 break;
             case "fullDim":
                 diminished = ["P1", "m3", "d5", "dd7"];
                 for (var count = 0; count < diminished.length; count++) {
-                    notes.push(teoria.interval(baseNote, diminished[count]).toString());
+                    chordArray.push(teoria.interval(baseNote, diminished[count]).toString());
                 }
                 break;
             default:
                 for (var count = 0; count < chord.intervals.length; count++) {
-                    notes.push(teoria.interval(baseNote, chord.intervals[count]).toString());
+                    chordArray.push(teoria.interval(baseNote, chord.intervals[count]).toString());
                 }
         }
 
+
+
         switch (inputChord.playType) {
             case "harmonic":
-                if (notes.length === 3) {
+                if (chordArray.length === 3) {
                     var synth = new Tone.PolySynth(3, Tone.Synth).toMaster();
-                    synth.triggerAttackRelease([notes[0], notes[1], notes[2]], "2n");
+                    synth.triggerAttackRelease([chordArray[0], chordArray[1], chordArray[2]], "2n");
                 } else {
                     var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
-                    synth.triggerAttackRelease([notes[0], notes[1], notes[2], notes[3]], "2n");
+                    synth.triggerAttackRelease([chordArray[0], chordArray[1], chordArray[2], chordArray[3]], "2n");
                 }
                 break;
 
             case "melodic":
                 var synth = new Tone.Synth().toMaster();
                 var count = 0;
-                $timeout(function wasteTime() {
-                    synth.triggerAttackRelease(notes[count], "4n");
+                $timeout(function playNotes() {
+                    synth.triggerAttackRelease(chordArray[count], "4n");
 //                    console.log(count);
                     count++;
-                    if (count < notes.length){
+                    if (count < chordArray.length){
                         $timeout(wasteTime, 500);
                     }
                 }, 500);
