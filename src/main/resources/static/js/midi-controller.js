@@ -911,49 +911,51 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 break;
         }
 
-//        $scope.drawScore();
 
-        var div = document.getElementById("vex");
-        var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-        renderer.resize(500, 500);
-        var context = renderer.getContext();
-        context.setFont("Arial", 10, "").setBackgroundFillStyle("#eeed");
+        var element = document.getElementById("vex");
+        if (element) {
+            element.innerHTML = "";
 
-        var stave = new VF.Stave(10, 40, 400);
+            var renderer = new VF.Renderer(element, VF.Renderer.Backends.SVG);
+            renderer.resize(500, 500);
+            var context = renderer.getContext();
+            context.setFont("Arial", 10, "").setBackgroundFillStyle("#eeed");
 
-//        stave.addClef("treble").addTimeSignature("4/4");
-        stave.addClef("treble");
+            var stave = new VF.Stave(10, 40, 400);
 
-        stave.setContext(context).draw();
+    //        stave.addClef("treble").addTimeSignature("4/4");
+            stave.addClef("treble");
 
-        var note;
-        var octave;
-        var accidental;
+            stave.setContext(context).draw();
 
-        var intervalArray = [startNote, secondNote];
+            var note;
+            var octave;
+            var accidental;
 
-        var notes = [];
-        for (var count = 0; count < intervalArray.length; count ++) {
+            var intervalArray = [startNote, secondNote];
 
-            note = intervalArray[count].slice(0, 1);
-            octave = intervalArray[count].slice(-1);
+            var notes = [];
+            for (var count = 0; count < intervalArray.length; count ++) {
 
-            if (intervalArray[count].length > 2) {
-                accidental = intervalArray[count].slice(1, -1);
-                notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h"})
-                .addAccidental(0, new VF.Accidental(accidental)));
-            } else {
-                notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h"}));
+                note = intervalArray[count].slice(0, 1);
+                octave = intervalArray[count].slice(-1);
+
+                if (intervalArray[count].length > 2) {
+                    accidental = intervalArray[count].slice(1, -1);
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h"})
+                    .addAccidental(0, new VF.Accidental(accidental)));
+                } else {
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h"}));
+                }
+
             }
 
+            var voice = new VF.Voice({num_beats: 4, beat_value: 4});
+            voice.addTickables(notes);
+
+            var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
+            voice.draw(context, stave);
         }
-
-        var voice = new VF.Voice({num_beats: 4, beat_value: 4});
-        voice.addTickables(notes);
-
-        var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
-        voice.draw(context, stave);
-
     };
 
     $scope.playChord = function(inputChord) {
