@@ -860,6 +860,28 @@ midiApp.controller('chord-controller', function($scope, $http) {
 midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
 //    $scope.synth = new Tone.Synth().toMaster();
+    const VF = Vex.Flow;
+
+//    $scope.drawScore = function() {
+//        // Create an SVG renderer and attach it to the DIV element named "vex".
+//        var div = document.getElementById("vex")
+//        var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+//
+//        // Configure the rendering context.
+//        renderer.resize(500, 500);
+//        var context = renderer.getContext();
+//        context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
+//
+//        // Create a stave of width 400 at position 10, 40 on the canvas.
+//        var stave = new VF.Stave(10, 40, 400);
+//
+//        // Add a clef and time signature.
+//        stave.addClef("treble").addTimeSignature("4/4");
+//
+//        // Connect it to the rendering context and draw!
+//        stave.setContext(context).draw();
+//
+//    }
 
     $scope.playInterval = function(interval) {
         var synth = new Tone.Synth().toMaster();
@@ -876,7 +898,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 var count = 0;
                 $timeout(function wasteTime() {
                     synth.triggerAttackRelease(notes[count], "4n");
-                    console.log(count);
+//                    console.log(count);
                     count++;
                     if (count < notes.length){
                         $timeout(wasteTime, 500);
@@ -888,6 +910,50 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 synth.triggerAttackRelease([startNote, secondNote], "2n");
                 break;
         }
+
+//        $scope.drawScore();
+
+        var div = document.getElementById("vex");
+        var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+        renderer.resize(500, 500);
+        var context = renderer.getContext();
+        context.setFont("Arial", 10, "").setBackgroundFillStyle("#eeed");
+
+        var stave = new VF.Stave(10, 40, 400);
+
+//        stave.addClef("treble").addTimeSignature("4/4");
+        stave.addClef("treble");
+
+        stave.setContext(context).draw();
+
+        var note;
+        var octave;
+        var accidental;
+
+        var intervalArray = [startNote, secondNote];
+
+        var notes = [];
+        for (var count = 0; count < intervalArray.length; count ++) {
+
+            note = intervalArray[count].slice(0, 1);
+            octave = intervalArray[count].slice(-1);
+
+            if (intervalArray[count].length > 2) {
+                accidental = intervalArray[count].slice(1, -1);
+                notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h"})
+                .addAccidental(0, new VF.Accidental(accidental)));
+            } else {
+                notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h"}));
+            }
+
+        }
+
+        var voice = new VF.Voice({num_beats: 4, beat_value: 4});
+        voice.addTickables(notes);
+
+        var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
+        voice.draw(context, stave);
+
     };
 
     $scope.playChord = function(inputChord) {
@@ -940,6 +1006,9 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 break;
         }
         console.log(notes)
+
+
+
     };
 
     $scope.playScale = function(inputScale) {
