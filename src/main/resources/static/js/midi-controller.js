@@ -889,27 +889,27 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         var secondNote = startNote.interval(interval.interval);
         startNote = startNote.toString();
         secondNote = secondNote.toString();
-        notes = [startNote, secondNote];
+        notesArray = [startNote, secondNote];
 
 
-        switch (interval.playType) {
-            case "melodic":
-                var synth = new Tone.Synth().toMaster();
-                var count = 0;
-                $timeout(function wasteTime() {
-                    synth.triggerAttackRelease(notes[count], "4n");
-//                    console.log(count);
-                    count++;
-                    if (count < notes.length){
-                        $timeout(wasteTime, 500);
-                    }
-                }, 500);
-                break;
-            case "harmonic":
-                var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
-                synth.triggerAttackRelease([startNote, secondNote], "2n");
-                break;
-        }
+//        switch (interval.playType) {
+//            case "melodic":
+//                var synth = new Tone.Synth().toMaster();
+//                var count = 0;
+//                $timeout(function wasteTime() {
+//                    synth.triggerAttackRelease(notes[count], "4n");
+////                    console.log(count);
+//                    count++;
+//                    if (count < notes.length){
+//                        $timeout(wasteTime, 500);
+//                    }
+//                }, 500);
+//                break;
+//            case "harmonic":
+//                var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
+//                synth.triggerAttackRelease([startNote, secondNote], "2n");
+//                break;
+//        }
 
 
         var element = document.getElementById("vex");
@@ -942,10 +942,10 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
                 if (intervalArray[count].length > 2) {
                     accidental = intervalArray[count].slice(1, -1);
-                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h"})
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h", auto_stem: true})
                     .addAccidental(0, new VF.Accidental(accidental)));
                 } else {
-                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h"}));
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h", auto_stem: true}));
                 }
 
             }
@@ -955,6 +955,25 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
             var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
             voice.draw(context, stave);
+        }
+
+        switch (interval.playType) {
+            case "melodic":
+                var synth = new Tone.Synth().toMaster();
+                var count = 0;
+                $timeout(function wasteTime() {
+                    synth.triggerAttackRelease(notesArray[count], "4n");
+//                    console.log(count);
+                    count++;
+                    if (count < notes.length){
+                        $timeout(wasteTime, 500);
+                    }
+                }, 500);
+                break;
+            case "harmonic":
+                var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
+                synth.triggerAttackRelease([startNote, secondNote], "2n");
+                break;
         }
     };
 
@@ -1015,7 +1034,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
     $scope.playScale = function(inputScale) {
         var root = teoria.note(inputScale.startNote + inputScale.octave);
-        var notes = [];
+        var scaleArray = [];
         var synth = new Tone.Synth().toMaster();
 
         //Teoria does not know what these are, they must manually be programmed
@@ -1028,33 +1047,101 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             case "whole-half":
                 var wholeHalf = ["P1", "M2", "m3", "P4", "d5", "m6", "M6", "M7", "P8"];
                 for (var count = 0; count < wholeHalf.length; count++) {
-                    notes.push(root.interval(wholeHalf[count]).toString());
+                    scaleArray.push(root.interval(wholeHalf[count]).toString());
                 }
                 break;
             case "half-whole":
                 var halfWhole = ["P1", "m2", "m3", "M3", "A4", "P5", "M6", "m7", "P8"];
                 for (var count = 0; count < halfWhole.length; count++){
-                    notes.push(root.interval(halfWhole[count]).toString());
+                    scaleArray.push(root.interval(halfWhole[count]).toString());
                 }
                 break;
             default:
                 for (var count = 0; count < scale.scale.length; count++) {
-                    notes.push(teoria.interval(root, scale.scale[count]).toString());
+                    scaleArray.push(teoria.interval(root, scale.scale[count]).toString());
                 }
-                notes.push(root.interval("P8").toString());
+                scaleArray.push(root.interval("P8").toString());
         }
         console.log(notes);
 
-        var synth = new Tone.Synth().toMaster();
-        var count = 0;
-        $timeout(function wasteTime() {
-            synth.triggerAttackRelease(notes[count], "4n");
-//            console.log(count);
-            count++;
-            if (count < notes.length){
-                $timeout(wasteTime, 500);
+//        var synth = new Tone.Synth().toMaster();
+//        var count = 0;
+//        $timeout(function wasteTime() {
+//            synth.triggerAttackRelease(scaleArray[count], "4n");
+////            console.log(count);
+//            count++;
+//            if (count < scaleArray.length){
+//                $timeout(wasteTime, 500);
+//            }
+//        }, 500);
+
+        var element = document.getElementById("vex");
+        if (element) {
+            element.innerHTML = "";
+
+            var renderer = new VF.Renderer(element, VF.Renderer.Backends.SVG);
+            renderer.resize(900, 500);
+            var context = renderer.getContext();
+            context.setFont("Arial", 10, "").setBackgroundFillStyle("#eeed");
+
+            var stave = new VF.Stave(10, 40, 800);
+
+            stave.addClef("treble");
+
+            stave.setContext(context).draw();
+
+            var note;
+            var octave;
+            var accidental;
+
+            var notes = [];
+            for (var count = 0; count < scaleArray.length; count ++) {
+
+                note = scaleArray[count].slice(0, 1);
+                octave = scaleArray[count].slice(-1);
+
+                if (scaleArray[count].length > 2) {
+                    accidental = scaleArray[count].slice(1, -1);
+                    if(accidental === "x") {
+                        accidental = "##";
+                    }
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "q", auto_stem: true})
+                    .addAccidental(0, new VF.Accidental(accidental)));
+                } else {
+                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"q", auto_stem: true}));
+                }
+
             }
-        }, 500);
+
+
+            if (scaleArray.length === 9) {
+                var voice = new VF.Voice({num_beats: 9, beat_value: 4});
+            } else if (scaleArray.length === 13) {
+                var voice = new VF.Voice({num_beats: 13, beat_value: 4});
+            } else if (scaleArray.length === 6) {
+                var voice = new VF.Voice({num_beats: 6, beat_value: 4});
+            } else if (scaleArray.length === 7) {
+                var voice = new VF.Voice({num_beats: 7, beat_value: 4});
+            } else {
+                var voice = new VF.Voice({num_beats: 8, beat_value: 4});
+            }
+
+            voice.addTickables(notes);
+
+            var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 800);
+            voice.draw(context, stave);
+        }
+
+        var synth = new Tone.Synth().toMaster();
+                var count = 0;
+                $timeout(function wasteTime() {
+                    synth.triggerAttackRelease(scaleArray[count], "4n");
+        //            console.log(count);
+                    count++;
+                    if (count < scaleArray.length){
+                        $timeout(wasteTime, 500);
+                    }
+                }, 500);
 
 
     };
