@@ -892,26 +892,6 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         notesArray = [startNote, secondNote];
 
 
-//        switch (interval.playType) {
-//            case "melodic":
-//                var synth = new Tone.Synth().toMaster();
-//                var count = 0;
-//                $timeout(function wasteTime() {
-//                    synth.triggerAttackRelease(notes[count], "4n");
-////                    console.log(count);
-//                    count++;
-//                    if (count < notes.length){
-//                        $timeout(wasteTime, 500);
-//                    }
-//                }, 500);
-//                break;
-//            case "harmonic":
-//                var synth = new Tone.PolySynth(2, Tone.Synth).toMaster();
-//                synth.triggerAttackRelease([startNote, secondNote], "2n");
-//                break;
-//        }
-
-
         var element = document.getElementById("vex");
         if (element) {
             element.innerHTML = "";
@@ -965,12 +945,12 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             case "melodic":
                 var synth = new Tone.Synth().toMaster();
                 var count = 0;
-                $timeout(function wasteTime() {
+                $timeout(function interval() {
                     synth.triggerAttackRelease(notesArray[count], "4n");
 //                    console.log(count);
                     count++;
                     if (count < notes.length){
-                        $timeout(wasteTime, 500);
+                        $timeout(interval, 500);
                     }
                 }, 500);
                 break;
@@ -1008,6 +988,71 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
 
 
+        var element = document.getElementById("vex");
+        if (element) {
+            element.innerHTML = "";
+
+            var renderer = new VF.Renderer(element, VF.Renderer.Backends.SVG);
+            renderer.resize(500, 500);
+            var context = renderer.getContext();
+            context.setFont("Arial", 10, "").setBackgroundFillStyle("#eeed");
+
+            var stave = new VF.Stave(10, 40, 400);
+
+            //add option for different clefs (alto, tenor, soprano, bass, etc...)
+
+            stave.addClef("treble");
+
+            stave.setContext(context).draw();
+
+            var note;
+            var octave;
+            var accidental;
+
+
+            var vexChordArray = [];
+            for (var count = 0; count < chordArray.length; count ++) {
+
+                note = chordArray[count].slice(0, 1);
+                octave = chordArray[count].slice(-1);
+
+                if (chordArray[count].length > 2) {
+                    accidental = chordArray[count].slice(1, -1);
+                    if (accidental === "x") {
+                        //vexflow does not understand the double sharp accidental "x"
+                        accidental = "##";
+                    }
+                    var newNote = note + accidental + "/" + octave;
+                    vexChordArray.push(newNote);
+                } else {
+                    var newNote = note + "/" + octave;
+                    vexChordArray.push(newNote);
+                }
+            }
+
+            var notes = [
+                new VF.StaveNote({clef: "treble", keys: vexChordArray, duration: "w"})
+                ];
+            for (var count = 0; count < vexChordArray.length; count++){
+                if (vexChordArray[count].length > 2) {
+                    accidental = vexChordArray[count].slice(1, -2);
+                    notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
+                }
+            }
+
+            console.log(vexChordArray);
+
+            var voice = new VF.Voice({num_beats: 4, beat_value: 4});
+            voice.addTickables(notes);
+
+            var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
+            voice.draw(context, stave);
+
+
+
+
+
+
         switch (inputChord.playType) {
             case "harmonic":
                 if (chordArray.length === 3) {
@@ -1027,14 +1072,14 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 //                    console.log(count);
                     count++;
                     if (count < chordArray.length){
-                        $timeout(wasteTime, 500);
+                        $timeout(playNotes, 500);
                     }
                 }, 500);
                 break;
         }
-        console.log(notes)
+//        console.log(notes)
 
-
+    }
 
     };
 
@@ -1070,16 +1115,6 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         }
         console.log(notes);
 
-//        var synth = new Tone.Synth().toMaster();
-//        var count = 0;
-//        $timeout(function wasteTime() {
-//            synth.triggerAttackRelease(scaleArray[count], "4n");
-////            console.log(count);
-//            count++;
-//            if (count < scaleArray.length){
-//                $timeout(wasteTime, 500);
-//            }
-//        }, 500);
 
         var element = document.getElementById("vex");
         if (element) {
@@ -1140,12 +1175,12 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
         var synth = new Tone.Synth().toMaster();
                 var count = 0;
-                $timeout(function wasteTime() {
+                $timeout(function playNotes() {
                     synth.triggerAttackRelease(scaleArray[count], "4n");
         //            console.log(count);
                     count++;
                     if (count < scaleArray.length){
-                        $timeout(wasteTime, 500);
+                        $timeout(playNotes, 500);
                     }
                 }, 500);
 
