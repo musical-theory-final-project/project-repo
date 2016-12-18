@@ -886,7 +886,16 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
     $scope.playInterval = function(interval) {
         var synth = new Tone.Synth().toMaster();
         var startNote = teoria.note(interval.startNote + interval.octave);
-        var secondNote = startNote.interval(interval.interval);
+        //splitting the interval name string to add a "-" so it will be read as descending, instead of ascending by default
+        if (interval.direction === "down") {
+            var split1 = interval.interval.slice(0,1);
+            var split2 = interval.interval.slice(-1);
+            var descending = split1 + "-" + split2;
+            var secondNote = startNote.interval(descending);
+        } else {
+            var secondNote = startNote.interval(interval.interval);
+        }
+
         startNote = startNote.toString();
         secondNote = secondNote.toString();
         notesArray = [startNote, secondNote];
@@ -945,12 +954,12 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             case "melodic":
                 var synth = new Tone.Synth().toMaster();
                 var count = 0;
-                $timeout(function interval() {
+                $timeout(function playNotes() {
                     synth.triggerAttackRelease(notesArray[count], "4n");
 //                    console.log(count);
                     count++;
                     if (count < notes.length){
-                        $timeout(interval, 500);
+                        $timeout(playNotes, 500);
                     }
                 }, 500);
                 break;
