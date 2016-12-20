@@ -1018,6 +1018,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             var octave;
             var accidental;
 
+            console.log(chordArray);
 
             var vexChordArray = [];
             for (var count = 0; count < chordArray.length; count ++) {
@@ -1031,6 +1032,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                         //vexflow does not understand the double sharp accidental "x"
                         accidental = "##";
                     }
+//                    console.log(accidental);
                     var newNote = note + accidental + "/" + octave;
                     vexChordArray.push(newNote);
                 } else {
@@ -1039,12 +1041,15 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 }
             }
 
+
             var notes = [
                 new VF.StaveNote({clef: "treble", keys: vexChordArray, duration: "w"})
                 ];
             for (var count = 0; count < vexChordArray.length; count++){
-                if (vexChordArray[count].length > 2) {
+                if (vexChordArray[count].length > 3) {
                     accidental = vexChordArray[count].slice(1, -2);
+                    console.log(vexChordArray[count])
+                    console.log(accidental);
                     notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
                 }
             }
@@ -1155,6 +1160,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                     if(accidental === "x") {
                         accidental = "##";
                     }
+//                    console.log(accidental);
                     notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "q", auto_stem: true})
                     .addAccidental(0, new VF.Accidental(accidental)));
                 } else {
