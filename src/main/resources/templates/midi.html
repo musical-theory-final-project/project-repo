@@ -11,11 +11,10 @@
     <script src="js/teoria.js"></script>
     <script src="../static/js/teoria.js"></script>
     <script type="text/javascript" src="https://tonejs.github.io/CDN/r8/Tone.js"></script>
-    <!--<script type="text/javascript" src="https://tonejs.github.io/CDN/latest/Tone.js"></script>-->
 
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
-    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"/>
@@ -36,7 +35,6 @@
     <div class="booContainer">
         <div id="vex"></div>
     </div>
-
 
     <div>
         Interval:
@@ -100,15 +98,19 @@
     <div>
         Chord Type:
         <select name="chord" ng-model="chord.chord">
-            <option value="M">Major</option>
-            <option value="m">Minor</option>
-            <option value="aug">Augmented</option>
-            <option value="dim">Diminished</option>
-            <option value="maj">Major Major 7</option>
-            <option value="dom">Major Minor 7</option>
-            <option value="minMin">Minor Minor 7</option>
-            <option value="ø">Half Diminished 7</option>
-            <option value="fullDim">Fully Diminished 7</option>
+            <optgroup label="Triads">
+                <option value="M">Major</option>
+                <option value="m">Minor</option>
+                <option value="aug">Augmented</option>
+                <option value="dim">Diminished</option>
+            </optgroup>
+            <optgroup label="Seventh Chords">
+                <option value="maj">Major Major 7</option>
+                <option value="dom">Major Minor 7</option>
+                <option value="minMin">Minor Minor 7</option>
+                <option value="ø">Half Diminished 7</option>
+                <option value="fullDim">Fully Diminished 7</option>
+            </optgroup>
         </select>
         Starting Note:
         <select name="startNote" ng-model="chord.startNote">
