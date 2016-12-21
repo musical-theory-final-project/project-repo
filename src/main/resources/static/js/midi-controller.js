@@ -984,7 +984,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 }
                 break;
             case "fullDim":
-                diminished = ["P1", "m3", "d5", "dd7"];
+                diminished = ["P1", "m3", "d5", "d7"];
                 for (var count = 0; count < diminished.length; count++) {
                     chordArray.push(teoria.interval(baseNote, diminished[count]).toString());
                 }
