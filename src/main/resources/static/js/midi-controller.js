@@ -48,7 +48,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
         .then(
             function successCallBack(response) {
                 console.log(response.data);
-                var everything = response.data;
+                var everything = response.data
                 $scope.user = everything.user;
                 $scope.maxScaleLevel = everything.scaleLevel;
                 $scope.currentScaleLevel = everything.user.currentScaleLevel;
