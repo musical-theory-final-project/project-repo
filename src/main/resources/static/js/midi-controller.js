@@ -883,6 +883,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 //
 //    }
 
+
     $scope.playInterval = function(interval) {
         var synth = new Tone.Synth().toMaster();
         var startNote = teoria.note(interval.startNote + interval.octave);
@@ -970,28 +971,241 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
         }
     };
 
+    $scope.chordInversion = function() {
+
+    }
+
+
     $scope.playChord = function(inputChord) {
-        var baseNote = teoria.note(inputChord.startNote + inputChord.octave);
+        var root = teoria.note(inputChord.startNote + inputChord.octave);
         if (inputChord.chord !== "fullDim") {
-            var chord = baseNote.chord(inputChord.chord);
+            var chord = root.chord(inputChord.chord);
         }
+//        console.log(chord);
         var chordArray = [];
+        var bassNote;
+        var first;
+        var second;
+        var third;
+
         switch (inputChord.chord) {
+
+            case "M":
+                if (inputChord.inversion === "6/3") {
+                    root = root.interval("M3");
+                    first = ["P1", "m3", "m6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4") {
+                    root = root.interval("P5");
+                    second = ["P1", "P4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+                }
+                break;
+
+            case "m":
+                if (inputChord.inversion === "6/3") {
+                    root = root.interval("m3");
+                    first = ["P1","M3","M6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+
+                } else if (inputChord.inversion === "6/4") {
+                    root = root.interval("P5");
+                    second = ["P1","P4","m6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+                }
+                break;
+
+            case "aug":
+                if (inputChord.inversion === "6/3") {
+                    root = root.interval("M3");
+                    first = ["P1", "M3", "m6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4") {
+                    root = root.interval("A5");
+                    second = ["P1", "d4", "m6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+                }
+
+                break;
+
+            case "dim":
+                if (inputChord.inversion === "6/3") {
+                    root = root.interval("m3");
+                    first = ["P1", "m3", "M6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4") {
+                    root = root.interval("d5");
+                    second = ["P1", "A4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+                }
+                break;
+
+            case "maj":
+                if (inputChord.inversion === "6/5/3"){
+                    root = root.interval("M3");
+                    first = ["P1", "m3", "P5", "m6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/3") {
+                    root = root.interval("P5");
+                    second = ["P1", "M3", "P4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/2") {
+                    root = root.interval("M7");
+                    third = ["P1", "m2", "P4", "m6"];
+                    for (var count = 0; count < third.length; count++) {
+                        chordArray.push(teoria.interval(root, third[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+                }
+                break;
+            case "dom":
+                if(inputChord.inversion === "6/5/3") {
+                    root = root.interval("M3");
+                    first = ["P1", "m3", "d5", "m6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/3") {
+                    root = root.interval("P5");
+                    second = ["P1", "m3", "P4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/2") {
+                    root = root.interval("m7");
+                    third = ["P1", "M2", "A4", "M6"];
+                    for (var count = 0; count < third.length; count++) {
+                        chordArray.push(teoria.interval(root, third[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+
+                }
+                break;
             case "minMin":
-                minor7 = ["P1", "m3", "P5", "m7"];
-                for (var count = 0; count < minor7.length; count++) {
-                    chordArray.push(teoria.interval(baseNote, minor7[count]).toString());
+                if (inputChord.inversion === "6/5/3") {
+                    root = root.interval("m3");
+                    first = ["P1", "M3", "P5", "M6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/3") {
+                    root = root.interval("P5");
+                    second = ["P1", "m3", "P4", "m6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/2") {
+                    root = root.interval("m7");
+                    third = ["P1", "M2", "P4", "M6"];
+                    for (var count = 0; count < third.length; count++) {
+                        chordArray.push(teoria.interval(root, third[count]).toString());
+                    }
+                } else {
+                    minor7 = ["P1", "m3", "P5", "m7"];
+                    for (var count = 0; count < minor7.length; count++) {
+                        chordArray.push(teoria.interval(root, minor7[count]).toString());
+                    }
+                }
+                break;
+
+            case "ø":
+                if(inputChord.inversion === "6/5/3") {
+                    root = root.interval("m3");
+                    first = ["P1", "m3", "P5", "M6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/3") {
+                    root = root.interval("d5");
+                    second = ["P1", "M3", "A4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/2") {
+                    root = root.interval("m7");
+                    third = ["P1", "M2", "P4", "m6"];
+                    for (var count = 0; count < third.length; count++) {
+                        chordArray.push(teoria.interval(root, third[count]).toString());
+                    }
+                } else {
+                    for (var count = 0; count < chord.intervals.length; count++) {
+                        chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
+                    }
+
                 }
                 break;
             case "fullDim":
-                diminished = ["P1", "m3", "d5", "d7"];
-                for (var count = 0; count < diminished.length; count++) {
-                    chordArray.push(teoria.interval(baseNote, diminished[count]).toString());
+                if(inputChord.inversion === "6/5/3") {
+                    root = root.interval("m3");
+                    first = ["P1", "m3", "d5", "M6"];
+                    for (var count = 0; count < first.length; count++) {
+                        chordArray.push(teoria.interval(root, first[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/3") {
+                    root = root.interval("d5");
+                    second = ["P1", "m3", "A4", "M6"];
+                    for (var count = 0; count < second.length; count++) {
+                        chordArray.push(teoria.interval(root, second[count]).toString());
+                    }
+                } else if (inputChord.inversion === "6/4/2") {
+                    root = root.interval("d7");
+                    third = ["P1", "A2", "A4", "M6"];
+                    for (var count = 0; count < third.length; count++) {
+                        chordArray.push(teoria.interval(root, third[count]).toString());
+                    }
+                } else {
+                    diminished = ["P1", "m3", "d5", "d7"];
+                    for (var count = 0; count < diminished.length; count++) {
+                        chordArray.push(teoria.interval(root, diminished[count]).toString());
+                    }
                 }
                 break;
             default:
                 for (var count = 0; count < chord.intervals.length; count++) {
-                    chordArray.push(teoria.interval(baseNote, chord.intervals[count]).toString());
+                    chordArray.push(teoria.interval(root, chord.intervals[count]).toString());
                 }
         }
 
@@ -1018,7 +1232,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             var octave;
             var accidental;
 
-            console.log(chordArray);
+//            console.log(chordArray);
 
             var vexChordArray = [];
             for (var count = 0; count < chordArray.length; count ++) {
@@ -1048,13 +1262,13 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             for (var count = 0; count < vexChordArray.length; count++){
                 if (vexChordArray[count].length > 3) {
                     accidental = vexChordArray[count].slice(1, -2);
-                    console.log(vexChordArray[count])
-                    console.log(accidental);
+//                    console.log(vexChordArray[count])
+//                    console.log(accidental);
                     notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
                 }
             }
 
-            console.log(vexChordArray);
+//            console.log(vexChordArray);
 
             var voice = new VF.Voice({num_beats: 4, beat_value: 4});
             voice.addTickables(notes);

@@ -133,6 +133,20 @@
                             <option value="fullDim">Fully Diminished 7</option>
                         </optgroup>
                     </select>
+                    Inversion:
+                    <select name="inversion" ng-model="chord.inversion">
+                        <optgroup label="Triads">
+                            <option value="root">Root Position</option>
+                            <option value="6/3">First Inversion</option>
+                            <option value="6/4">Second Inversion</option>
+                        </optgroup>
+                        <optgroup label="Seventh Chords">
+                            <option value="root">Root Position</option>
+                            <option value="6/5/3">First Inversion</option>
+                            <option value="6/4/3">Second Inversion</option>
+                            <option value="6/4/2">Third Inversion</option>
+                        </optgroup>
+                    </select>
                     Starting Note:
                     <select name="startNote" ng-model="chord.startNote">
                         <option value="C" selected>C</option>
