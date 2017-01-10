@@ -925,24 +925,54 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
 
             var intervalArray = [startNote, secondNote];
 
-            var notes = [];
-            for (var count = 0; count < intervalArray.length; count ++) {
+            var vexIntArray = [];
 
-                note = intervalArray[count].slice(0, 1);
-                octave = intervalArray[count].slice(-1);
+            for (var count = 0; count < notesArray.length; count++) {
+                note = notesArray[count].slice(0, 1);
+                octave = notesArray[count].slice(-1);
 
-                if (intervalArray[count].length > 2) {
-                    accidental = intervalArray[count].slice(1, -1);
-                    if (accidental === "x") {
-                        //vexflow does not understand the double sharp accidental "x"
+
+                if(notesArray[count].length > 2) {
+                    accidental = notesArray[count].slice(1, -1);
+                    if(accidental === "x") {
                         accidental = "##";
                     }
-                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration: "h", auto_stem: true})
-                    .addAccidental(0, new VF.Accidental(accidental)));
+                   var newNote = note + accidental + "/" + octave;
+                   vexIntArray.push(newNote);
                 } else {
-                    notes.push(new VF.StaveNote({clef: "treble", keys: [note + "/" + octave], duration:"h", auto_stem: true}));
+                    var newNote = note + "/" + octave;
+                    vexIntArray.push(newNote);
                 }
+            }
 
+            console.log(vexIntArray);
+
+
+            var notes = [];
+            if (interval.playType === "melodic") {
+                for (var count = 0; count < vexIntArray.length; count ++) {
+
+                    if (vexIntArray[count].length > 3) {
+                        accidental = vexIntArray[count].slice(1, -2);
+                        if (accidental === "x") {
+                            //vexflow does not understand the double sharp accidental "x"
+                            accidental = "##";
+                        }
+                        notes.push(new VF.StaveNote({clef: "treble", keys: [vexIntArray[count]], duration: "h", auto_stem: true})
+                        .addAccidental(0, new VF.Accidental(accidental)));
+                    } else {
+                        notes.push(new VF.StaveNote({clef: "treble", keys: [vexIntArray[count]], duration:"h", auto_stem: true}));
+                    }
+
+                }
+            } else {
+                notes = [new VF.StaveNote({clef: "treble", keys: vexIntArray, duration: "w"})];
+                for (var count = 0; count < vexIntArray.length; count++) {
+                    if(vexIntArray[count].length > 3) {
+                        accidental = vexIntArray[count].slice(1, -2);
+                        notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
+                    }
+                }
             }
 
             var voice = new VF.Voice({num_beats: 4, beat_value: 4});
@@ -1256,23 +1286,39 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                 }
             }
 
+            var notes = [];
+            if(inputChord.playType === "harmonic") {
+                notes = [new VF.StaveNote({clef: "treble", keys: vexChordArray, duration: "w"})];
+                for (var count = 0; count < vexChordArray.length; count++){
+                    if (vexChordArray[count].length > 3) {
+                        accidental = vexChordArray[count].slice(1, -2);
+    //                    console.log(vexChordArray[count])
+    //                    console.log(accidental);
+                        notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
+                    }
+                }
+            } else {
+                for (var count = 0; count < vexChordArray.length; count++){
+                    if(vexChordArray[count].length > 3){
+                        accidental = vexChordArray[count].slice(1, -2);
 
-            var notes = [
-                new VF.StaveNote({clef: "treble", keys: vexChordArray, duration: "w"})
-                ];
-            for (var count = 0; count < vexChordArray.length; count++){
-                if (vexChordArray[count].length > 3) {
-                    accidental = vexChordArray[count].slice(1, -2);
-//                    console.log(vexChordArray[count])
-//                    console.log(accidental);
-                    notes[0] = notes[0].addAccidental(count, new VF.Accidental(accidental));
+                        notes.push(new VF.StaveNote({clef: "treble", keys: [vexChordArray[count]], duration: "q", auto_stem: true})
+                        .addAccidental(count, new VF.Accidental(accidental)));
+                    } else {
+                        notes.push(new VF.StaveNote({clef: "treble", keys: [vexChordArray[count]], duration: "q", auto_stem: true}));
+                    }
                 }
             }
 
 //            console.log(vexChordArray);
-
-            var voice = new VF.Voice({num_beats: 4, beat_value: 4});
-            voice.addTickables(notes);
+            var voice;
+            if(inputChord.playType === "harmonic" || vexChordArray.length === 4) {
+                voice = new VF.Voice({num_beats: 4, beat_value: 4});
+                voice.addTickables(notes);
+            } else {
+                voice = new VF.Voice({num_beats: 3, beat_value: 4});
+                voice.addTickables(notes);
+            }
 
             var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
             voice.draw(context, stave);
