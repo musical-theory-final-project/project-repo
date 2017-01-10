@@ -887,14 +887,15 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
     $scope.playInterval = function(interval) {
         var synth = new Tone.Synth().toMaster();
         var startNote = teoria.note(interval.startNote + interval.octave);
+        var secondNote;
         //splitting the interval name string to add a "-" so it will be read as descending, instead of ascending by default
         if (interval.direction === "down") {
             var split1 = interval.interval.slice(0,1);
             var split2 = interval.interval.slice(-1);
             var descending = split1 + "-" + split2;
-            var secondNote = startNote.interval(descending);
+            secondNote = startNote.interval(descending);
         } else {
-            var secondNote = startNote.interval(interval.interval);
+            secondNote = startNote.interval(interval.interval);
         }
 
         startNote = startNote.toString();
