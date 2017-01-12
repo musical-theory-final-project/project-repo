@@ -1303,7 +1303,7 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
                         accidental = vexChordArray[count].slice(1, -2);
 
                         notes.push(new VF.StaveNote({clef: "treble", keys: [vexChordArray[count]], duration: "q", auto_stem: true})
-                        .addAccidental(count, new VF.Accidental(accidental)));
+                        .addAccidental(0, new VF.Accidental(accidental)));
                     } else {
                         notes.push(new VF.StaveNote({clef: "treble", keys: [vexChordArray[count]], duration: "q", auto_stem: true}));
                     }
@@ -1311,14 +1311,22 @@ midiApp.controller('sandbox-controller', function($scope, $http, $timeout) {
             }
 
 //            console.log(vexChordArray);
+//            console.log(notes);
             var voice;
-            if(inputChord.playType === "harmonic" || vexChordArray.length === 4) {
+            if(inputChord.playType === "harmonic") {
                 voice = new VF.Voice({num_beats: 4, beat_value: 4});
                 voice.addTickables(notes);
-            } else {
-                voice = new VF.Voice({num_beats: 3, beat_value: 4});
-                voice.addTickables(notes);
+            } else if (inputChord.playType === "melodic"){
+                if(vexChordArray.length === 3) {
+                    voice = new VF.Voice({num_beats: 3, beat_value: 4});
+                    voice.addTickables(notes);
+                } else {
+                    voice = new VF.Voice({num_beats: 4, beat_value: 4});
+                    voice.addTickables(notes);
+                }
+
             }
+//            console.log(voice);
 
             var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
             voice.draw(context, stave);
