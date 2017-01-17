@@ -1,6 +1,6 @@
 var midiApp = angular.module('MidiApp', [])
 
-midiApp.controller('scale-controller', function($scope, $http) {
+midiApp.controller('scale-controller', function($scope, $http, $timeout) {
     $scope.user;
 
     $scope.maxScaleLevel;
@@ -196,129 +196,31 @@ midiApp.controller('scale-controller', function($scope, $http) {
     };
 
     $scope.playScale = function() {
+//        var synth = new Tone.Synth().toMaster();
+
         var initialNote = teoria.note($scope.currentScale.note + $scope.currentScale.octave);
         console.log(initialNote.toString());
+
         var myScale = initialNote.scale($scope.currentScale.scale);
         console.log(myScale);
-        var scaleFreq = [];
 
+        var scaleArray = [];
         for (var count = 0; count < myScale.scale.length; count++) {
-            var newNote = teoria.interval(initialNote, myScale.scale[count]);
-            newNote = newNote.fq();
-            console.log(newNote);
-            scaleFreq.push(newNote);
-        };
-        console.log(scaleFreq);
+        scaleArray.push(teoria.interval(initialNote, myScale.scale[count]).toString());
+        }
+        scaleArray.push(teoria.interval(initialNote, "P8").toString());
+        console.log(scaleArray);
 
-        var Synth = function(audiolet, frequency) {
-            AudioletGroup.apply(this, [audiolet, 0, 1]);
-
-            this.audiolet = new Audiolet();
-            this.sine = new Sine(this.audiolet, frequency);
-            this.modulator = new Saw(this.audiolet, 2 * frequency);
-            this.modulatorMulAdd = new MulAdd(this.audiolet, frequency/2, frequency);
-
-            this.gain = new Gain(this.audiolet);
-            this.envelope = new PercussiveEnvelope(this.audiolet, 1, 0.2, 0.5,
-                function() {
-                    this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
-                }.bind(this)
-                );
-
-            this.modulator.connect(this.modulatorMulAdd);
-            this.modulatorMulAdd.connect(this.sine);
-            this.envelope.connect(this.gain, 0, 1);
-            this.sine.connect(this.gain);
-            this.gain.connect(this.outputs[0]);
-
-        };
-
-        var AudioletApp = function() {
-            this.audiolet = new Audiolet();
-            if ($scope.currentScale.scale == "major") {
-                var audioScale = new MajorScale();
-            } else if ($scope.currentScale.scale == "minor") {
-                 var audioScale = new MinorScale();
-            } else if($scope.currentScale.scale === "dorian") {
-                var DorianScale = function() {
-                    var degrees = [0, 2, 3, 5, 7, 9, 10];
-                    Scale.call(this, degrees);
-                }
-                extend(DorianScale, Scale);
-                audioScale = new DorianScale();
-            } else if($scope.currentScale.scale === "phrygian") {
-                var PhrygianScale = function() {
-                    var degrees = [0, 1, 3, 5, 7, 8, 10];
-                    Scale.call(this, degrees);
-                }
-                extend(PhrygianScale, Scale);
-                audioScale = new PhrygianScale();
-            } else if($scope.currentScale.scale === "lydian") {
-                var LydianScale = function() {
-                    var degrees = [0, 2, 4, 6, 7, 9, 11];
-                    Scale.call(this, degrees);
-                }
-                extend(LydianScale, Scale);
-                audioScale = new LydianScale();
-            } else if ($scope.currentScale.scale === "mixolydian") {
-                var MixolydianScale = function() {
-                    var degrees = [0, 2, 4, 5, 7, 9, 10];
-                    Scale.call(this, degrees);
-                }
-                extend(MixolydianScale, Scale);
-                audioScale = new MixolydianScale;
-            } else if ($scope.currentScale.scale === "locrian") {
-                var LocrianScale = function() {
-                    var degrees = [0, 1, 3, 5, 6, 8, 10];
-                    Scale.call(this, degrees);
-                }
-                extend(LocrianScale, Scale);
-                audioScale = new LocrianScale();
-            } else if ($scope.currentScale.scale === "majorpentatonic") {
-                var MajorPentatonicScale = function() {
-                    degrees = [0, 2, 4, 7, 9];
-                    Scale.call(this, degrees);
-                }
-                extend(MajorPentatonicScale, Scale);
-                audioScale = new MajorPentatonicScale();
-            } else if ($scope.currentScale.scale === "minorpentatonic") {
-                var MinorPentatonicScale = function() {
-                    degrees = [0, 3, 5, 7, 10];
-                    Scale.call(this, degrees);
-                }
-                extend(MinorPentatonicScale, Scale);
-                audioScale = new MinorPentatonicScale();
+        var timeoutCounter = 0;
+        var synth = new Tone.Synth().toMaster();
+        $timeout(function playNotes() {
+            synth.triggerAttackRelease(scaleArray[timeoutCounter], "4n");
+            console.log(timeoutCounter);
+            timeoutCounter++;
+            if(timeoutCounter < scaleArray.length) {
+                $timeout(playNotes, 500);
             }
-            var baseFrequency = scaleFreq[0];
-            var octave = 0;
-            var freq1 = audioScale.getFrequency(0, baseFrequency, octave);
-            var freq2 = audioScale.getFrequency(1, baseFrequency, octave);
-            var freq3 = audioScale.getFrequency(2, baseFrequency, octave);
-            var freq4 = audioScale.getFrequency(3, baseFrequency, octave);
-            var freq5 = audioScale.getFrequency(4, baseFrequency, octave);
-            var freq6 = audioScale.getFrequency(5, baseFrequency, octave);
-            var freq7 = audioScale.getFrequency(6, baseFrequency, octave);
-            var freq8 = audioScale.getFrequency(7, baseFrequency, octave);
-
-
-            var note = new PSequence([440]);
-
-            if($scope.currentScale.scale === "majorpentatonic" || $scope.currentScale.scale === "minorpentatonic") {
-                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6], 1);
-            }else {
-                var frequencyPattern = new PSequence([freq1, freq2, freq3, freq4, freq5, freq6, freq7, freq8], 1);
-            }
-                var durationPattern = new PChoose([new PSequence([1])], Infinity);
-
-            this.audiolet.scheduler.play([frequencyPattern], durationPattern,
-                function(frequency) {
-                    var synth = new Synth(this.audiolet, frequency);
-                    synth.connect(this.audiolet.output);
-                }.bind(this)
-                );
-        };
-        extend (Synth, AudioletGroup);
-        this.audioletApp = new AudioletApp();
+        }, 500)
 
         $scope.playCounter--;
     };
@@ -404,7 +306,7 @@ midiApp.controller('scale-controller', function($scope, $http) {
     $scope.getSession();
 });
 
-midiApp.controller('midi-controller', function($scope, $http) {
+midiApp.controller('midi-controller', function($scope, $http, $timeout) {
 
     $scope.userStatus;
     $scope.user;
@@ -627,64 +529,29 @@ midiApp.controller('midi-controller', function($scope, $http) {
     };
 
     $scope.playInterval = function() {
-        console.log($scope.initialInterval.note + $scope.initialInterval.octave);
+//        console.log($scope.initialInterval.note + $scope.initialInterval.octave);
         var noteOut = teoria.note($scope.initialInterval.note + $scope.initialInterval.octave);
         var nextNote = noteOut.interval($scope.initialInterval.interval);
+//        var nextNote = teoria.interval(noteOut, $scope.interval.interval).toString();
         $scope.nextNote = nextNote.toString();
-        console.log(noteOut);
-        console.log(nextNote.toString());
-        var freq1 = noteOut.fq();
-        var freq2 = nextNote.fq();
-        console.log("Note 1 freq=" + freq1 + "; Note 2 freq=" + freq2);
-        $scope.a4 = noteOut.fq();
-        $scope.frequencies = {
-            freq1: freq1,
-            freq2: freq2
-         };
-         console.log($scope.frequencies);
+//        console.log(noteOut);
+//        console.log(nextNote.toString());
+        var intervalArray = [noteOut, nextNote];
+        for (var count = 0; count < intervalArray.length; count++) {
+            intervalArray[count] = intervalArray[count].toString();
+        }
+//        console.log(intervalArray);
 
+        var intervalCount = 0;
+        var synth = new Tone.Synth().toMaster();
+        $timeout(function playNotes() {
+            synth.triggerAttackRelease(intervalArray[intervalCount], "2n");
+            intervalCount++;
+            if(intervalCount < intervalArray.length) {
+                $timeout(playNotes, 1500);
+            }
+        }, 10)
 
-        var Synth = function(audiolet, frequency) {
-            AudioletGroup.apply(this, [audiolet, 0, 1]);
-
-            this.audiolet = new Audiolet();
-            this.sine = new Sine(this.audiolet, frequency);
-            this.modulator = new Saw(this.audiolet, 2 * frequency);
-            this.modulatorMulAdd = new MulAdd(this.audiolet, frequency/2, frequency);
-
-            this.gain = new Gain(this.audiolet);
-            this.envelope = new PercussiveEnvelope(this.audiolet, 1, 0.2, 0.5,
-                function() {
-                    this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
-                }.bind(this)
-                );
-
-            this.modulator.connect(this.modulatorMulAdd);
-            this.modulatorMulAdd.connect(this.sine);
-            this.envelope.connect(this.gain, 0, 1);
-            this.sine.connect(this.gain);
-            this.gain.connect(this.outputs[0]);
-
-        };
-
-        var AudioletApp = function() {
-            this.audiolet = new Audiolet();
-            //trying scales
-            var interval = new PSequence([$scope.frequencies.freq1, $scope.frequencies.freq2]);
-
-            var durationPattern = new PChoose([new PSequence([2])], Infinity);
-            var frequencyPattern = new PSequence([interval], 1);
-
-            this.audiolet.scheduler.play([frequencyPattern], durationPattern,
-                function(frequency) {
-                    var synth = new Synth(this.audiolet, frequency);
-                    synth.connect(this.audiolet.output);
-                }.bind(this)
-                );
-        };
-
-        extend (Synth, AudioletGroup);
-        this.audioletApp = new AudioletApp();
         $scope.playCounter--;
     };
 
