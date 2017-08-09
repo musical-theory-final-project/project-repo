@@ -189,6 +189,7 @@ public class MusicTheoryTrainerJSONController {
 
 
 
+
     // POST interval endpoint for app usage
     @RequestMapping(path = "/getInterval.json", method = RequestMethod.POST)
     public ReturnIntervalContainer interval(@RequestBody IntervalLevel intLevel) {
